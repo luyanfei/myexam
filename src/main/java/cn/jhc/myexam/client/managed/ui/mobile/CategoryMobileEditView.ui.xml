@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:a="urn:import:cn.jhc.myexam.client.managed.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:e="urn:import:cn.jhc.myexam.client.managed.ui.editor" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:r="urn:import:cn.jhc.myexam.client.scaffold.ui">
+  <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .error {
+      padding-left: 0.5em;
+      background-color: red;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding-bottom: 10px;
+    }
+  </ui:style>
+ 
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+    <div class="{style.error}" ui:field="errors"/>
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  
+        
+    
+        
+        
+    <div id="name">
+            <div class="{style.label}">Name</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="name"/>
+            </div>
+        </div>
+        <div id="info">
+            <div class="{style.label}">Info</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="info"/>
+            </div>
+        </div>
+        <div id="parent">
+            <div class="{style.label}">Parent</div>
+            <div class="{style.value}">
+                <g:ValueListBox ui:field="parent"/>
+            </div>
+        </div>
+        <div id="children">
+            <div class="{style.label}">Children</div>
+            <div class="{style.value}">
+                <e:CategoryListEditor ui:field="children"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

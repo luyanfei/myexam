@@ -1,0 +1,83 @@
+//project --topLevelPackage cn.jhc.myexam --projectName myexam --java 6 --packaging JAR
+jpa setup --provider HIBERNATE --database MYSQL
+
+//Category Entity
+entity jpa --class ~.server.domain.Category --sequenceName category_seq --testAutomatically --activeRecord false 
+field string --fieldName name --notNull --sizeMax 32 --sizeMin 2 
+field string --fieldName info --sizeMax 1024
+field reference --fieldName parent --type ~.server.domain.Category --cardinality MANY_TO_ONE 
+field list --fieldName children --type ~.server.domain.Category --cardinality ONE_TO_MANY --mappedBy parent
+repository jpa --interface ~.server.repository.CategoryRepository --entity ~.server.domain.Category
+
+//BriefAnswer Entity
+entity jpa --class ~.server.domain.BriefAnswer --testAutomatically --sequenceName brief_answer_seq --activeRecord false
+field string --fieldName question --notNull --sizeMax 2048 --sizeMin 5
+field string --fieldName answer --sizeMax 2048
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE 
+repository jpa --interface ~.server.repository.BriefAnswerRepository --entity ~.server.domain.BriefAnswer
+
+//FillBlank Entity
+entity jpa --class ~.server.domain.FillBlank --testAutomatically --sequenceName fill_blank_seq --activeRecord false
+field string --fieldName question --notNull --sizeMax 2048
+field number --fieldName quantity --type java.lang.Integer --notNull
+field string --fieldName answer --sizeMax 2048
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE
+repository jpa --interface ~.server.repository.FillBlankRepository --entity ~.server.domain.FillBlank
+
+//Glossary Entity
+entity jpa --class ~.server.domain.Glossary --testAutomatically --sequenceName glossary_seq --activeRecord false
+field string --fieldName term --notNull --sizeMax 128
+field string --fieldName defination --sizeMax 2048
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE
+repository jpa --interface ~.server.repository.GlossaryRepository --entity ~.server.domain.Glossary
+
+//SingleChoice Entity
+entity jpa --class ~.server.domain.SingleChoice --testAutomatically --sequenceName single_choice_seq --activeRecord false
+field string --fieldName question --notNull --sizeMax 2048
+field string --fieldName optionA --sizeMax 2048
+field string --fieldName optionB --sizeMax 2048
+field string --fieldName optionC --sizeMax 2048
+field string --fieldName optionD --sizeMax 2048
+field string --fieldName answer --sizeMax 1 --sizeMin 1 --notNull
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE
+repository jpa --interface ~.server.repository.SingleChoiceRepository --entity ~.server.domain.SingleChoice
+
+//TrueOrFalse Entity
+entity jpa --class ~.server.domain.TrueOrFalse --testAutomatically --sequenceName true_or_false_seq --activeRecord false
+field string --fieldName question --notNull --sizeMax 2048
+field boolean --fieldName answer --notNull
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE
+repository jpa --interface ~.server.repository.TrueOrFalseRepository --entity ~.server.domain.TrueOrFalse
+
+//Quiz Entity
+entity jpa --class ~.server.domain.Quiz --testAutomatically --sequenceName quiz_seq --activeRecord false
+field string --fieldName name --notNull --sizeMax 1024
+field string --fieldName info --sizeMax 2048
+field date --fieldName timeOpen --type java.util.Date --persistenceType JPA_TIME --dateTimeFormatPattern "yyyy-MM-dd hh::mm::ss"
+field date --fieldName timeClose --type java.util.Date --persistenceType JPA_TIME --dateTimeFormatPattern "yyyy-MM-dd hh::mm::ss"
+field string --fieldName content --sizeMax 1024 --comment "The content format is like this:\nSingleChoice:2,40|BriefAnswer:10,2\nThis content means this quiz should have 40 SingleChoice problems(2 points for each) and 2 BriefAnswer problems(10 points for each)."
+field reference --fieldName category --type ~.server.domain.Category --notNull --cardinality MANY_TO_ONE
+repository jpa --interface ~.server.repository.QuizRepository --entity ~.server.domain.Quiz
+
+//User Entity
+entity jpa --class ~.server.domain.User --testAutomatically --sequenceName user_seq --activeRecord false --permitReservedWords
+field string --fieldName username --notNull --sizeMax 64 --unique
+field string --fieldName password --notNull --sizeMax 1024
+field boolean --fieldName enabled --notNull
+field string --fieldName displayName --sizeMax 128
+repository jpa --interface ~.server.repository.UserRepository --entity ~.server.domain.User
+
+//Role Entity
+entity jpa --class ~.server.domain.Role --testAutomatically --sequenceName role_seq --activeRecord false --permitReservedWords
+field string --fieldName rolename --notNull --sizeMax 64
+field reference --fieldName user --type ~.server.domain.User --cardinality MANY_TO_ONE --permitReservedWords
+repository jpa --interface ~.server.repository.RoleRepository --entity ~.server.domain.Role
+
+field list --fieldName roles --type ~.server.domain.Role --class ~.server.domain.User --cardinality ONE_TO_MANY --mappedBy user --permitReservedWords
+
+service all --interfacePackage ~.server.service
+
+web gwt setup
+web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
+
+logging setup --level INFO

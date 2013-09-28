@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:a="urn:import:cn.jhc.myexam.client.managed.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:e="urn:import:cn.jhc.myexam.client.managed.ui.editor" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:r="urn:import:cn.jhc.myexam.client.scaffold.ui">
+  <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .error {
+      padding-left: 0.5em;
+      background-color: red;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding-bottom: 10px;
+    }
+  </ui:style>
+ 
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+    <div class="{style.error}" ui:field="errors"/>
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  
+        
+    
+        
+        
+    
+        
+        
+        
+    <div id="username">
+            <div class="{style.label}">Username</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="username"/>
+            </div>
+        </div>
+        <div id="password">
+            <div class="{style.label}">Password</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="password"/>
+            </div>
+        </div>
+        <div id="enabled">
+            <div class="{style.label}">Enabled</div>
+            <div class="{style.value}">
+                <g:CheckBox ui:field="enabled"/>
+            </div>
+        </div>
+        <div id="displayName">
+            <div class="{style.label}">Display Name</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="displayName"/>
+            </div>
+        </div>
+        <div id="roles">
+            <div class="{style.label}">Roles</div>
+            <div class="{style.value}">
+                <e:RoleListEditor ui:field="roles"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -2,6 +2,7 @@
 
 package cn.jhc.myexam.client.managed.ui.renderer;
 import cn.jhc.myexam.client.managed.request.ApplicationEntityTypesProcessor;
+import cn.jhc.myexam.client.proxy.AttemptProxy;
 import cn.jhc.myexam.client.proxy.BriefAnswerProxy;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.FillBlankProxy;
@@ -18,6 +19,11 @@ public abstract class ApplicationListPlaceRenderer_Roo_Gwt extends AbstractRende
 
     public String render(ProxyListPlace object) {
         return new ApplicationEntityTypesProcessor<String>() {
+
+            @Override
+            public void handleAttempt(AttemptProxy isNull) {
+                setResult("Attempts");
+            }
 
             @Override
             public void handleBriefAnswer(BriefAnswerProxy isNull) {

@@ -3,6 +3,7 @@
 package cn.jhc.myexam.client.managed.activity;
 import cn.jhc.myexam.client.managed.request.ApplicationEntityTypesProcessor;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
+import cn.jhc.myexam.client.managed.ui.desktop.AttemptDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.BriefAnswerDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.CategoryDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.FillBlankDesktopListView;
@@ -12,6 +13,7 @@ import cn.jhc.myexam.client.managed.ui.desktop.RoleDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.SingleChoiceDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.TrueOrFalseDesktopListView;
 import cn.jhc.myexam.client.managed.ui.desktop.UserDesktopListView;
+import cn.jhc.myexam.client.managed.ui.mobile.AttemptMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.BriefAnswerMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.CategoryMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.FillBlankMobileListView;
@@ -21,6 +23,7 @@ import cn.jhc.myexam.client.managed.ui.mobile.RoleMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.SingleChoiceMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.TrueOrFalseMobileListView;
 import cn.jhc.myexam.client.managed.ui.mobile.UserMobileListView;
+import cn.jhc.myexam.client.proxy.AttemptProxy;
 import cn.jhc.myexam.client.proxy.BriefAnswerProxy;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.FillBlankProxy;
@@ -50,6 +53,11 @@ public abstract class ApplicationMasterActivities_Roo_Gwt implements ActivityMap
         }
         ProxyListPlace listPlace = (ProxyListPlace) place;
         return new ApplicationEntityTypesProcessor<Activity>() {
+
+            @Override
+            public void handleAttempt(AttemptProxy isNull) {
+                setResult(new AttemptListActivity(requests, ScaffoldApp.isMobile() ? AttemptMobileListView.instance() : AttemptDesktopListView.instance(), placeController));
+            }
 
             @Override
             public void handleBriefAnswer(BriefAnswerProxy isNull) {

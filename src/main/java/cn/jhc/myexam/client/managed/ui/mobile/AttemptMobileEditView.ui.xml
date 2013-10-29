@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:a="urn:import:cn.jhc.myexam.client.managed.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:e="urn:import:cn.jhc.myexam.client.managed.ui.editor" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:r="urn:import:cn.jhc.myexam.client.scaffold.ui">
+  <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .error {
+      padding-left: 0.5em;
+      background-color: red;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding-bottom: 10px;
+    }
+  </ui:style>
+ 
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+    <div class="{style.error}" ui:field="errors"/>
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  <div id="questionType">
+            <div class="{style.label}">Question Type</div>
+            <div class="{style.value}">
+                <g:ValueListBox ui:field="questionType"/>
+            </div>
+        </div>
+        <div id="answer">
+            <div class="{style.label}">Answer</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="answer"/>
+            </div>
+        </div>
+        <div id="submitDate">
+            <div class="{style.label}">Submit Date</div>
+            <div class="{style.value}">
+                <d:DateBox ui:field="submitDate"/>
+            </div>
+        </div>
+        <div id="user">
+            <div class="{style.label}">User</div>
+            <div class="{style.value}">
+                <g:ValueListBox ui:field="user"/>
+            </div>
+        </div>
+        <div id="quiz">
+            <div class="{style.label}">Quiz</div>
+            <div class="{style.value}">
+                <g:ValueListBox ui:field="quiz"/>
+            </div>
+        </div>
+        <div id="questionId">
+            <div class="{style.label}">Question Id</div>
+            <div class="{style.value}">
+                <g:LongBox ui:field="questionId"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -133,3 +133,40 @@ exit
 security setup
 exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-09-28 00:04:38
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-26 22:27:13
+enum type --class ~.shared.domain.QuestionType
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-26 22:38:40
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-27 16:02:54
+focus --class ~.shared.domain.QuestionType
+enum constant --name "SingleChoice"
+enum constant --name "Glossary"
+enum constant --name "FillBlank"
+enum constant --name "BriefAnswer"
+enum constant --name "TrueOrFlase"
+entity jpa --class ~.server.domain.Attempt --testAutomatically --sequenceName attempt_seq --activeRecord false
+field enum --fieldName questionType --type ~.shared.domain.QuestionType --notNull 
+field string --fieldName answer --sizeMax 2048
+field date --fieldName submitDate --type java.util.Date --persistenceType JPA_TIME --dateTimeFormatPattern "yyyy-MM-dd hh:mm:ss"
+field reference --fieldName user --type ~.server.domain.User --cardinality MANY_TO_ONE --permitReservedWords 
+field reference --fieldName quiz --type ~.server.domain.Quiz --cardinality MANY_TO_ONE --permitReservedWords
+// [failed] repository jpa --interface ~.server.repository.AttemptRepository --entity ~.server.domain.Attempt
+// [failed] service all --interfacePackage ~.server.service
+repository jpa --interface ~.server.repository.AttemptRepository --entity ~.server.domain.Attempt
+service all --interfacePackage ~.server.service
+web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-27 23:08:33
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-29 11:02:45
+focus --class ~.server.domain.Attempt
+// [failed] field date --fieldName submitDate --type java.util.Date --persistenceType JPA_TIME --dateTimeFormatPattern "yyyy-MM-dd hh::mm::ss"
+field number --fieldName questionId --type long --notNull 
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-29 11:07:00
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-29 11:07:21
+focus --class ~.server.domain.Attempt
+field number --fieldName questionId --type java.lang.Long --notNull 
+web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-29 11:11:10
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-29 11:11:15

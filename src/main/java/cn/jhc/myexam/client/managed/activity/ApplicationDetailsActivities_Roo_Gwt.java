@@ -3,6 +3,7 @@
 package cn.jhc.myexam.client.managed.activity;
 import cn.jhc.myexam.client.managed.request.ApplicationEntityTypesProcessor;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
+import cn.jhc.myexam.client.proxy.AttemptProxy;
 import cn.jhc.myexam.client.proxy.BriefAnswerProxy;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.FillBlankProxy;
@@ -31,6 +32,11 @@ public abstract class ApplicationDetailsActivities_Roo_Gwt implements ActivityMa
         }
         final ProxyPlace proxyPlace = (ProxyPlace) place;
         return new ApplicationEntityTypesProcessor<Activity>() {
+
+            @Override
+            public void handleAttempt(AttemptProxy proxy) {
+                setResult(new AttemptActivitiesMapper(requests, placeController).getActivity(proxyPlace));
+            }
 
             @Override
             public void handleBriefAnswer(BriefAnswerProxy proxy) {

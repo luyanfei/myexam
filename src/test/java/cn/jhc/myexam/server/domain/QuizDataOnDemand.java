@@ -27,7 +27,7 @@ public class QuizDataOnDemand {
 	private List<Quiz> data;
 
 	@Autowired
-	CategoryDataOnDemand categoryDataOnDemand;
+	private CategoryDataOnDemand categoryDataOnDemand;
 
 	@Autowired
 	QuizService quizService;

@@ -1,4 +1,4 @@
-.classpath
-.project
+.gwt/
+gwt-unitCache/
 .settings/
 target/

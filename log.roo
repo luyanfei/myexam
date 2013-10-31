@@ -172,3 +172,16 @@ exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-29 11:11:15
 exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-29 11:18:11
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-30 15:25:39
+pgp trust --keyId 0xBF0451C0
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+help
+download accept terms of use
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+pgp trust --keyId 0xBF0451C0
+addon install bundle --bundleSymbolicName com.vaadin.spring.roo.addon
+addon search vaadin
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-30 15:38:21
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-31 23:24:10
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-31 23:28:36

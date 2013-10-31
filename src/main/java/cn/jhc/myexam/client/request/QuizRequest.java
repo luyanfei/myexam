@@ -1,4 +1,5 @@
 package cn.jhc.myexam.client.request;
+import java.util.Date;
 import java.util.List;
 
 import cn.jhc.myexam.client.proxy.QuizProxy;
@@ -11,5 +12,5 @@ import org.springframework.roo.addon.gwt.RooGwtUnmanagedRequest;
 @RooGwtUnmanagedRequest("cn.jhc.myexam.server.domain.Quiz")
 @ServiceName(value = "cn.jhc.myexam.server.service.QuizService", locator = "cn.jhc.myexam.server.locator.GwtServiceLocator")
 public interface QuizRequest extends QuizRequest_Roo_Gwt {
-	abstract Request<List<QuizProxy>> findRunningQuizes();
+	abstract Request<List<QuizProxy>> findRunningQuizes(Date current);
 }

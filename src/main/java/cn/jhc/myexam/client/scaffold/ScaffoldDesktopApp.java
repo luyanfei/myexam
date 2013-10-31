@@ -4,7 +4,9 @@ import cn.jhc.myexam.client.managed.activity.*;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.scaffold.gae.GaeHelper;
 import cn.jhc.myexam.client.scaffold.place.*;
+import cn.jhc.myexam.client.scaffold.request.LoginOnAuthRequired;
 import cn.jhc.myexam.client.scaffold.request.RequestEvent;
+
 import com.google.gwt.activity.shared.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -91,6 +93,9 @@ public class ScaffoldDesktopApp extends ScaffoldApp {
 			}
 		});
 
+		//Check for Authentication failures or mismatches
+		new LoginOnAuthRequired().register(eventBus);
+		
 		CachingActivityMapper cached = new CachingActivityMapper(applicationMasterActivities);
 		ProxyPlaceToListPlace proxyPlaceToListPlace = new ProxyPlaceToListPlace();
 		ActivityMapper masterActivityMap = new FilteredActivityMapper(proxyPlaceToListPlace, cached);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.jhc.myexam</groupId>
 	<artifactId>myexam</artifactId>
@@ -370,6 +371,13 @@
 					<target>${java.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.web.bindery</groupId>
+						<artifactId>requestfactory-apt</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -558,7 +566,7 @@
 							<executable>java</executable>
 							<arguments>
 								<argument>-cp</argument>
-								<classpath/>
+								<classpath />
 								<argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
 								<argument>${project.build.outputDirectory}</argument>
 								<argument>${project.groupId}.client.managed.request.ApplicationRequestFactory</argument>
@@ -592,7 +600,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -607,7 +615,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

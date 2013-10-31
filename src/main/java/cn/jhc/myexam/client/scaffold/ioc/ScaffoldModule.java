@@ -1,7 +1,9 @@
 package cn.jhc.myexam.client.scaffold.ioc;
 
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
+import cn.jhc.myexam.client.scaffold.request.AuthRequestTransport;
 import cn.jhc.myexam.client.scaffold.request.EventSourceRequestTransport;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -40,7 +42,9 @@ public class ScaffoldModule extends AbstractGinModule {
 		@Inject
 		public RequestFactoryProvider(EventBus eventBus) {
 			requestFactory = GWT.create(ApplicationRequestFactory.class);
-			requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus));
+			AuthRequestTransport authRequestTransport = new AuthRequestTransport(eventBus);
+			EventSourceRequestTransport eventSourceRequestTransport = new EventSourceRequestTransport(eventBus, authRequestTransport);
+			requestFactory.initialize(eventBus, eventSourceRequestTransport);
 		}
 
 		public ApplicationRequestFactory get() {

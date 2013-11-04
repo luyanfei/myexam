@@ -23,5 +23,9 @@ public interface BriefAnswerProxy extends EntityProxy {
 
     abstract void setCategory(CategoryProxy category);
 
+    abstract Boolean getUploadFile();
+
+    abstract void setUploadFile(Boolean uploadFile);
+
     abstract Integer getVersion();
 }

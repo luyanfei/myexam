@@ -32,4 +32,12 @@ privileged aspect BriefAnswer_Roo_JavaBean {
         this.category = category;
     }
     
+    public Boolean BriefAnswer.getUploadFile() {
+        return this.uploadFile;
+    }
+    
+    public void BriefAnswer.setUploadFile(Boolean uploadFile) {
+        this.uploadFile = uploadFile;
+    }
+    
 }

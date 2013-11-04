@@ -52,6 +52,9 @@
     
         
             
+        
+            
+            
         <tr id="question">
       		<td>
                     <div class="{style.label}">Question:</div>
@@ -74,6 +77,14 @@
                 </td>
       		<td>
                     <g:ValueListBox ui:field="category"/>
+                </td>
+      	</tr>
+            <tr id="uploadFile">
+      		<td>
+                    <div class="{style.label}">Upload File:</div>
+                </td>
+      		<td>
+                    <g:CheckBox ui:field="uploadFile"/>
                 </td>
       	</tr>
         </table>

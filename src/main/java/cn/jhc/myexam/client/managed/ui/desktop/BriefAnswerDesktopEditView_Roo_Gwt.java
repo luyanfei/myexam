@@ -44,6 +44,14 @@ public abstract class BriefAnswerDesktopEditView_Roo_Gwt extends Composite imple
     @UiField(provided = true)
     ValueListBox<CategoryProxy> category = new ValueListBox<CategoryProxy>(cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance(), new com.google.web.bindery.requestfactory.gwt.ui.client.EntityProxyKeyProvider<cn.jhc.myexam.client.proxy.CategoryProxy>());
 
+    @UiField(provided = true)
+    CheckBox uploadFile = new CheckBox() {
+
+        public void setValue(Boolean value) {
+            super.setValue(value == null ? Boolean.FALSE : value);
+        }
+    };
+
     public void setCategoryPickerValues(Collection<CategoryProxy> values) {
         category.setAcceptableValues(values);
     }

@@ -53,6 +53,11 @@
             
             
             
+        
+            
+            
+            
+            
         <tr id="id">
                 <td>
                     <span class="{style.label}">Id:</span>
@@ -83,6 +88,14 @@
                 </td>
                 <td>
                     <span ui:field="category"/>
+                </td>
+            </tr>
+            <tr id="uploadFile">
+                <td>
+                    <span class="{style.label}">Upload File:</span>
+                </td>
+                <td>
+                    <span ui:field="uploadFile"/>
                 </td>
             </tr>
             <tr id="version">

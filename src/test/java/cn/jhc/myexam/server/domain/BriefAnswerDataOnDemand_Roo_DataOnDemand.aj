@@ -41,6 +41,7 @@ privileged aspect BriefAnswerDataOnDemand_Roo_DataOnDemand {
         setAnswer(obj, index);
         setCategory(obj, index);
         setQuestion(obj, index);
+        setUploadFile(obj, index);
         return obj;
     }
     
@@ -63,6 +64,11 @@ privileged aspect BriefAnswerDataOnDemand_Roo_DataOnDemand {
             question = question.substring(0, 2048);
         }
         obj.setQuestion(question);
+    }
+    
+    public void BriefAnswerDataOnDemand.setUploadFile(BriefAnswer obj, int index) {
+        Boolean uploadFile = Boolean.TRUE;
+        obj.setUploadFile(uploadFile);
     }
     
     public BriefAnswer BriefAnswerDataOnDemand.getSpecificBriefAnswer(int index) {

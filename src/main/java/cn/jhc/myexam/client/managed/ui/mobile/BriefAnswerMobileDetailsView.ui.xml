@@ -33,6 +33,11 @@
         
         
         
+    
+        
+        
+        
+        
     <div id="id">
             <div class="{style.label}">Id</div>
             <div class="{style.value}" ui:field="id"/>
@@ -48,6 +53,10 @@
         <div id="category">
             <div class="{style.label}">Category</div>
             <div class="{style.value}" ui:field="category"/>
+        </div>
+        <div id="uploadFile">
+            <div class="{style.label}">Upload File</div>
+            <div class="{style.value}" ui:field="uploadFile"/>
         </div>
         <div id="version">
             <div class="{style.label}">Version</div>

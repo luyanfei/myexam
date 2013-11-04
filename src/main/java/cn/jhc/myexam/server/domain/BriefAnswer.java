@@ -27,4 +27,9 @@ public class BriefAnswer {
     @NotNull
     @ManyToOne
     private Category category;
+
+    /**
+     * donate that the answer is an uploaded file.
+     */
+    private Boolean uploadFile;
 }

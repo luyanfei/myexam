@@ -33,6 +33,9 @@ public abstract class BriefAnswerMobileDetailsView_Roo_Gwt extends Composite imp
     Element category;
 
     @UiField
+    Element uploadFile;
+
+    @UiField
     Element version;
 
     BriefAnswerProxy proxy;
@@ -43,6 +46,7 @@ public abstract class BriefAnswerMobileDetailsView_Roo_Gwt extends Composite imp
         question.setInnerText(proxy.getQuestion() == null ? "" : String.valueOf(proxy.getQuestion()));
         answer.setInnerText(proxy.getAnswer() == null ? "" : String.valueOf(proxy.getAnswer()));
         category.setInnerText(proxy.getCategory() == null ? "" : cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance().render(proxy.getCategory()));
+        uploadFile.setInnerText(proxy.getUploadFile() == null ? "" : String.valueOf(proxy.getUploadFile()));
         version.setInnerText(proxy.getVersion() == null ? "" : String.valueOf(proxy.getVersion()));
     }
 }

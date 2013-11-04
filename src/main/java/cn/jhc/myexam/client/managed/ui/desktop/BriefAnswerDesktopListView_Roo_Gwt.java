@@ -83,6 +83,21 @@ public abstract class BriefAnswerDesktopListView_Roo_Gwt extends AbstractProxyLi
                 return renderer.render(object.getCategory());
             }
         }, "Category");
+        paths.add("uploadFile");
+        table.addColumn(new TextColumn<BriefAnswerProxy>() {
+
+            Renderer<java.lang.Boolean> renderer = new AbstractRenderer<java.lang.Boolean>() {
+
+                public String render(java.lang.Boolean obj) {
+                    return obj == null ? "" : String.valueOf(obj);
+                }
+            };
+
+            @Override
+            public String getValue(BriefAnswerProxy object) {
+                return renderer.render(object.getUploadFile());
+            }
+        }, "Upload File");
         paths.add("version");
         table.addColumn(new TextColumn<BriefAnswerProxy>() {
 

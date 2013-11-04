@@ -185,3 +185,12 @@ exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-30 15:38:21
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-31 23:24:10
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-31 23:28:36
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-11-04 19:55:01
+focus --class ~.server.domain.BriefAnswer
+field boolean --fieldName uploadFile --comment "donate that the answer is an uploaded file."
+repository jpa --interface ~.server.repository.BriefAnswerRepository --entity ~.server.domain.BriefAnswer
+service all --interfacePackage ~.server.service
+web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-11-04 20:42:13
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-11-04 20:42:19

@@ -26,6 +26,9 @@
     <g:Button ui:field="save">Save</g:Button>
   
         
+    
+        
+        
     <div id="question">
             <div class="{style.label}">Question</div>
             <div class="{style.value}">
@@ -42,6 +45,12 @@
             <div class="{style.label}">Category</div>
             <div class="{style.value}">
                 <g:ValueListBox ui:field="category"/>
+            </div>
+        </div>
+        <div id="uploadFile">
+            <div class="{style.label}">Upload File</div>
+            <div class="{style.value}">
+                <g:CheckBox ui:field="uploadFile"/>
             </div>
         </div>
     </g:HTMLPanel>

@@ -194,3 +194,5 @@ web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
 exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-11-04 20:42:13
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-11-04 20:42:19
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-11-04 20:44:06

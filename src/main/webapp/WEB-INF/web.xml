@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="3.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
@@ -75,31 +75,31 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- For RequestContextHolder to get ApplicationContext, not use DispatcherServlet -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
 
 	<!-- Handles Spring requests -->
-	<servlet>
-		<servlet-name>myexam</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>WEB-INF/spring/webmvc-config.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>myexam</servlet-name> -->
+<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextConfigLocation</param-name> -->
+<!-- 			<param-value>WEB-INF/spring/webmvc-config.xml</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<load-on-startup>1</load-on-startup> -->
+<!-- 	</servlet> -->
 
 	<servlet>
 		<servlet-name>requestFactory</servlet-name>
 		<servlet-class>cn.jhc.myexam.server.CustomRequestFactoryServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>myexam</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-
-
-
+	
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>myexam</servlet-name> -->
+<!-- 		<url-pattern>/</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 	<servlet-mapping>
 		<servlet-name>requestFactory</servlet-name>
 		<url-pattern>/gwtRequest</url-pattern>

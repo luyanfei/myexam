@@ -11,7 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.util.UrlUtils;
 
 public class GwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	private final String loginUrl = "/login.jspx";
+	private final String loginUrl = "/login/";
 
 	@Override
 	public void commence(HttpServletRequest request,

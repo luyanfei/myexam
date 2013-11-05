@@ -14,11 +14,11 @@
         	always-use-default-target="true" />
         <logout logout-url="/resources/j_spring_security_logout" />
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/login.jspx" access="permitAll" />
+        <intercept-url pattern="/login/**" access="permitAll" />
         <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/gwtRequest*/**" access="isAuthenticated()" />
         <intercept-url pattern="/myexam/**" access="permitAll" />
-        <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/VAADIN/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />
     </http>
     <!-- Configure Authentication mechanism -->

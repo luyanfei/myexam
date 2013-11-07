@@ -33,8 +33,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/opt/gwt-2.5.1/gwt-user.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/opt/gwt-2.5.1/doc/javadoc/"/>
@@ -52,5 +50,5 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
+	<classpathentry kind="output" path="target/myexam-0.1.0.BUILD-SNAPSHOT/WEB-INF/classes"/>
 </classpath>

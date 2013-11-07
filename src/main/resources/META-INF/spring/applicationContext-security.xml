@@ -7,16 +7,14 @@
     <!-- HTTP security configurations -->
     <http auto-config="true" use-expressions="true" entry-point-ref="entryPoint">
         <form-login
-        	login-processing-url="/resources/j_spring_security_check"
-        	login-page="/login.jspx"
+        	login-page="/login.html"
         	authentication-failure-url="/login?login_error=t"
-        	default-target-url="/myexam.html"
-        	always-use-default-target="true" />
-        <logout logout-url="/resources/j_spring_security_logout" />
+        	default-target-url="/exam/"/>
+        <logout logout-url="/j_spring_security_logout" />
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/login/**" access="permitAll" />
-        <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/gwtRequest*/**" access="isAuthenticated()" />
+        <intercept-url pattern="/login.html" access="permitAll" />
+        <intercept-url pattern="/exam/**" access="isAuthenticated()" />
+        <intercept-url pattern="/gwtRequest*/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/myexam/**" access="permitAll" />
         <intercept-url pattern="/VAADIN/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />

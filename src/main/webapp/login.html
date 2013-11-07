@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+.loginform{
+	width: 800px;
+	margin:200px auto 0 auto;
+	text-align: center;
+	font-size: large;
+}
+.loginform form{
+	width: 360px;
+	margin:0 auto 0 auto;
+	text-align:left;
+}
+
+</style>
+<title>用户登录</title>
+</head>
+<body>
+	<div class="loginform">
+		<h1>用户登录</h1>
+		<form action="j_spring_security_check" method="POST">
+			<table>
+				<tbody>
+					<tr>
+						<td><label for="j_username">用户名:</label></td>
+						<td><input name="j_username" value="" type="text"></td>
+					</tr>
+					<tr>
+						<td><label for="j_password">密码:</label></td>
+						<td><input name="j_password" type="password"></td>
+					</tr>
+					<tr>
+						<td></td><td><input name="submit" value="提交" type="submit"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

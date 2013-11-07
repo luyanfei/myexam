@@ -19,21 +19,21 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class LoginUI extends UI {
+public class ExamUI extends UI {
 
-	private class LoginFormPanel extends Panel {
-		public LoginFormPanel() {
-			super("用户登录");
-			setSizeUndefined();
-			FormLayout layout = new FormLayout();
-			layout.setMargin(true);
-			setContent(layout);
-			final TextField nameField = new TextField("用户名：");
+	public class LoginForm extends FormLayout{
+		private TextField nameField;
+		private PasswordField passwordField;
+		private Button okButton;
+
+		public LoginForm() {
+			setMargin(true);
+			nameField = new TextField("用户名：");
 			nameField.focus();
-			layout.addComponent(nameField);
-			final PasswordField passwordField = new PasswordField("密码：");
-			layout.addComponent(passwordField);
-			final Button okButton = new Button("登录");
+			addComponent(nameField);
+			passwordField = new PasswordField("密码：");
+			addComponent(passwordField);
+			okButton = new Button("登录");
 			okButton.setClickShortcut(KeyCode.ENTER, null);
 			okButton.addClickListener(new Button.ClickListener() {
 				
@@ -42,13 +42,21 @@ public class LoginUI extends UI {
 					Notification.show("login user " + nameField.getValue());
 				}
 			});
-			layout.addComponent(okButton);
+			addComponent(okButton);
+		}
+
+		public TextField getNameField() {
+			return nameField;
+		}
+
+		public PasswordField getPasswordField() {
+			return passwordField;
 		}
 	}
 
-	@WebServlet(urlPatterns= {"/login/*"}, asyncSupported=true, 
+	@WebServlet(urlPatterns= {"/exam/*"}, asyncSupported=true, 
 			initParams = {@WebInitParam(name="UIProvider", value="cn.jhc.myexam.vaadin.ioc.AutowiredUIProvider")})
-	@VaadinServletConfiguration(ui=LoginUI.class, productionMode=false)
+	@VaadinServletConfiguration(ui=ExamUI.class, productionMode=false)
 	public static class Servlet extends VaadinServlet{
 	}
 	
@@ -57,10 +65,13 @@ public class LoginUI extends UI {
 		VerticalLayout layout = new VerticalLayout();
 		setContent(layout);
 		
-		LoginFormPanel loginFormPanel = new LoginFormPanel();
-		layout.addComponent(loginFormPanel);
+		Panel loginPanel = new Panel("用户登录");
+		loginPanel.setSizeUndefined();
+		LoginForm loginForm = new LoginForm();
+		loginPanel.setContent(loginForm);
+		layout.addComponent(loginPanel);
 		layout.setSizeFull();
-		layout.setComponentAlignment(loginFormPanel, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
 	}
 
 }

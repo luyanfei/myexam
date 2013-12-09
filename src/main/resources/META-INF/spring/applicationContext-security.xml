@@ -14,6 +14,8 @@
         <!-- Configure these elements to secure URIs in your application -->
         <intercept-url pattern="/login.html" access="permitAll" />
         <intercept-url pattern="/exam/**" access="isAuthenticated()" />
+<!--         <intercept-url pattern="/manager/**" access="hasRole('ROLE_TEACHER')"/> -->
+        <intercept-url pattern="/teacher/**" access="permitAll"/>
         <intercept-url pattern="/gwtRequest*/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/myexam/**" access="permitAll" />
         <intercept-url pattern="/VAADIN/**" access="permitAll" />

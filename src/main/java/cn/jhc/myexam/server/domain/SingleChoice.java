@@ -1,7 +1,10 @@
 package cn.jhc.myexam.server.domain;
+import java.io.Serializable;
+
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.ManyToOne;
@@ -9,9 +12,11 @@ import javax.persistence.ManyToOne;
 @RooJavaBean
 @RooToString
 @RooJpaEntity(sequenceName = "single_choice_seq")
-public class SingleChoice {
+public class SingleChoice implements Serializable{
 
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      */
     @NotNull
     @Size(max = 2048)

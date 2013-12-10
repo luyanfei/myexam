@@ -2,20 +2,26 @@ package cn.jhc.myexam.server.domain;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity(sequenceName = "user_seq")
-public class User {
+public class User implements Serializable{
 
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      */
     @NotNull
     @Column(unique = true)

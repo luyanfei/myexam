@@ -20,6 +20,11 @@ public class ImportUsersView extends CustomComponent implements View {
 	
 	public ImportUsersView() {
 		VerticalLayout layout = new VerticalLayout();
+		layout.setImmediate(false);
+		layout.setWidth("100%");
+		layout.setHeight("100%");
+		setWidth("100%");
+		setHeight("100%");
 		setCompositionRoot(layout);
 		upload = new Upload();
 		upload.setButtonCaption("上传Excel文件");

@@ -61,6 +61,7 @@ public class AddUserView extends CustomComponent implements View{
 	private void buildFormLayout() {
 		formLayout = new FormLayout();
 		formLayout.setCaption("添加新的考生");
+		formLayout.setWidth("50%");
 		mainLayout.addComponent(formLayout);
 		mainLayout.setComponentAlignment(formLayout, Alignment.MIDDLE_CENTER);
 		

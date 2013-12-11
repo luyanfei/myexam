@@ -47,6 +47,8 @@ public class TeacherUI extends UI {
 		splitPanel.addComponent(teacherNavigator);
 		Panel panel = new Panel();
 		splitPanel.addComponent(panel);
+		panel.setWidth("100%");
+		panel.setHeight("100%");
 		
 		Navigator navigator = new Navigator(this, panel);
 		navigator.addView(add_user.toString(), addUserView);

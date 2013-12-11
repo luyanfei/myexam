@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.view.AddUserView;
+import cn.jhc.myexam.vaadin.view.ImportUsersView;
 import static cn.jhc.myexam.vaadin.ui.TeacherNavigator.NavigateItem.*;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -26,6 +27,8 @@ public class TeacherUI extends UI {
 	
 	@Autowired
 	private AddUserView addUserView;
+	@Autowired
+	private ImportUsersView importUsersView;
 	
 	private HorizontalSplitPanel splitPanel;
 	
@@ -48,7 +51,10 @@ public class TeacherUI extends UI {
 		
 		Navigator navigator = new Navigator(this, panel);
 		navigator.addView(add_user.toString(), addUserView);
+		navigator.addView(import_users.toString(), importUsersView);
+		
 		navigator.navigateTo(add_user.toString());
+		
 	}
 
 }

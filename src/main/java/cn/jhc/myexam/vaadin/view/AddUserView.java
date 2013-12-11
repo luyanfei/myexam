@@ -32,7 +32,7 @@ public class AddUserView extends CustomComponent implements View{
 	private VerticalLayout mainLayout;
 	
 	@Autowired
-	private UserService userService;
+	private transient UserService userService;
 	
 	//property name and form caption
 	private final static String[][] userPropertyNames = new String[][]{

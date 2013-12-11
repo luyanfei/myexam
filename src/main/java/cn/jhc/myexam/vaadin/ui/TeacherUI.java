@@ -2,14 +2,12 @@ package cn.jhc.myexam.vaadin.ui;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import cn.jhc.myexam.vaadin.view.AddUserView;
 import cn.jhc.myexam.vaadin.view.ImportUsersView;
 import static cn.jhc.myexam.vaadin.ui.TeacherNavigator.NavigateItem.*;
-
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -19,6 +17,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 
+@Theme("myexamtheme")
 @Component
 public class TeacherUI extends UI {
 	

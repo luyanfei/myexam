@@ -96,8 +96,9 @@ public class TeacherNavigator extends CustomComponent {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		buildButtonsList(mainLayout);
-
 		addListenerForButtons();
+		
+		accordion.addStyleName("teacher-navigator");
 	}
 
 	private void buildButtonsList(HasComponents container) {

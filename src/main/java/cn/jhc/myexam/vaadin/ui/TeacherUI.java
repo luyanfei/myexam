@@ -9,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.component.TeacherNavigator;
-import cn.jhc.myexam.vaadin.view.AddUserView;
-import cn.jhc.myexam.vaadin.view.ImportUsersView;
 import cn.jhc.myexam.vaadin.view.MainView;
+import cn.jhc.myexam.vaadin.view.UserManagerView;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -20,7 +19,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -31,6 +29,8 @@ public class TeacherUI extends UI {
 	
 	@Autowired
 	private MainView mainView;
+	@Autowired
+	private UserManagerView userManagerView;
 	
 	@WebServlet(urlPatterns= {"/teacher/*"}, asyncSupported=true, 
 			initParams = {@WebInitParam(name="UIProvider", value="cn.jhc.myexam.vaadin.ioc.AutowiredUIProvider")})
@@ -62,7 +62,7 @@ public class TeacherUI extends UI {
 		
 		Navigator navigator = new Navigator(this, panel);
 		navigator.addView(main.toString(), mainView);
-
+		navigator.addView(users.toString(), userManagerView);
 		
 		navigator.navigateTo(main.toString());
 		

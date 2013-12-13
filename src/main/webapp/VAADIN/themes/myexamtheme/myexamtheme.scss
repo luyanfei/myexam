@@ -32,11 +32,21 @@
 	.v-Notification,
 	.v-menubar-submenu,
 	.v-drag-element,
-	.v-table-header-drag  {
-/*	   font-size: large;*/
+	.v-table-header-drag,
+	.v-widget {
+	   font-size: medium;
 	}
 	
 	button.teacher-nav-button {
 		font-size: large;
 	}
+	
+	.v-caption-page-table span.v-captiontext {
+		text-align: center;
+		font-size: large;
+		font-weight: bolder;
+		line-height: 120%;
+		margin: 20px auto 10px auto;
+	}
+
 }

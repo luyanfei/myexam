@@ -22,6 +22,10 @@ public class ImportUsersWindow extends Window {
 	private ExcelFileUploadHandler excelFileUploadHandler = new ImportUsersExcelFileUploadHandler();
 	
 	private Upload upload;
+
+	public static final String USERNAME = "准考证号";
+
+	public static final String DISPLAYNAME = "姓名";
 	
 	public ImportUsersWindow() {
 		super("从Excel导入考生帐号");
@@ -36,8 +40,9 @@ public class ImportUsersWindow extends Window {
 				+ "<ul><li>文件的后缀必须是.xls或.xlsx。</li>"
 				+ "<li>文件的大小不能超过5MB。</li>"
 				+ "<li>服务器只会解析第1个工作表，其它工作表中的数据会被忽略。</li>"
-				+ "<li>第1个工作表的第1行必须是表头，第1列的表头名为\"准考证号\"，第2列的表头名为\"姓名\"。</li>"
-				+ "<li>服务器只解析第1列和第2列的数据，第3列以后的数据会被略。</li></ul><br/>",
+				+ "<li>第1个工作表的第1行必须是表头，表头中的列名分别为\"" 
+					+ USERNAME + "\"和\"" + DISPLAYNAME + "\"（次序无关）。</li>"
+				+ "<li>服务器只解析第1列和第2列的数据，忽略第3列及以后的数据。</li></ul><br/>",
 				ContentMode.HTML);
 		layout.addComponent(infoLabel);
 		buildUpload();

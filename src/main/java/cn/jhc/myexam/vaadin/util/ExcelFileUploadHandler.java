@@ -47,19 +47,17 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 	public void uploadSucceeded(SucceededEvent event) {
 		ExcelConfiguration configuration = new ExcelConfiguration(1, true, true);
 		DataContext context = DataContextFactory.createExcelDataContext(file, configuration);
-		Schema schema = context.getDefaultSchema();
-		Table sheet = schema.getTable(0);
-		if( !validateColumnNames(sheet) ) {
+		if( !validateColumnNames(context) ) {
 			Notification.show("表结构不合要求，请修改后重新上传！", Type.ERROR_MESSAGE);
 			return;
 		}
 		//TODO: 关闭上传文件的窗口
-		showDataWindow(sheet);
+		showDataWindow(context);
 	}
 
-	protected abstract void showDataWindow(Table sheet);
+	protected abstract void showDataWindow(DataContext context);
 
-	protected abstract boolean validateColumnNames(Table sheet);
+	protected abstract boolean validateColumnNames(DataContext context);
 	
 	@Override
 	public void uploadStarted(StartedEvent event) {
@@ -67,6 +65,7 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 		if(event.getContentLength() > FILE_SIZE_LIMIT) {
 			upload.interruptUpload();
 			Notification.show("上传的Excel文件不能超过5MB！", Notification.Type.ERROR_MESSAGE);
+			return;
 		}
 		if(	 ! event.getFilename().endsWith(".xls") 
 						&& ! event.getFilename().endsWith(".xlsx") ) {

@@ -59,8 +59,8 @@ public class ImportUsersWindow extends Window {
 		upload = new Upload();
 		upload.setButtonCaption("上传Excel文件");
 		upload.addStartedListener(excelFileUploadHandler);
-		
 		upload.setReceiver(excelFileUploadHandler);
+		upload.addSucceededListener(excelFileUploadHandler);
 	}
 
 

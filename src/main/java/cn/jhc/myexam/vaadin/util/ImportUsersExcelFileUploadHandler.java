@@ -13,14 +13,14 @@ import org.eobjects.metamodel.schema.Column;
 import org.eobjects.metamodel.schema.Schema;
 import org.eobjects.metamodel.schema.Table;
 
-import com.vaadin.data.util.BeanContainer;
-import com.vaadin.ui.Table.ColumnHeaderMode;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
-
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.component.ConfirmExcelUsersWindow;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
+
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.Table.ColumnHeaderMode;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
@@ -52,8 +52,7 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		
 		//构建Vaadin Table
 		com.vaadin.ui.Table usersTable = new com.vaadin.ui.Table();
-		BeanContainer<Long, User> container = new BeanContainer<Long, User>(User.class);
-		container.addAll(list);
+		BeanItemContainer<User> container = new BeanItemContainer<User>(User.class,list);
 		usersTable.setContainerDataSource(container, Arrays.asList("username","enabled","displayName"));
 		usersTable.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		usersTable.setColumnHeaders("准考证号","启用","用户名");

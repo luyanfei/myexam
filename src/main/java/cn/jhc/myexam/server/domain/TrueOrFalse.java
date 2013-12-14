@@ -2,8 +2,10 @@ package cn.jhc.myexam.server.domain;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 
 @RooJavaBean
@@ -20,6 +22,7 @@ public class TrueOrFalse {
     /**
      */
     @NotNull
+    @Column(columnDefinition="bit", length=1)
     private Boolean answer;
 
     /**

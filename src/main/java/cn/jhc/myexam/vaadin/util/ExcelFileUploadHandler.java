@@ -8,8 +8,6 @@ import java.io.OutputStream;
 import org.eobjects.metamodel.DataContext;
 import org.eobjects.metamodel.DataContextFactory;
 import org.eobjects.metamodel.excel.ExcelConfiguration;
-import org.eobjects.metamodel.schema.Schema;
-import org.eobjects.metamodel.schema.Table;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
@@ -24,6 +22,7 @@ import com.vaadin.ui.Upload.SucceededListener;
 public abstract class ExcelFileUploadHandler implements Receiver,
 	StartedListener, SucceededListener {
 	
+	private static File UPLOAD_FOLDER = new File("/tmp/myexamuploads/");
 	private File file = null; 
 	
 	private static final long FILE_SIZE_LIMIT = 5*1024*1024; //5MB
@@ -32,12 +31,14 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 	public OutputStream receiveUpload(String filename, String mimeType) {
 		FileOutputStream outputStream = null;
 		try {
-			//TODO: 上传文件的目录必须先创建好，否则会出异常。
-			file = new File("/tmp/uploads/" + filename
-					+ System.currentTimeMillis());
+			//上传文件的目录必须先创建好，否则会出异常。
+			if( ! UPLOAD_FOLDER.exists() )
+				UPLOAD_FOLDER.mkdir();
+			file = new File(UPLOAD_FOLDER.getAbsolutePath() + "/" + filename
+					+ "." + System.currentTimeMillis());
 			outputStream = new FileOutputStream(file);
 		} catch (FileNotFoundException e) {
-			Notification.show("无法创建文件<br/>", e.getMessage(), Type.ERROR_MESSAGE);
+			Notification.show("服务器无法接收文件，请联系管理员。<br/>", e.getMessage(), Type.ERROR_MESSAGE);
 			return null;
 		}
 		return outputStream;

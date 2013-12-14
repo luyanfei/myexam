@@ -37,6 +37,7 @@ public class User implements Serializable{
     /**
      */
     @NotNull
+    @Column(columnDefinition="bit", length=1)
     private Boolean enabled;
 
     /**

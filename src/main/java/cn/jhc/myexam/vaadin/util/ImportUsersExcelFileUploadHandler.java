@@ -14,13 +14,13 @@ import org.eobjects.metamodel.schema.Schema;
 import org.eobjects.metamodel.schema.Table;
 
 import cn.jhc.myexam.server.domain.User;
-import cn.jhc.myexam.vaadin.component.ConfirmExcelUsersWindow;
+import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Table.ColumnHeaderMode;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Table.ColumnHeaderMode;
 
 @SuppressWarnings("serial")
 public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
@@ -57,8 +57,11 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		usersTable.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		usersTable.setColumnHeaders("准考证号","启用","用户名");
 		
-		Window confirmWindow = new ConfirmExcelUsersWindow(usersTable);
-		UI.getCurrent().addWindow(confirmWindow);
+		Component confirmComponent = new ConfirmImportRecordComponent(usersTable);
+		Window importUsersWindow = WindowUtils.findWindowById(Constants.ID_IMPORT_USERS_WINDOW);
+		importUsersWindow.setCaption("确认导入的考生数据");
+		importUsersWindow.setContent(confirmComponent);
+		importUsersWindow.center();
 	}
 
 	@Override

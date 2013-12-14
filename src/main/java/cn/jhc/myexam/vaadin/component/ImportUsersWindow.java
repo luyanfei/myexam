@@ -3,6 +3,7 @@ package cn.jhc.myexam.vaadin.component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.ExcelFileUploadHandler;
 import cn.jhc.myexam.vaadin.util.ImportUsersExcelFileUploadHandler;
 
@@ -30,6 +31,7 @@ public class ImportUsersWindow extends Window {
 	public ImportUsersWindow() {
 		super("从Excel导入考生帐号");
 		center();
+		setId(Constants.ID_IMPORT_USERS_WINDOW);
 		VerticalLayout layout = new VerticalLayout();
 		layout.setImmediate(false);
 		layout.setSizeUndefined();

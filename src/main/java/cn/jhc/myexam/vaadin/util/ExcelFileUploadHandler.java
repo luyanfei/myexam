@@ -23,6 +23,8 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 	StartedListener, SucceededListener {
 	
 	private static File UPLOAD_FOLDER = new File("/tmp/myexamuploads/");
+	
+	//TODO: 上传的临时文件不会自动删除，会不会造成服务器负担？
 	private File file = null; 
 	
 	private static final long FILE_SIZE_LIMIT = 5*1024*1024; //5MB

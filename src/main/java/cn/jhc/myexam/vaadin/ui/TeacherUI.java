@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.component.TeacherNavigator;
@@ -25,8 +26,10 @@ import com.vaadin.ui.VerticalLayout;
 
 @Theme("myexamtheme")
 @Component
+@Scope("prototype")
 public class TeacherUI extends UI {
 	
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MainView mainView;
 	@Autowired
@@ -66,6 +69,10 @@ public class TeacherUI extends UI {
 		
 		navigator.navigateTo(main.toString());
 		
+	}
+
+	public UserManagerView getUserManagerView() {
+		return userManagerView;
 	}
 
 }

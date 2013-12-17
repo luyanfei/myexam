@@ -15,7 +15,7 @@ public class Injector {
 		beanFactory.autowireBeanProperties(component, AutowireCapableBeanFactory.AUTOWIRE_BY_NAME, false);
 	}
 	
-	private static ApplicationContext getApplicationContext() {
+	public static ApplicationContext getApplicationContext() {
 		ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		ServletContext context = attributes.getRequest().getSession(false).getServletContext();
 		return WebApplicationContextUtils.getRequiredWebApplicationContext(context);

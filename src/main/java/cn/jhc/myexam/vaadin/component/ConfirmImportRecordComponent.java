@@ -18,6 +18,7 @@ public class ConfirmImportRecordComponent extends CustomComponent{
 	private VerticalLayout mainLayout;
 	private CheckBox editableCheckBox;
 	private Table table;
+	private Button commitButton;
 
 	public ConfirmImportRecordComponent(Table theTable) {
 		this.table = theTable;
@@ -45,7 +46,7 @@ public class ConfirmImportRecordComponent extends CustomComponent{
 		horizontalLayout.setImmediate(false);
 		horizontalLayout.setWidth("100%");
 		
-		Button commitButton = new Button("添加所有纪录");
+		commitButton = new Button("添加所有纪录");
 		horizontalLayout.addComponent(commitButton);
 		horizontalLayout.setComponentAlignment(commitButton, Alignment.MIDDLE_LEFT);
 		
@@ -61,5 +62,21 @@ public class ConfirmImportRecordComponent extends CustomComponent{
 		});
 		
 		mainLayout.addComponent(horizontalLayout);
+	}
+
+	/**
+	 * commit button's ClickListener will be set outside ConfirmImportRecordComponent, so we 
+	 * can reuse ConfirmImportRecordComponent in other case.
+	 */
+	public void addCommitButtonListener(Button.ClickListener listener) {
+		commitButton.addClickListener(listener);
+	}
+	
+	public Table getTable() {
+		return this.table;
+	}
+	
+	public void setTable(Table table) {
+		this.table = table;
 	}
 }

@@ -12,22 +12,25 @@ import org.eobjects.metamodel.query.Query;
 import org.eobjects.metamodel.schema.Column;
 import org.eobjects.metamodel.schema.Schema;
 import org.eobjects.metamodel.schema.Table;
+import org.springframework.context.annotation.Scope;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Window;
 import com.vaadin.ui.Table.ColumnHeaderMode;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
+@org.springframework.stereotype.Component
+@Scope("prototype")
 public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 	
 	private static final Logger logger = Logger.getLogger(ImportUsersExcelFileUploadHandler.class.getName());
 	private Column usernameColumn;
 	private Column displayNameColumn;
+
 
 	@Override
 	protected void showDataWindow(DataContext context) {
@@ -49,6 +52,7 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 			user.setEnabled(true);
 			list.add(user);
 		}
+		dataSet.close();
 		
 		//构建Vaadin Table
 		com.vaadin.ui.Table usersTable = new com.vaadin.ui.Table();
@@ -57,7 +61,9 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		usersTable.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		usersTable.setColumnHeaders("准考证号","启用","用户名");
 		
-		Component confirmComponent = new ConfirmImportRecordComponent(usersTable);
+		ConfirmImportRecordComponent confirmComponent = new ConfirmImportRecordComponent(usersTable);
+		confirmComponent.addCommitButtonListener(new ImportUsersCommitButtonListener( confirmComponent.getTable()));
+		
 		Window importUsersWindow = WindowUtils.findWindowById(Constants.ID_IMPORT_USERS_WINDOW);
 		importUsersWindow.setCaption("确认导入的考生数据");
 		importUsersWindow.setContent(confirmComponent);

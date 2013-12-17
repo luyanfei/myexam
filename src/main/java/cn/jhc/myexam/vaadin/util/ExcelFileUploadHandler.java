@@ -54,7 +54,6 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 			Notification.show("表结构不合要求，请修改后重新上传！", Type.ERROR_MESSAGE);
 			return;
 		}
-		//TODO: 关闭上传文件的窗口
 		showDataWindow(context);
 	}
 

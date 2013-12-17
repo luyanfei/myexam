@@ -1,10 +1,10 @@
 package cn.jhc.myexam.vaadin.component;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.util.Constants;
-import cn.jhc.myexam.vaadin.util.ExcelFileUploadHandler;
 import cn.jhc.myexam.vaadin.util.ImportUsersExcelFileUploadHandler;
 
 import com.vaadin.shared.ui.label.ContentMode;
@@ -20,16 +20,18 @@ public class ImportUsersWindow extends Window {
 
 	private static final long serialVersionUID = 1L;
 
-	private ExcelFileUploadHandler excelFileUploadHandler = new ImportUsersExcelFileUploadHandler();
-	
+	private ImportUsersExcelFileUploadHandler importUsersExcelFileUploadHandler;
+
 	private Upload upload;
 
 	public static final String USERNAME = "准考证号";
 
 	public static final String DISPLAYNAME = "姓名";
 	
-	public ImportUsersWindow() {
+	@Autowired
+	public ImportUsersWindow(ImportUsersExcelFileUploadHandler importUsersExcelFileUploadHandler) {
 		super("从Excel导入考生帐号");
+		this.importUsersExcelFileUploadHandler = importUsersExcelFileUploadHandler;
 		center();
 		setId(Constants.ID_IMPORT_USERS_WINDOW);
 		VerticalLayout layout = new VerticalLayout();
@@ -60,9 +62,9 @@ public class ImportUsersWindow extends Window {
 	private void buildUpload() {
 		upload = new Upload();
 		upload.setButtonCaption("上传Excel文件");
-		upload.addStartedListener(excelFileUploadHandler);
-		upload.setReceiver(excelFileUploadHandler);
-		upload.addSucceededListener(excelFileUploadHandler);
+		upload.addStartedListener(importUsersExcelFileUploadHandler);
+		upload.setReceiver(importUsersExcelFileUploadHandler);
+		upload.addSucceededListener(importUsersExcelFileUploadHandler);
 	}
 
 

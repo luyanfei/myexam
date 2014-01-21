@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.component.TeacherNavigator;
 import cn.jhc.myexam.vaadin.view.MainView;
+import cn.jhc.myexam.vaadin.view.QuestionsManagerView;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 
 import com.vaadin.annotations.Theme;
@@ -34,6 +35,8 @@ public class TeacherUI extends UI {
 	private MainView mainView;
 	@Autowired
 	private UserManagerView userManagerView;
+	@Autowired
+	private QuestionsManagerView questionsManagerView;
 	
 	@WebServlet(urlPatterns= {"/teacher/*"}, asyncSupported=true, 
 			initParams = {@WebInitParam(name="UIProvider", value="cn.jhc.myexam.vaadin.ioc.AutowiredUIProvider")})
@@ -66,6 +69,7 @@ public class TeacherUI extends UI {
 		Navigator navigator = new Navigator(this, panel);
 		navigator.addView(main.toString(), mainView);
 		navigator.addView(users.toString(), userManagerView);
+		navigator.addView(questions.toString(), questionsManagerView);
 		
 		navigator.navigateTo(main.toString());
 		

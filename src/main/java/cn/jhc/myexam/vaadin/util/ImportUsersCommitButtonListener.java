@@ -80,8 +80,6 @@ class ImportUsersCommitButtonListener implements ClickListener {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().removeWindow(window);
-				//TODO: 刷新考生管理界面的table的数据
-
 			}
 		});
 		window.setContent(layout);

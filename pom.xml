@@ -17,7 +17,7 @@
 		<gwt.version>2.5.1</gwt.version>
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
 		<hibernate.version>4.2.6.Final</hibernate.version>
-		<vaadin.version>7.1.7</vaadin.version>
+		<vaadin.version>7.1.9</vaadin.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -391,6 +391,11 @@
 			<groupId>org.eobjects.metamodel</groupId>
 			<artifactId>MetaModel-full</artifactId>
 			<version>3.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.jhc</groupId>
+			<artifactId>umeditor-vaadin-js</artifactId>
+			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>

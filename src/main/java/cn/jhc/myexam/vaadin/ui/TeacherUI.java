@@ -67,11 +67,11 @@ public class TeacherUI extends UI {
 		panel.setHeight("100%");
 		
 		Navigator navigator = new Navigator(this, panel);
-		navigator.addView(main.toString(), mainView);
-		navigator.addView(users.toString(), userManagerView);
-		navigator.addView(questions.toString(), questionsManagerView);
+		navigator.addView(MAIN.toString(), mainView);
+		navigator.addView(USERS.toString(), userManagerView);
+		navigator.addView(QUESTIONS.toString(), questionsManagerView);
 		
-		navigator.navigateTo(main.toString());
+		navigator.navigateTo(MAIN.toString());
 		
 	}
 

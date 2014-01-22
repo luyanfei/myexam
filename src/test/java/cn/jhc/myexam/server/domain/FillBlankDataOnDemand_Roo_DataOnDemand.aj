@@ -100,7 +100,7 @@ privileged aspect FillBlankDataOnDemand_Roo_DataOnDemand {
         int to = 10;
         data = fillBlankService.findFillBlankEntries(from, to);
         if (data == null) {
-            throw new IllegalStateException("Find entries implementation for 'FillBlank' illegally returned null");
+            throw new IllegalStateException("Find entries implementation for 'FILL_BLANK' illegally returned null");
         }
         if (!data.isEmpty()) {
             return;

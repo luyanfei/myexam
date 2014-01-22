@@ -45,7 +45,7 @@ public class SingleChoiceDetailsActivity extends SingleChoiceDetailsActivity_Roo
     }
 
     public String getTitleText() {
-        return "View SingleChoice";
+        return "View SINGLE_CHOICE";
     }
 
     public boolean hasEditButton() {

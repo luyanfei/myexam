@@ -21,7 +21,7 @@ public class BriefAnswerMobileListView extends BriefAnswerMobileListView_Roo_Gwt
     private static BriefAnswerMobileListView instance;
 
     public BriefAnswerMobileListView() {
-        super("New BriefAnswer", new CellRenderer());
+        super("New BRIEF_ANSWER", new CellRenderer());
         init();
     }
 

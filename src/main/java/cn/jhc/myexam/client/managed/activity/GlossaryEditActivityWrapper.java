@@ -43,7 +43,7 @@ public class GlossaryEditActivityWrapper extends GlossaryEditActivityWrapper_Roo
     }
 
     public String getTitleText() {
-        return (proxyId == null) ? "New Glossary" : "Edit Glossary";
+        return (proxyId == null) ? "New GLOSSARY" : "Edit GLOSSARY";
     }
 
     public boolean hasEditButton() {

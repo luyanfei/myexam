@@ -43,7 +43,7 @@ public class FillBlankEditActivityWrapper extends FillBlankEditActivityWrapper_R
     }
 
     public String getTitleText() {
-        return (proxyId == null) ? "New FillBlank" : "Edit FillBlank";
+        return (proxyId == null) ? "New FILL_BLANK" : "Edit FILL_BLANK";
     }
 
     public boolean hasEditButton() {

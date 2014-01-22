@@ -38,79 +38,79 @@ privileged aspect GlossaryIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void GlossaryIntegrationTest.testCountAllGlossarys() {
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", dod.getRandomGlossary());
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", dod.getRandomGlossary());
         long count = glossaryService.countAllGlossarys();
-        Assert.assertTrue("Counter for 'Glossary' incorrectly reported there were no entries", count > 0);
+        Assert.assertTrue("Counter for 'GLOSSARY' incorrectly reported there were no entries", count > 0);
     }
     
     @Test
     public void GlossaryIntegrationTest.testFindGlossary() {
         Glossary obj = dod.getRandomGlossary();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to provide an identifier", id);
         obj = glossaryService.findGlossary(id);
-        Assert.assertNotNull("Find method for 'Glossary' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'Glossary' returned the incorrect identifier", id, obj.getId());
+        Assert.assertNotNull("Find method for 'GLOSSARY' illegally returned null for id '" + id + "'", obj);
+        Assert.assertEquals("Find method for 'GLOSSARY' returned the incorrect identifier", id, obj.getId());
     }
     
     @Test
     public void GlossaryIntegrationTest.testFindAllGlossarys() {
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", dod.getRandomGlossary());
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", dod.getRandomGlossary());
         long count = glossaryService.countAllGlossarys();
-        Assert.assertTrue("Too expensive to perform a find all test for 'Glossary', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
+        Assert.assertTrue("Too expensive to perform a find all test for 'GLOSSARY', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
         List<Glossary> result = glossaryService.findAllGlossarys();
-        Assert.assertNotNull("Find all method for 'Glossary' illegally returned null", result);
-        Assert.assertTrue("Find all method for 'Glossary' failed to return any data", result.size() > 0);
+        Assert.assertNotNull("Find all method for 'GLOSSARY' illegally returned null", result);
+        Assert.assertTrue("Find all method for 'GLOSSARY' failed to return any data", result.size() > 0);
     }
     
     @Test
     public void GlossaryIntegrationTest.testFindGlossaryEntries() {
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", dod.getRandomGlossary());
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", dod.getRandomGlossary());
         long count = glossaryService.countAllGlossarys();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;
         List<Glossary> result = glossaryService.findGlossaryEntries(firstResult, maxResults);
-        Assert.assertNotNull("Find entries method for 'Glossary' illegally returned null", result);
-        Assert.assertEquals("Find entries method for 'Glossary' returned an incorrect number of entries", count, result.size());
+        Assert.assertNotNull("Find entries method for 'GLOSSARY' illegally returned null", result);
+        Assert.assertEquals("Find entries method for 'GLOSSARY' returned an incorrect number of entries", count, result.size());
     }
     
     @Test
     public void GlossaryIntegrationTest.testFlush() {
         Glossary obj = dod.getRandomGlossary();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to provide an identifier", id);
         obj = glossaryService.findGlossary(id);
-        Assert.assertNotNull("Find method for 'Glossary' illegally returned null for id '" + id + "'", obj);
+        Assert.assertNotNull("Find method for 'GLOSSARY' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifyGlossary(obj);
         Integer currentVersion = obj.getVersion();
         glossaryRepository.flush();
-        Assert.assertTrue("Version for 'Glossary' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'GLOSSARY' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void GlossaryIntegrationTest.testUpdateGlossaryUpdate() {
         Glossary obj = dod.getRandomGlossary();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to provide an identifier", id);
         obj = glossaryService.findGlossary(id);
         boolean modified =  dod.modifyGlossary(obj);
         Integer currentVersion = obj.getVersion();
         Glossary merged = glossaryService.updateGlossary(obj);
         glossaryRepository.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
-        Assert.assertTrue("Version for 'Glossary' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'GLOSSARY' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void GlossaryIntegrationTest.testSaveGlossary() {
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", dod.getRandomGlossary());
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", dod.getRandomGlossary());
         Glossary obj = dod.getNewTransientGlossary(Integer.MAX_VALUE);
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'Glossary' identifier to be null", obj.getId());
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to provide a new transient entity", obj);
+        Assert.assertNull("Expected 'GLOSSARY' identifier to be null", obj.getId());
         try {
             glossaryService.saveGlossary(obj);
         } catch (final ConstraintViolationException e) {
@@ -122,19 +122,19 @@ privileged aspect GlossaryIntegrationTest_Roo_IntegrationTest {
             throw new IllegalStateException(msg.toString(), e);
         }
         glossaryRepository.flush();
-        Assert.assertNotNull("Expected 'Glossary' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'GLOSSARY' identifier to no longer be null", obj.getId());
     }
     
     @Test
     public void GlossaryIntegrationTest.testDeleteGlossary() {
         Glossary obj = dod.getRandomGlossary();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'Glossary' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'GLOSSARY' failed to provide an identifier", id);
         obj = glossaryService.findGlossary(id);
         glossaryService.deleteGlossary(obj);
         glossaryRepository.flush();
-        Assert.assertNull("Failed to remove 'Glossary' with identifier '" + id + "'", glossaryService.findGlossary(id));
+        Assert.assertNull("Failed to remove 'GLOSSARY' with identifier '" + id + "'", glossaryService.findGlossary(id));
     }
     
 }

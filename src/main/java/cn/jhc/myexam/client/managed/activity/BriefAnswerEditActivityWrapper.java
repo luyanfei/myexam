@@ -43,7 +43,7 @@ public class BriefAnswerEditActivityWrapper extends BriefAnswerEditActivityWrapp
     }
 
     public String getTitleText() {
-        return (proxyId == null) ? "New BriefAnswer" : "Edit BriefAnswer";
+        return (proxyId == null) ? "New BRIEF_ANSWER" : "Edit BRIEF_ANSWER";
     }
 
     public boolean hasEditButton() {

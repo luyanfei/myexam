@@ -45,7 +45,7 @@ public class BriefAnswerDetailsActivity extends BriefAnswerDetailsActivity_Roo_G
     }
 
     public String getTitleText() {
-        return "View BriefAnswer";
+        return "View BRIEF_ANSWER";
     }
 
     public boolean hasEditButton() {

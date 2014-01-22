@@ -38,79 +38,79 @@ privileged aspect FillBlankIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void FillBlankIntegrationTest.testCountAllFillBlanks() {
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", dod.getRandomFillBlank());
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", dod.getRandomFillBlank());
         long count = fillBlankService.countAllFillBlanks();
-        Assert.assertTrue("Counter for 'FillBlank' incorrectly reported there were no entries", count > 0);
+        Assert.assertTrue("Counter for 'FILL_BLANK' incorrectly reported there were no entries", count > 0);
     }
     
     @Test
     public void FillBlankIntegrationTest.testFindFillBlank() {
         FillBlank obj = dod.getRandomFillBlank();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to provide an identifier", id);
         obj = fillBlankService.findFillBlank(id);
-        Assert.assertNotNull("Find method for 'FillBlank' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'FillBlank' returned the incorrect identifier", id, obj.getId());
+        Assert.assertNotNull("Find method for 'FILL_BLANK' illegally returned null for id '" + id + "'", obj);
+        Assert.assertEquals("Find method for 'FILL_BLANK' returned the incorrect identifier", id, obj.getId());
     }
     
     @Test
     public void FillBlankIntegrationTest.testFindAllFillBlanks() {
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", dod.getRandomFillBlank());
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", dod.getRandomFillBlank());
         long count = fillBlankService.countAllFillBlanks();
-        Assert.assertTrue("Too expensive to perform a find all test for 'FillBlank', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
+        Assert.assertTrue("Too expensive to perform a find all test for 'FILL_BLANK', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
         List<FillBlank> result = fillBlankService.findAllFillBlanks();
-        Assert.assertNotNull("Find all method for 'FillBlank' illegally returned null", result);
-        Assert.assertTrue("Find all method for 'FillBlank' failed to return any data", result.size() > 0);
+        Assert.assertNotNull("Find all method for 'FILL_BLANK' illegally returned null", result);
+        Assert.assertTrue("Find all method for 'FILL_BLANK' failed to return any data", result.size() > 0);
     }
     
     @Test
     public void FillBlankIntegrationTest.testFindFillBlankEntries() {
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", dod.getRandomFillBlank());
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", dod.getRandomFillBlank());
         long count = fillBlankService.countAllFillBlanks();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;
         List<FillBlank> result = fillBlankService.findFillBlankEntries(firstResult, maxResults);
-        Assert.assertNotNull("Find entries method for 'FillBlank' illegally returned null", result);
-        Assert.assertEquals("Find entries method for 'FillBlank' returned an incorrect number of entries", count, result.size());
+        Assert.assertNotNull("Find entries method for 'FILL_BLANK' illegally returned null", result);
+        Assert.assertEquals("Find entries method for 'FILL_BLANK' returned an incorrect number of entries", count, result.size());
     }
     
     @Test
     public void FillBlankIntegrationTest.testFlush() {
         FillBlank obj = dod.getRandomFillBlank();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to provide an identifier", id);
         obj = fillBlankService.findFillBlank(id);
-        Assert.assertNotNull("Find method for 'FillBlank' illegally returned null for id '" + id + "'", obj);
+        Assert.assertNotNull("Find method for 'FILL_BLANK' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifyFillBlank(obj);
         Integer currentVersion = obj.getVersion();
         fillBlankRepository.flush();
-        Assert.assertTrue("Version for 'FillBlank' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'FILL_BLANK' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void FillBlankIntegrationTest.testUpdateFillBlankUpdate() {
         FillBlank obj = dod.getRandomFillBlank();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to provide an identifier", id);
         obj = fillBlankService.findFillBlank(id);
         boolean modified =  dod.modifyFillBlank(obj);
         Integer currentVersion = obj.getVersion();
         FillBlank merged = fillBlankService.updateFillBlank(obj);
         fillBlankRepository.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
-        Assert.assertTrue("Version for 'FillBlank' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'FILL_BLANK' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void FillBlankIntegrationTest.testSaveFillBlank() {
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", dod.getRandomFillBlank());
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", dod.getRandomFillBlank());
         FillBlank obj = dod.getNewTransientFillBlank(Integer.MAX_VALUE);
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'FillBlank' identifier to be null", obj.getId());
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to provide a new transient entity", obj);
+        Assert.assertNull("Expected 'FILL_BLANK' identifier to be null", obj.getId());
         try {
             fillBlankService.saveFillBlank(obj);
         } catch (final ConstraintViolationException e) {
@@ -122,19 +122,19 @@ privileged aspect FillBlankIntegrationTest_Roo_IntegrationTest {
             throw new IllegalStateException(msg.toString(), e);
         }
         fillBlankRepository.flush();
-        Assert.assertNotNull("Expected 'FillBlank' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'FILL_BLANK' identifier to no longer be null", obj.getId());
     }
     
     @Test
     public void FillBlankIntegrationTest.testDeleteFillBlank() {
         FillBlank obj = dod.getRandomFillBlank();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'FillBlank' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'FILL_BLANK' failed to provide an identifier", id);
         obj = fillBlankService.findFillBlank(id);
         fillBlankService.deleteFillBlank(obj);
         fillBlankRepository.flush();
-        Assert.assertNull("Failed to remove 'FillBlank' with identifier '" + id + "'", fillBlankService.findFillBlank(id));
+        Assert.assertNull("Failed to remove 'FILL_BLANK' with identifier '" + id + "'", fillBlankService.findFillBlank(id));
     }
     
 }

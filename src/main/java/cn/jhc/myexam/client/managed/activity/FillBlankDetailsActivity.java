@@ -45,7 +45,7 @@ public class FillBlankDetailsActivity extends FillBlankDetailsActivity_Roo_Gwt {
     }
 
     public String getTitleText() {
-        return "View FillBlank";
+        return "View FILL_BLANK";
     }
 
     public boolean hasEditButton() {

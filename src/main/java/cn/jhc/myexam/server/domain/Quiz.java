@@ -40,8 +40,8 @@ public class Quiz {
 
     /**
      * The content format is like this:
-     * SingleChoice:2,40|BriefAnswer:10,2
-     * This content means this quiz should have 40 SingleChoice problems(2 points for each) and 2 BriefAnswer problems(10 points for each).
+     * SINGLE_CHOICE:2,40|BRIEF_ANSWER:10,2
+     * This content means this quiz should have 40 SINGLE_CHOICE problems(2 points for each) and 2 BRIEF_ANSWER problems(10 points for each).
      */
     @Size(max = 1024)
     private String content;

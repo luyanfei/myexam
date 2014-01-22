@@ -21,7 +21,7 @@ public class FillBlankMobileListView extends FillBlankMobileListView_Roo_Gwt {
     private static FillBlankMobileListView instance;
 
     public FillBlankMobileListView() {
-        super("New FillBlank", new CellRenderer());
+        super("New FILL_BLANK", new CellRenderer());
         init();
     }
 

@@ -43,7 +43,7 @@ public class SingleChoiceEditActivityWrapper extends SingleChoiceEditActivityWra
     }
 
     public String getTitleText() {
-        return (proxyId == null) ? "New SingleChoice" : "Edit SingleChoice";
+        return (proxyId == null) ? "New SINGLE_CHOICE" : "Edit SINGLE_CHOICE";
     }
 
     public boolean hasEditButton() {

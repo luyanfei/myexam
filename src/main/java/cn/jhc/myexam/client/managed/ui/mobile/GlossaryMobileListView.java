@@ -21,7 +21,7 @@ public class GlossaryMobileListView extends GlossaryMobileListView_Roo_Gwt {
     private static GlossaryMobileListView instance;
 
     public GlossaryMobileListView() {
-        super("New Glossary", new CellRenderer());
+        super("New GLOSSARY", new CellRenderer());
         init();
     }
 

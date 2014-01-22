@@ -45,7 +45,7 @@ public class GlossaryDetailsActivity extends GlossaryDetailsActivity_Roo_Gwt {
     }
 
     public String getTitleText() {
-        return "View Glossary";
+        return "View GLOSSARY";
     }
 
     public boolean hasEditButton() {

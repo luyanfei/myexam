@@ -8,7 +8,7 @@ package cn.jhc.myexam.vaadin.util;
  * 
  */
 public enum NavigateItem {
-	main("首页"), users("考生管理"), exams("考试管理"), questions("题库管理"), results("结果管理");
+	MAIN("首页"), USERS("考生管理"), EXAMS("考试管理"), QUESTIONS("题库管理"), RESULTS("结果管理");
 	
 	private String description;
 

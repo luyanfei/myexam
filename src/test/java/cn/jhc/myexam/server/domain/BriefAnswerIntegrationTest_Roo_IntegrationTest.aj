@@ -38,79 +38,79 @@ privileged aspect BriefAnswerIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void BriefAnswerIntegrationTest.testCountAllBriefAnswers() {
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", dod.getRandomBriefAnswer());
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", dod.getRandomBriefAnswer());
         long count = briefAnswerService.countAllBriefAnswers();
-        Assert.assertTrue("Counter for 'BriefAnswer' incorrectly reported there were no entries", count > 0);
+        Assert.assertTrue("Counter for 'BRIEF_ANSWER' incorrectly reported there were no entries", count > 0);
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testFindBriefAnswer() {
         BriefAnswer obj = dod.getRandomBriefAnswer();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to provide an identifier", id);
         obj = briefAnswerService.findBriefAnswer(id);
-        Assert.assertNotNull("Find method for 'BriefAnswer' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'BriefAnswer' returned the incorrect identifier", id, obj.getId());
+        Assert.assertNotNull("Find method for 'BRIEF_ANSWER' illegally returned null for id '" + id + "'", obj);
+        Assert.assertEquals("Find method for 'BRIEF_ANSWER' returned the incorrect identifier", id, obj.getId());
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testFindAllBriefAnswers() {
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", dod.getRandomBriefAnswer());
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", dod.getRandomBriefAnswer());
         long count = briefAnswerService.countAllBriefAnswers();
-        Assert.assertTrue("Too expensive to perform a find all test for 'BriefAnswer', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
+        Assert.assertTrue("Too expensive to perform a find all test for 'BRIEF_ANSWER', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
         List<BriefAnswer> result = briefAnswerService.findAllBriefAnswers();
-        Assert.assertNotNull("Find all method for 'BriefAnswer' illegally returned null", result);
-        Assert.assertTrue("Find all method for 'BriefAnswer' failed to return any data", result.size() > 0);
+        Assert.assertNotNull("Find all method for 'BRIEF_ANSWER' illegally returned null", result);
+        Assert.assertTrue("Find all method for 'BRIEF_ANSWER' failed to return any data", result.size() > 0);
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testFindBriefAnswerEntries() {
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", dod.getRandomBriefAnswer());
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", dod.getRandomBriefAnswer());
         long count = briefAnswerService.countAllBriefAnswers();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;
         List<BriefAnswer> result = briefAnswerService.findBriefAnswerEntries(firstResult, maxResults);
-        Assert.assertNotNull("Find entries method for 'BriefAnswer' illegally returned null", result);
-        Assert.assertEquals("Find entries method for 'BriefAnswer' returned an incorrect number of entries", count, result.size());
+        Assert.assertNotNull("Find entries method for 'BRIEF_ANSWER' illegally returned null", result);
+        Assert.assertEquals("Find entries method for 'BRIEF_ANSWER' returned an incorrect number of entries", count, result.size());
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testFlush() {
         BriefAnswer obj = dod.getRandomBriefAnswer();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to provide an identifier", id);
         obj = briefAnswerService.findBriefAnswer(id);
-        Assert.assertNotNull("Find method for 'BriefAnswer' illegally returned null for id '" + id + "'", obj);
+        Assert.assertNotNull("Find method for 'BRIEF_ANSWER' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifyBriefAnswer(obj);
         Integer currentVersion = obj.getVersion();
         briefAnswerRepository.flush();
-        Assert.assertTrue("Version for 'BriefAnswer' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'BRIEF_ANSWER' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testUpdateBriefAnswerUpdate() {
         BriefAnswer obj = dod.getRandomBriefAnswer();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to provide an identifier", id);
         obj = briefAnswerService.findBriefAnswer(id);
         boolean modified =  dod.modifyBriefAnswer(obj);
         Integer currentVersion = obj.getVersion();
         BriefAnswer merged = briefAnswerService.updateBriefAnswer(obj);
         briefAnswerRepository.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
-        Assert.assertTrue("Version for 'BriefAnswer' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'BRIEF_ANSWER' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testSaveBriefAnswer() {
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", dod.getRandomBriefAnswer());
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", dod.getRandomBriefAnswer());
         BriefAnswer obj = dod.getNewTransientBriefAnswer(Integer.MAX_VALUE);
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'BriefAnswer' identifier to be null", obj.getId());
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to provide a new transient entity", obj);
+        Assert.assertNull("Expected 'BRIEF_ANSWER' identifier to be null", obj.getId());
         try {
             briefAnswerService.saveBriefAnswer(obj);
         } catch (final ConstraintViolationException e) {
@@ -122,19 +122,19 @@ privileged aspect BriefAnswerIntegrationTest_Roo_IntegrationTest {
             throw new IllegalStateException(msg.toString(), e);
         }
         briefAnswerRepository.flush();
-        Assert.assertNotNull("Expected 'BriefAnswer' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'BRIEF_ANSWER' identifier to no longer be null", obj.getId());
     }
     
     @Test
     public void BriefAnswerIntegrationTest.testDeleteBriefAnswer() {
         BriefAnswer obj = dod.getRandomBriefAnswer();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'BriefAnswer' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'BRIEF_ANSWER' failed to provide an identifier", id);
         obj = briefAnswerService.findBriefAnswer(id);
         briefAnswerService.deleteBriefAnswer(obj);
         briefAnswerRepository.flush();
-        Assert.assertNull("Failed to remove 'BriefAnswer' with identifier '" + id + "'", briefAnswerService.findBriefAnswer(id));
+        Assert.assertNull("Failed to remove 'BRIEF_ANSWER' with identifier '" + id + "'", briefAnswerService.findBriefAnswer(id));
     }
     
 }

@@ -21,7 +21,7 @@ public class SingleChoiceMobileListView extends SingleChoiceMobileListView_Roo_G
     private static SingleChoiceMobileListView instance;
 
     public SingleChoiceMobileListView() {
-        super("New SingleChoice", new CellRenderer());
+        super("New SINGLE_CHOICE", new CellRenderer());
         init();
     }
 

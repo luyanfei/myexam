@@ -18,7 +18,7 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class EntityTableFactory {
 	
-	public static interface DeleteColumnCallback<T> {
+	public static interface DeleteCallback<T> {
 		public void onDelete(T delItem);
 	}
 	
@@ -40,7 +40,7 @@ public class EntityTableFactory {
 		container.addAll(collection);
 		List<String> propertyNameList = new ArrayList<String>();
 		List<String> descriptionList = new ArrayList<String>();
-		for(Field field : clazz.getFields()) {
+		for(Field field : clazz.getDeclaredFields()) {
 			Description description = field.getAnnotation(Description.class);
 			if(description != null) {
 				propertyNameList.add(field.getName());
@@ -54,8 +54,19 @@ public class EntityTableFactory {
 		return table;
 	}
 	
+	/**
+	 * 
+	 * @param clazz
+	 * 		entity class beneath the table.
+	 * @param collection
+	 * 		collection of entity objects.
+	 * @param callback
+	 * 		delete callback for item deleting.
+	 * @return
+	 * 		the constructed vaadin table.
+	 */
 	public static <T> Table getEntityTable(Class<T> clazz, Collection<T> collection, 
-			final DeleteColumnCallback<T> callback) {
+			final DeleteCallback<T> callback) {
 		Table table = getEntityTable(clazz, collection);
 		table.addGeneratedColumn("delete", new Table.ColumnGenerator() {
 			

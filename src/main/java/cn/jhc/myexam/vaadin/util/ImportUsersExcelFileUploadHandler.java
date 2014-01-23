@@ -1,7 +1,6 @@
 package cn.jhc.myexam.vaadin.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,8 +17,6 @@ import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
 
-import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
@@ -55,11 +52,7 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		dataSet.close();
 		
 		//构建Vaadin Table
-		com.vaadin.ui.Table usersTable = new com.vaadin.ui.Table();
-		BeanItemContainer<User> container = new BeanItemContainer<User>(User.class,list);
-		usersTable.setContainerDataSource(container, Arrays.asList("username","enabled","displayName"));
-		usersTable.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
-		usersTable.setColumnHeaders("准考证号","启用","用户名");
+		com.vaadin.ui.Table usersTable = EntityTableFactory.getEntityTable(User.class, list);
 		
 		ConfirmImportRecordComponent confirmComponent = new ConfirmImportRecordComponent(usersTable);
 		confirmComponent.addCommitButtonListener(new ImportUsersCommitButtonListener( confirmComponent.getTable()));

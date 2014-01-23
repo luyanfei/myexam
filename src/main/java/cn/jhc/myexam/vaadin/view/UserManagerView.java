@@ -53,10 +53,6 @@ public class UserManagerView extends CustomComponent implements View{
 
 	private transient UserService userService;
 	
-	private BeanContainer<Long, User> container = new BeanContainer<Long, User>(User.class);
-	
-	private boolean filled = false;
-	
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	
 	/**
@@ -179,7 +175,7 @@ public class UserManagerView extends CustomComponent implements View{
 	}
 
 	public BeanContainer<Long, User> getContainer() {
-		return container;
+		return (BeanContainer<Long, User>) usersTable.getContainerDataSource();
 	}
 
 }

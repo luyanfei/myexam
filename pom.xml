@@ -389,7 +389,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eobjects.metamodel</groupId>
-			<artifactId>MetaModel-full</artifactId>
+			<artifactId>MetaModel-excel</artifactId>
 			<version>3.4.5</version>
 		</dependency>
 		<dependency>
@@ -414,6 +414,9 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
+					<annotationProcessors>
+						<annotationProcessor>cn.jhc.myexam.annotaion.DescriptionAnnotationProcessor</annotationProcessor>
+					</annotationProcessors>
 				</configuration>
 				<dependencies>
 					<dependency>

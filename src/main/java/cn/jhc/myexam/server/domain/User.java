@@ -3,6 +3,8 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
 
+import cn.jhc.myexam.annotation.Description;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,23 +28,27 @@ public class User implements Serializable{
     @NotNull
     @Column(unique = true)
     @Size(max = 64)
+    @Description("用户名")
     private String username;
 
     /**
      */
     @NotNull
     @Size(max = 1024)
+    @Description("密码")
     private String password;
 
     /**
      */
     @NotNull
     @Column(columnDefinition="bit", length=1)
+    @Description("是否启用")
     private Boolean enabled;
 
     /**
      */
     @Size(max = 128)
+    @Description("姓名")
     private String displayName;
 
     /**

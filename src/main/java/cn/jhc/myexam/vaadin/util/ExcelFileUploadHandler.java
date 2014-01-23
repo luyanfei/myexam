@@ -6,8 +6,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import org.eobjects.metamodel.DataContext;
-import org.eobjects.metamodel.DataContextFactory;
 import org.eobjects.metamodel.excel.ExcelConfiguration;
+import org.eobjects.metamodel.excel.ExcelDataContext;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
@@ -49,7 +49,7 @@ public abstract class ExcelFileUploadHandler implements Receiver,
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		ExcelConfiguration configuration = new ExcelConfiguration(1, true, true);
-		DataContext context = DataContextFactory.createExcelDataContext(file, configuration);
+		DataContext context = new ExcelDataContext(file, configuration);
 		if( !validateColumnNames(context) ) {
 			Notification.show("表结构不合要求，请修改后重新上传！", Type.ERROR_MESSAGE);
 			return;

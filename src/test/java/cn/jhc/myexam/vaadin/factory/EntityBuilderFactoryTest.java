@@ -1,4 +1,4 @@
-package cn.jhc.myexam.vaadin.util;
+package cn.jhc.myexam.vaadin.factory;
 
 import static org.junit.Assert.*;
 
@@ -8,12 +8,12 @@ import org.junit.Test;
 import com.vaadin.ui.Table;
 
 import cn.jhc.myexam.server.domain.User;
-import cn.jhc.myexam.vaadin.builder.EntityTableFactory;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityTableFactoryTest {
+public class EntityBuilderFactoryTest {
 	
 	private List<User> list = null;
 
@@ -36,7 +36,7 @@ public class EntityTableFactoryTest {
 
 	@Test
 	public void testGetEntityTable() {
-		Table t = EntityTableFactory.getEntityTable(User.class, list);
+		Table t = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list); 
 		assertEquals(3, t.getVisibleColumns().length);
 	}
 

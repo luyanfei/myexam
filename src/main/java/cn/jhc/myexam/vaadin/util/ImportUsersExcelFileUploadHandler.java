@@ -14,9 +14,10 @@ import org.eobjects.metamodel.schema.Table;
 import org.springframework.context.annotation.Scope;
 
 import cn.jhc.myexam.server.domain.User;
-import cn.jhc.myexam.vaadin.builder.EntityTableFactory;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
+import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 
 import com.vaadin.ui.Window;
 
@@ -53,7 +54,7 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		dataSet.close();
 		
 		//构建Vaadin Table
-		com.vaadin.ui.Table usersTable = EntityTableFactory.getEntityTable(User.class, list);
+		com.vaadin.ui.Table usersTable = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list); 
 		
 		ConfirmImportRecordComponent confirmComponent = new ConfirmImportRecordComponent(usersTable);
 		confirmComponent.addCommitButtonListener(new ImportUsersCommitButtonListener( confirmComponent.getTable()));

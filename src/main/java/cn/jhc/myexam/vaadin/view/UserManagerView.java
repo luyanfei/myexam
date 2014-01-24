@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
-import cn.jhc.myexam.vaadin.builder.EntityTableFactory;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.component.AddUserWindow;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
+import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 import cn.jhc.myexam.vaadin.ioc.Injector;
 import cn.jhc.myexam.vaadin.util.Constants;
 
@@ -67,8 +68,8 @@ public class UserManagerView extends CustomComponent implements View{
 		this.userService = theUserService;
 		
 		List<User> list = userService.findAllUsers();
-		EntityTableFactory.DeleteCallback<User> deleteCallback = 
-				new EntityTableFactory.DeleteCallback<User>() {
+		VaadinEntityBuilder.DeleteCallback<User> deleteCallback = 
+				new VaadinEntityBuilder.DeleteCallback<User>() {
 
 					@Override
 					public void onDelete(User delItem) {
@@ -77,7 +78,7 @@ public class UserManagerView extends CustomComponent implements View{
 						Notification.show("成功删除用户" + info);
 					}
 				};
-		usersTable = EntityTableFactory.getEntityTable(User.class, list, deleteCallback);
+		usersTable = EntityBuilderFactory.getEntityBuilder(User.class).getEntityTable(list,deleteCallback); 
 		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);

@@ -16,30 +16,23 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.themes.BaseTheme;
 
-public class EntityTableFactory {
+public class VaadinEntityBuilder<T> {
 	
+	private List<String> propertyNameList;
+	private List<String> descriptionList;
+	private Class<T> theClass;
+
 	public static interface DeleteCallback<T> {
 		public void onDelete(T delItem);
 	}
 	
-	/**
-	 * 
-	 * @param clazz
-	 * 		entity class beneath the table.
-	 * @param collection
-	 * 		collection of entity objects.
-	 * @return
-	 * 		the constructed vaadin table.
-	 */
-	public static <T> Table getEntityTable(Class<T> clazz, Collection<T> collection) {
+	public VaadinEntityBuilder(Class<T> clazz){
 		Entity entityAnnotation = clazz.getAnnotation(Entity.class);
 		if(entityAnnotation == null)
 			throw new IllegalArgumentException("clazz must has @Entity annotation.");
-		BeanContainer<Long, T> container = new BeanContainer<Long, T>(clazz);
-		container.setBeanIdProperty("id");
-		container.addAll(collection);
-		List<String> propertyNameList = new ArrayList<String>();
-		List<String> descriptionList = new ArrayList<String>();
+		this.theClass = clazz;
+		propertyNameList = new ArrayList<String>();
+		descriptionList = new ArrayList<String>();
 		for(Field field : clazz.getDeclaredFields()) {
 			Description description = field.getAnnotation(Description.class);
 			if(description != null) {
@@ -47,27 +40,24 @@ public class EntityTableFactory {
 				descriptionList.add(description.value());
 			}
 		}
+	}
+
+	public Table buildTable(Collection<T> collection) {
+
+		BeanContainer<Long, T> container = new BeanContainer<Long, T>(theClass);
+		container.setBeanIdProperty("id");
+		container.addAll(collection);
+
 		Table table = new Table();
 		table.setContainerDataSource(container, propertyNameList);
 		table.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		table.setColumnHeaders(descriptionList.toArray(new String[0]));
 		return table;
 	}
-	
-	/**
-	 * 
-	 * @param clazz
-	 * 		entity class beneath the table.
-	 * @param collection
-	 * 		collection of entity objects.
-	 * @param callback
-	 * 		delete callback for item deleting.
-	 * @return
-	 * 		the constructed vaadin table.
-	 */
-	public static <T> Table getEntityTable(Class<T> clazz, Collection<T> collection, 
+
+	public Table getEntityTable(Collection<T> collection, 
 			final DeleteCallback<T> callback) {
-		Table table = getEntityTable(clazz, collection);
+		Table table = buildTable(collection);
 		table.addGeneratedColumn("delete", new Table.ColumnGenerator() {
 			
 			@Override

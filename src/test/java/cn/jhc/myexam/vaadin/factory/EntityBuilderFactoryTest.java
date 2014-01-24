@@ -37,7 +37,7 @@ public class EntityBuilderFactoryTest {
 	@Test
 	public void testGetEntityTable() {
 		Table t = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list); 
-		assertEquals(3, t.getVisibleColumns().length);
+		assertEquals(4, t.getVisibleColumns().length);
 	}
 
 	@Test

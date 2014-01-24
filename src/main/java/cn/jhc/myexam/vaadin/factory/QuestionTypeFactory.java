@@ -1,4 +1,4 @@
-package cn.jhc.myexam.vaadin.util;
+package cn.jhc.myexam.vaadin.factory;
 
 import cn.jhc.myexam.shared.domain.QuestionType;
 

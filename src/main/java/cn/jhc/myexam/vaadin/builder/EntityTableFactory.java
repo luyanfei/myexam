@@ -1,4 +1,4 @@
-package cn.jhc.myexam.vaadin.util;
+package cn.jhc.myexam.vaadin.builder;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

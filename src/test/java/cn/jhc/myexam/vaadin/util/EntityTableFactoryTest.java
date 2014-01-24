@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.vaadin.ui.Table;
 
 import cn.jhc.myexam.server.domain.User;
+import cn.jhc.myexam.vaadin.builder.EntityTableFactory;
 
 import java.util.ArrayList;
 import java.util.List;

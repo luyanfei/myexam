@@ -14,6 +14,7 @@ import org.eobjects.metamodel.schema.Table;
 import org.springframework.context.annotation.Scope;
 
 import cn.jhc.myexam.server.domain.User;
+import cn.jhc.myexam.vaadin.builder.EntityTableFactory;
 import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
 

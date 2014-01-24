@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
-import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.component.AddUserWindow;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
 import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
@@ -54,6 +53,8 @@ public class UserManagerView extends CustomComponent implements View{
 	private AddUserWindow addUserWindow;
 
 	private transient UserService userService;
+
+	private static TableUtils.DeleteCallback<User> deleteCallback;
 	
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	
@@ -68,17 +69,16 @@ public class UserManagerView extends CustomComponent implements View{
 	public UserManagerView(UserService theUserService) {
 		this.userService = theUserService;
 		
-		List<User> list = userService.findAllUsers();
-		TableUtils.DeleteCallback<User> deleteCallback = 
-				new TableUtils.DeleteCallback<User>() {
+		deleteCallback = new TableUtils.DeleteCallback<User>() {
 
-					@Override
-					public void onDelete(User delItem) {
-						String info = delItem.getId() + "(" + delItem.getDisplayName() + ")";
-						userService.deleteUser(delItem);
-						Notification.show("成功删除用户" + info);
-					}
-				};
+			@Override
+			public void onDelete(User delItem) {
+				String info = delItem.getId() + "(" + delItem.getDisplayName() + ")";
+				userService.deleteUser(delItem);
+				Notification.show("成功删除用户" + info);
+			}
+		};
+		List<User> list = userService.findAllUsers();
 		usersTable = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list);
 		TableUtils.addDeleteColumn(usersTable, deleteCallback); 
 		
@@ -88,6 +88,7 @@ public class UserManagerView extends CustomComponent implements View{
 		usersTable.setSelectable(true);
 		usersTable.setPageLength(Constants.TABLE_PAGE_SIZE);
 
+		
 		addUserButton.addClickListener(new ClickListener() {
 			
 			@Override

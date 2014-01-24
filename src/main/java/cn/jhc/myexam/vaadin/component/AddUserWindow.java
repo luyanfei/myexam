@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
+import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
+import cn.jhc.myexam.vaadin.ui.TeacherUI;
+import cn.jhc.myexam.vaadin.view.UserManagerView;
 
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
@@ -26,15 +26,9 @@ public class AddUserWindow extends Window {
 	
 	@Autowired
 	private transient UserService userService;
-	
-	//property name and form caption
-	private final static String[][] userPropertyNames = new String[][]{
-		{"username","准考证号"}, {"password","密码"}, {"enabled","是否启用"}, {"displayName","名字"}
-	};
 
 	private FormLayout formLayout;
-	private User user;
-
+	
 	private static final long serialVersionUID = 1L;
 	
 	public AddUserWindow() {
@@ -51,39 +45,28 @@ public class AddUserWindow extends Window {
 	}
 
 	private void buildFormLayout() {
-		formLayout = new FormLayout();
-		formLayout.setCaption("添加新的考生");
-		formLayout.setStyleName("page-form");
-		mainLayout.addComponent(formLayout);
-		mainLayout.setComponentAlignment(formLayout, Alignment.MIDDLE_CENTER);
-		
-		formLayout.setMargin(true);
-		final FieldGroup userFieldGroup = new BeanFieldGroup<User>(User.class);
-		user = new User();
-		userFieldGroup.setItemDataSource(new BeanItem<User>(user));
-		for(String[] p : userPropertyNames){
-			formLayout.addComponent(userFieldGroup.buildAndBind(p[1],p[0]));
-		}
-		
-		Button okButton = new Button("保存");
-		okButton.addClickListener(new Button.ClickListener() {
-			
-			private static final long serialVersionUID = 1L;
+		formLayout = EntityBuilderFactory.getEntityBuilder(User.class)
+				.buildFormLayout("添加新的考生", new EntityFormOkCallback<User>() {
 
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void onSave(User item) {
 				try {
-					userFieldGroup.commit();
-				} catch (CommitException e) {
-					e.printStackTrace();
+					userService.saveUser(item);
+				} catch (Throwable t) {
+					//TODO: log error.
 					return;
 				}
-				userService.saveUser(user);
+				UserManagerView userManagerView = ((TeacherUI)UI.getCurrent()).getUserManagerView();
+				BeanContainer<Long,User> container = userManagerView.getContainer();
+				container.addItem(item.getId(), item);
 				Notification.show("添加考生成功");
 				AddUserWindow.this.close();
 			}
 		});
-		formLayout.addComponent(okButton);
+
+		mainLayout.addComponent(formLayout);
+		mainLayout.setComponentAlignment(formLayout, Alignment.MIDDLE_CENTER);
+
 	}
 
 	private VerticalLayout buildMainLayout() {

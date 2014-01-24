@@ -76,6 +76,7 @@ public class AddUserWindow extends Window {
 					userFieldGroup.commit();
 				} catch (CommitException e) {
 					e.printStackTrace();
+					return;
 				}
 				userService.saveUser(user);
 				Notification.show("添加考生成功");

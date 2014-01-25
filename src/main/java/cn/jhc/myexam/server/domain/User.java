@@ -38,6 +38,7 @@ public class User implements Serializable{
     @NotNull
     @Size(max = 1024)
     @Description("密码")
+    @ImportColumn
     private String password;
 
     /**

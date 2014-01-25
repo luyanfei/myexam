@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.util.Constants;
-import cn.jhc.myexam.vaadin.util.ExcelUploadHandler;
 import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizard;
 
 import com.vaadin.ui.Window;
@@ -18,11 +17,11 @@ public class ImportUsersWindow extends Window {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	public ImportUsersWindow(ExcelUploadHandler uploadHandler) {
+	public ImportUsersWindow() {
 		super("从Excel导入考生帐号");
 		center();
 		setId(Constants.ID_IMPORT_USERS_WINDOW);
-		ExcelUploadWizard<User> wizard = new ExcelUploadWizard<User>(User.class, uploadHandler);
+		ExcelUploadWizard<User> wizard = new ExcelUploadWizard<User>(User.class);
 
 		setContent(wizard);
 		

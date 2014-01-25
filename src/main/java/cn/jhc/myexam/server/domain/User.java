@@ -4,6 +4,7 @@ import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
 
 import cn.jhc.myexam.annotation.Description;
+import cn.jhc.myexam.annotation.ImportColumn;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class User implements Serializable{
     @Column(unique = true)
     @Size(max = 64)
     @Description("用户名")
+    @ImportColumn
     private String username;
 
     /**
@@ -49,6 +51,7 @@ public class User implements Serializable{
      */
     @Size(max = 128)
     @Description("姓名")
+    @ImportColumn
     private String displayName;
 
     /**

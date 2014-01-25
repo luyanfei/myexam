@@ -24,14 +24,12 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
+public class ImportUsersExcelFileUploadHandler {
 	
 	private static final Logger logger = Logger.getLogger(ImportUsersExcelFileUploadHandler.class.getName());
 	private Column usernameColumn;
 	private Column displayNameColumn;
 
-
-	@Override
 	protected void showDataWindow(DataContext context) {
 		Table table = context.getDefaultSchema().getTable(0);
 		Query query = context.query().from(table)
@@ -63,17 +61,6 @@ public class ImportUsersExcelFileUploadHandler extends ExcelFileUploadHandler {
 		importUsersWindow.setCaption("确认导入的考生数据");
 		importUsersWindow.setContent(confirmComponent);
 		importUsersWindow.center();
-	}
-
-	@Override
-	protected boolean validateColumnNames(DataContext context) {
-		Schema schema = context.getDefaultSchema();
-		Table sheet = schema.getTable(0);
-		usernameColumn = sheet.getColumnByName(ImportUsersWindow.USERNAME);
-		displayNameColumn = sheet.getColumnByName(ImportUsersWindow.DISPLAYNAME);
-		if(usernameColumn == null || displayNameColumn == null)
-			return false;
-		return true;
 	}
 
 }

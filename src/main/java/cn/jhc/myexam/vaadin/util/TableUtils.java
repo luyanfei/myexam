@@ -1,5 +1,7 @@
 package cn.jhc.myexam.vaadin.util;
 
+import java.io.Serializable;
+
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -8,7 +10,7 @@ import com.vaadin.ui.themes.BaseTheme;
 
 public class TableUtils {
 
-	public static interface DeleteCallback<T> {
+	public static interface DeleteCallback<T> extends Serializable {
 		public void onDelete(T delItem);
 	}
 

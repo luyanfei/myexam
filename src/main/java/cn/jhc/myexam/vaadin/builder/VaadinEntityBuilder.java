@@ -1,17 +1,14 @@
 package cn.jhc.myexam.vaadin.builder;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.Entity;
 
-import cn.jhc.myexam.annotation.Description;
-import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
-import cn.jhc.myexam.vaadin.component.AddUserWindow;
 import cn.jhc.myexam.vaadin.util.Constants;
+import cn.jhc.myexam.vaadin.util.PropertyData;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
@@ -21,7 +18,6 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnHeaderMode;
 
@@ -33,8 +29,7 @@ import com.vaadin.ui.Table.ColumnHeaderMode;
  */
 public class VaadinEntityBuilder<T> {
 	
-	private List<String> propertyNameList;
-	private List<String> descriptionList;
+	private PropertyData data = null;
 	private Class<T> theClass;
 	private final static Logger logger = Logger.getLogger(VaadinEntityBuilder.class.getName());
 	
@@ -64,7 +59,7 @@ public class VaadinEntityBuilder<T> {
 		}
 	}
 
-	public static interface EntityFormOkCallback<E>{
+	public static interface EntityFormOkCallback<E> extends Serializable{
 		public void onSave(E item);
 	}
 
@@ -73,15 +68,7 @@ public class VaadinEntityBuilder<T> {
 		if(entityAnnotation == null)
 			throw new IllegalArgumentException("clazz must has @Entity annotation.");
 		this.theClass = clazz;
-		propertyNameList = new ArrayList<String>();
-		descriptionList = new ArrayList<String>();
-		for(Field field : clazz.getDeclaredFields()) {
-			Description description = field.getAnnotation(Description.class);
-			if(description != null) {
-				propertyNameList.add(field.getName());
-				descriptionList.add(description.value());
-			}
-		}
+		this.data = new PropertyData(clazz);
 	}
 
 	/**
@@ -98,9 +85,9 @@ public class VaadinEntityBuilder<T> {
 		container.addAll(collection);
 
 		Table table = new Table();
-		table.setContainerDataSource(container, propertyNameList);
+		table.setContainerDataSource(container, data.getPropertyNameList());
 		table.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
-		table.setColumnHeaders(descriptionList.toArray(new String[0]));
+		table.setColumnHeaders(data.getDescriptionList().toArray(new String[0]));
 		return table;
 	}
 	
@@ -128,8 +115,8 @@ public class VaadinEntityBuilder<T> {
 			return null;
 		} 
 		fieldGroup.setItemDataSource(new BeanItem<T>(item));
-		for(int i = 0; i<propertyNameList.size(); i++){
-			formLayout.addComponent(fieldGroup.buildAndBind(descriptionList.get(i), propertyNameList.get(i)));
+		for(int i = 0; i<data.getPropertyNameList().size(); i++){
+			formLayout.addComponent(fieldGroup.buildAndBind(data.getDescriptionList().get(i), data.getPropertyNameList().get(i)));
 		}
 		
 		Button okButton = new Button("保存");
@@ -139,10 +126,10 @@ public class VaadinEntityBuilder<T> {
 	}
 
 	public List<String> getPropertyNameList() {
-		return propertyNameList;
+		return data.getPropertyNameList();
 	}
 
 	public List<String> getDescriptionList() {
-		return descriptionList;
+		return data.getDescriptionList();
 	}
 }

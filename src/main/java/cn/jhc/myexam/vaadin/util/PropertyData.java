@@ -3,6 +3,7 @@ package cn.jhc.myexam.vaadin.util;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +32,8 @@ public class PropertyData implements Serializable {
 	private List<String> propertyNameList = new ArrayList<String>();
 	private List<String> descriptionList = new ArrayList<String>();
 	private List<String> importColumnList = new ArrayList<String>();
+	
+	private Map<String, String> columnToProperty = new HashMap<String, String>();
 
 	private PropertyData(Class<?> clazz) {
 		for(Field field : clazz.getDeclaredFields()) {
@@ -39,12 +42,18 @@ public class PropertyData implements Serializable {
 			if(description != null) {
 				propertyNameList.add(field.getName());
 				descriptionList.add(description.value());
-				if(importColumn != null)
+				if(importColumn != null) {
 					importColumnList.add(description.value());
+					columnToProperty.put(description.value(), field.getName());
+				}
 			}
 		}
 	}
 
+	public String getPropertyNameByColumn(String columnName) {
+		return columnToProperty.get(columnName);
+	}
+	
 	public List<String> getPropertyNameList() {
 		return propertyNameList;
 	}

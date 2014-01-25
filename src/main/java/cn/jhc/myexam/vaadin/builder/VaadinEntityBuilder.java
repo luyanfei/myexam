@@ -85,6 +85,7 @@ public class VaadinEntityBuilder<T> {
 	public Table buildTable(Collection<T> collection) {
 
 		BeanContainer<Long, T> container = new BeanContainer<Long, T>(theClass);
+		//TODO:从excel导入的数据中id值为null，此时会导致异常
 		container.setBeanIdProperty("id");
 		container.addAll(collection);
 

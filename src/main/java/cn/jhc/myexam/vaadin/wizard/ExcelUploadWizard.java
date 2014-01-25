@@ -66,6 +66,11 @@ public class ExcelUploadWizard<T> extends Wizard
 	 * Entity list extract from excel file.
 	 */
 	private List<T> importList;
+	/**
+	 * Only after upload is successed, then wizard will go to second step.
+	 */
+	private boolean secondStepIsOK = false; 
+	
 	private SaveEntityListCallback<T> saveCallback = null;
 	
 	public ExcelUploadWizard(Class<T> clazz, SaveEntityListCallback<T> callback) {
@@ -127,7 +132,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		
 		@Override
 		public boolean onAdvance() {
-			return false;
+			return secondStepIsOK;
 		}
 
 		@Override
@@ -247,7 +252,7 @@ public class ExcelUploadWizard<T> extends Wizard
 	private static File UPLOAD_FOLDER = new File("/tmp/myexamuploads/");
 	
 	//TODO: 上传的临时文件不会自动删除，会不会造成服务器负担？
-	private File file = null; 
+	private File file = null;
 	
 	private static final long FILE_SIZE_LIMIT = 5*1024*1024; //5MB
 	
@@ -277,6 +282,7 @@ public class ExcelUploadWizard<T> extends Wizard
 			return;
 		}
 		importList = buildImportList(context);
+		secondStepIsOK  = true;
 		next();
 	}
 
@@ -300,8 +306,8 @@ public class ExcelUploadWizard<T> extends Wizard
 				T item = null;
 				BeanWrapper wrapper = new BeanWrapperImpl(theClass);
 				for (int i = 0; i < columnNames.length; i++) {
-					//TODO: 这里用columnNames是不对的，因为这是中文名称，其实应该是property name，需要改PropertyData
-					wrapper.setPropertyValue(columnNames[i], (String) row.getValue(columns[i]));
+					String property = propertyData.getPropertyNameByColumn(columnNames[i]);
+					wrapper.setPropertyValue(property, (String) row.getValue(columns[i]));
 				}
 				item = (T) wrapper.getWrappedInstance();
 				list.add(item);

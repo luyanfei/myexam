@@ -10,11 +10,15 @@ import cn.jhc.myexam.annotation.ImportColumn;
 
 public class PropertyData implements Serializable {
 	private static final long serialVersionUID = 4374520611899215576L;
+	public static PropertyData createPropertyData(Class<?> clazz) {
+		return new PropertyData(clazz);
+	}
+
 	private List<String> propertyNameList = new ArrayList<String>();
 	private List<String> descriptionList = new ArrayList<String>();
 	private List<String> importColumnList = new ArrayList<String>();
 
-	public PropertyData(Class<?> clazz) {
+	private PropertyData(Class<?> clazz) {
 		for(Field field : clazz.getDeclaredFields()) {
 			Description description = field.getAnnotation(Description.class);
 			ImportColumn importColumn = field.getAnnotation(ImportColumn.class);

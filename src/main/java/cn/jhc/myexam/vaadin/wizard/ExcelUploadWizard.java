@@ -24,7 +24,7 @@ import org.vaadin.teemu.wizards.Wizard;
 import org.vaadin.teemu.wizards.WizardStep;
 
 import cn.jhc.myexam.server.domain.User;
-import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.PropertyData;
 
@@ -71,7 +71,7 @@ public class ExcelUploadWizard<T> extends Wizard
 	public ExcelUploadWizard(Class<T> clazz, SaveEntityListCallback<T> callback) {
 		super();
 		this.theClass = clazz;
-		propertyData = new PropertyData(clazz);
+		propertyData = PropertyData.createPropertyData(clazz);
 		this.columnNames = propertyData.getImportColumnList().toArray(new String[0]);
 		this.saveCallback = callback;
 		this.addStep(new UploadExcelStep());
@@ -149,7 +149,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		@Override
 		public Component getContent() {
 			if(importList == null) return null;
-			this.table = EntityBuilderFactory.getEntityBuilder(theClass).buildTable(importList);
+			this.table = VaadinEntityBuilder.getEntityBuilder(theClass).buildTable(importList);
 			
 			mainLayout = new VerticalLayout();
 			mainLayout.setImmediate(false);

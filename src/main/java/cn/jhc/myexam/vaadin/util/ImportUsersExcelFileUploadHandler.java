@@ -17,7 +17,6 @@ import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.component.ConfirmImportRecordComponent;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
-import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 
 import com.vaadin.ui.Window;
 
@@ -52,7 +51,7 @@ public class ImportUsersExcelFileUploadHandler {
 		dataSet.close();
 		
 		//构建Vaadin Table
-		com.vaadin.ui.Table usersTable = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list); 
+		com.vaadin.ui.Table usersTable = VaadinEntityBuilder.getEntityBuilder(User.class).buildTable(list); 
 		
 		ConfirmImportRecordComponent confirmComponent = new ConfirmImportRecordComponent(usersTable);
 		confirmComponent.addCommitButtonListener(new ImportUsersCommitButtonListener( confirmComponent.getTable()));

@@ -36,7 +36,7 @@ public class EntityBuilderFactoryTest {
 		list.add(user1);
 		list.add(user2);
 		
-		userBuilder = EntityBuilderFactory.getEntityBuilder(User.class);
+		userBuilder = VaadinEntityBuilder.getEntityBuilder(User.class);
 	}
 
 	@Test

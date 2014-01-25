@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.component.AddUserWindow;
 import cn.jhc.myexam.vaadin.component.ImportUsersWindow;
-import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 import cn.jhc.myexam.vaadin.ioc.Injector;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.TableUtils;
@@ -79,7 +79,7 @@ public class UserManagerView extends CustomComponent implements View{
 			}
 		};
 		List<User> list = userService.findAllUsers();
-		usersTable = EntityBuilderFactory.getEntityBuilder(User.class).buildTable(list);
+		usersTable = VaadinEntityBuilder.getEntityBuilder(User.class).buildTable(list);
 		TableUtils.addDeleteColumn(usersTable, deleteCallback); 
 		
 		buildMainLayout();

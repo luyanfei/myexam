@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
-import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 import cn.jhc.myexam.vaadin.ui.TeacherUI;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 
@@ -45,7 +45,7 @@ public class AddUserWindow extends Window {
 	}
 
 	private void buildFormLayout() {
-		formLayout = EntityBuilderFactory.getEntityBuilder(User.class)
+		formLayout = VaadinEntityBuilder.getEntityBuilder(User.class)
 				.buildFormLayout("添加新的考生", new EntityFormOkCallback<User>() {
 
 			@Override

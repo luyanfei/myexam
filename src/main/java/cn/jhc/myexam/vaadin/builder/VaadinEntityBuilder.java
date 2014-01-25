@@ -3,6 +3,8 @@ package cn.jhc.myexam.vaadin.builder;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import javax.persistence.Entity;
@@ -31,6 +33,7 @@ public class VaadinEntityBuilder<T> {
 	
 	private PropertyData data = null;
 	private Class<T> theClass;
+	public static Map<String, VaadinEntityBuilder<?>> builders = new ConcurrentHashMap<String, VaadinEntityBuilder<?>>();
 	private final static Logger logger = Logger.getLogger(VaadinEntityBuilder.class.getName());
 	
 	private static final class EntityFormOkListener<T> implements
@@ -69,7 +72,7 @@ public class VaadinEntityBuilder<T> {
 		if(entityAnnotation == null)
 			throw new IllegalArgumentException("clazz must has @Entity annotation.");
 		this.theClass = clazz;
-		this.data = new PropertyData(clazz);
+		this.data = PropertyData.createPropertyData(clazz);
 	}
 
 	/**
@@ -132,5 +135,21 @@ public class VaadinEntityBuilder<T> {
 
 	public List<String> getDescriptionList() {
 		return data.getDescriptionList();
+	}
+
+	public static <T> VaadinEntityBuilder<T> getEntityBuilder(Class<T> clazz){
+		String className = clazz.getName();
+		VaadinEntityBuilder<T> builder = null;
+		try {
+			builder = (VaadinEntityBuilder<T>) VaadinEntityBuilder.builders.get(className);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			return null;
+		}
+		if(builder == null) {
+			builder = new VaadinEntityBuilder<T>(clazz);
+			VaadinEntityBuilder.builders.put(className, builder);
+		}
+		return builder;
 	}
 }

@@ -72,10 +72,11 @@ public class ExcelUploadWizard<T> extends Wizard
 		super();
 		this.theClass = clazz;
 		propertyData = new PropertyData(clazz);
-		this.columnNames = propertyData.getDescriptionList().toArray(new String[0]);
+		this.columnNames = propertyData.getImportColumnList().toArray(new String[0]);
 		this.saveCallback = callback;
 		this.addStep(new UploadExcelStep());
 		this.addStep(new ConfirmImportStep());
+		this.addStep(new FinishStep());
 	}
 
 	private String getCommaSeperatedImportColumns() {
@@ -98,7 +99,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		public Component getContent() {
 			VerticalLayout layout = new VerticalLayout();
 			layout.setImmediate(false);
-			layout.setSizeUndefined();
+			layout.setSizeFull();
 			layout.setSpacing(true);
 			
 			Label infoLabel = new Label("<h2>上传注意事项</h2>"
@@ -113,7 +114,7 @@ public class ExcelUploadWizard<T> extends Wizard
 			buildUpload();
 			layout.addComponent(upload);
 			layout.setComponentAlignment(upload, Alignment.MIDDLE_CENTER);
-			return null;
+			return layout;
 		}
 
 		private void buildUpload() {
@@ -205,7 +206,7 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public String getCaption() {
-			return null;
+			return "完成导入";
 		}
 
 		@Override
@@ -217,6 +218,7 @@ public class ExcelUploadWizard<T> extends Wizard
 			layout.setImmediate(false);
 			layout.setMargin(true);
 			layout.setSpacing(true);
+			layout.setSizeFull();
 			Label label = new Label("本次操作向服务器成功添加了" + successed +"条考生纪录。");
 			layout.addComponent(label);
 			if(failed > 0) {
@@ -298,6 +300,7 @@ public class ExcelUploadWizard<T> extends Wizard
 				T item = null;
 				BeanWrapper wrapper = new BeanWrapperImpl(theClass);
 				for (int i = 0; i < columnNames.length; i++) {
+					//TODO: 这里用columnNames是不对的，因为这是中文名称，其实应该是property name，需要改PropertyData
 					wrapper.setPropertyValue(columnNames[i], (String) row.getValue(columns[i]));
 				}
 				item = (T) wrapper.getWrappedInstance();

@@ -23,6 +23,8 @@ import org.springframework.beans.BeansException;
 import org.vaadin.teemu.wizards.Wizard;
 import org.vaadin.teemu.wizards.WizardStep;
 
+import cn.jhc.myexam.server.domain.User;
+import cn.jhc.myexam.vaadin.factory.EntityBuilderFactory;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.PropertyData;
 
@@ -52,14 +54,26 @@ public class ExcelUploadWizard<T> extends Wizard
 	
 	private PropertyData propertyData = null;
 	private Upload upload = null;
+	/**
+	 * Column names in excel file.
+	 */
 	private String[] columnNames = null;
+	/**
+	 * Entity class.
+	 */
 	private Class<T> theClass = null;
+	/**
+	 * Entity list extract from excel file.
+	 */
+	private List<T> importList;
+	private SaveEntityListCallback<T> saveCallback = null;
 	
-	public ExcelUploadWizard(Class<T> clazz) {
+	public ExcelUploadWizard(Class<T> clazz, SaveEntityListCallback<T> callback) {
 		super();
 		this.theClass = clazz;
 		propertyData = new PropertyData(clazz);
 		this.columnNames = propertyData.getDescriptionList().toArray(new String[0]);
+		this.saveCallback = callback;
 		this.addStep(new UploadExcelStep());
 		this.addStep(new ConfirmImportStep());
 	}
@@ -125,7 +139,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		private VerticalLayout mainLayout;
 		private CheckBox editableCheckBox;
 		private com.vaadin.ui.Table table;
-		private Button commitButton;
+
 		@Override
 		public String getCaption() {
 			return "确认上传的数据";
@@ -133,7 +147,8 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public Component getContent() {
-			this.table = new com.vaadin.ui.Table();
+			if(importList == null) return null;
+			this.table = EntityBuilderFactory.getEntityBuilder(theClass).buildTable(importList);
 			
 			mainLayout = new VerticalLayout();
 			mainLayout.setImmediate(false);
@@ -159,10 +174,6 @@ public class ExcelUploadWizard<T> extends Wizard
 			horizontalLayout.setImmediate(false);
 			horizontalLayout.setWidth("100%");
 			
-			commitButton = new Button("添加所有纪录");
-			horizontalLayout.addComponent(commitButton);
-			horizontalLayout.setComponentAlignment(commitButton, Alignment.MIDDLE_LEFT);
-			
 			editableCheckBox = new CheckBox("打开编辑模式", false);
 			horizontalLayout.addComponent(editableCheckBox);
 			horizontalLayout.setComponentAlignment(editableCheckBox, Alignment.MIDDLE_RIGHT);
@@ -179,7 +190,8 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public boolean onAdvance() {
-			return false;
+			saveCallback.saveList(importList);
+			return true;
 		}
 
 		@Override
@@ -189,6 +201,47 @@ public class ExcelUploadWizard<T> extends Wizard
 		
 	}
 
+	private class FinishStep implements WizardStep {
+
+		@Override
+		public String getCaption() {
+			return null;
+		}
+
+		@Override
+		public Component getContent() {
+			List<T> failedList = saveCallback.getFailedList();
+			int failed = failedList.size();
+			int successed = importList.size() - failedList.size();
+			VerticalLayout layout = new VerticalLayout();
+			layout.setImmediate(false);
+			layout.setMargin(true);
+			layout.setSpacing(true);
+			Label label = new Label("本次操作向服务器成功添加了" + successed +"条考生纪录。");
+			layout.addComponent(label);
+			if(failed > 0) {
+				StringBuilder builder = new StringBuilder();
+//				for(User u : failedList)
+//					builder.append("<li>" + u.getDisplayName() + "," + u.getUsername() + "</li>");
+				Label label2 = new Label("其中" + failed + "条纪录无法成功添加，具体是：<br/>"
+						+ "<ul>" + builder + "</ul>", ContentMode.HTML);
+				layout.addComponent(label2);
+			}
+			return layout;
+		}
+
+		@Override
+		public boolean onAdvance() {
+			return false;
+		}
+
+		@Override
+		public boolean onBack() {
+			return false;
+		}
+		
+	}
+	
 	private static File UPLOAD_FOLDER = new File("/tmp/myexamuploads/");
 	
 	//TODO: 上传的临时文件不会自动删除，会不会造成服务器负担？
@@ -221,7 +274,7 @@ public class ExcelUploadWizard<T> extends Wizard
 			Notification.show("表结构不合要求，请修改后重新上传！", Type.ERROR_MESSAGE);
 			return;
 		}
-		List<T> importList = buildImportList(context);
+		importList = buildImportList(context);
 		next();
 	}
 

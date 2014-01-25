@@ -53,6 +53,7 @@ public class VaadinEntityBuilder<T> {
 				fieldGroup.commit();
 			} catch (CommitException e) {
 				e.printStackTrace();
+				logger.severe(e.getMessage());
 				return;
 			}
 			callback.onSave(item);

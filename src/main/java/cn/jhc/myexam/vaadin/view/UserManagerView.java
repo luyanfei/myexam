@@ -101,8 +101,7 @@ public class UserManagerView extends CustomComponent implements View{
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				ImportUsersWindow importUsersWindow = Injector.getApplicationContext()
-						.getBean(ImportUsersWindow.class);
+				ImportUsersWindow importUsersWindow = new ImportUsersWindow(userService);
 				UI.getCurrent().addWindow(importUsersWindow);
 			}
 		});

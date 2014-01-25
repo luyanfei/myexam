@@ -33,7 +33,7 @@ public class VaadinEntityBuilder<T> {
 	
 	private PropertyData data = null;
 	private Class<T> theClass;
-	public static Map<String, VaadinEntityBuilder<?>> builders = new ConcurrentHashMap<String, VaadinEntityBuilder<?>>();
+	private static final Map<String, VaadinEntityBuilder<?>> builders = new ConcurrentHashMap<String, VaadinEntityBuilder<?>>();
 	private final static Logger logger = Logger.getLogger(VaadinEntityBuilder.class.getName());
 	
 	private static final class EntityFormOkListener<T> implements
@@ -72,7 +72,7 @@ public class VaadinEntityBuilder<T> {
 		if(entityAnnotation == null)
 			throw new IllegalArgumentException("clazz must has @Entity annotation.");
 		this.theClass = clazz;
-		this.data = PropertyData.createPropertyData(clazz);
+		this.data = PropertyData.create(clazz);
 	}
 
 	/**
@@ -137,18 +137,18 @@ public class VaadinEntityBuilder<T> {
 		return data.getDescriptionList();
 	}
 
-	public static <T> VaadinEntityBuilder<T> getEntityBuilder(Class<T> clazz){
+	public static <T> VaadinEntityBuilder<T> create(Class<T> clazz){
 		String className = clazz.getName();
 		VaadinEntityBuilder<T> builder = null;
 		try {
-			builder = (VaadinEntityBuilder<T>) VaadinEntityBuilder.builders.get(className);
+			builder = (VaadinEntityBuilder<T>) builders.get(className);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			return null;
 		}
 		if(builder == null) {
 			builder = new VaadinEntityBuilder<T>(clazz);
-			VaadinEntityBuilder.builders.put(className, builder);
+			builders.put(className, builder);
 		}
 		return builder;
 	}

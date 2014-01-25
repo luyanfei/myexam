@@ -71,7 +71,7 @@ public class ExcelUploadWizard<T> extends Wizard
 	public ExcelUploadWizard(Class<T> clazz, SaveEntityListCallback<T> callback) {
 		super();
 		this.theClass = clazz;
-		propertyData = PropertyData.createPropertyData(clazz);
+		propertyData = PropertyData.create(clazz);
 		this.columnNames = propertyData.getImportColumnList().toArray(new String[0]);
 		this.saveCallback = callback;
 		this.addStep(new UploadExcelStep());
@@ -149,7 +149,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		@Override
 		public Component getContent() {
 			if(importList == null) return null;
-			this.table = VaadinEntityBuilder.getEntityBuilder(theClass).buildTable(importList);
+			this.table = VaadinEntityBuilder.create(theClass).buildTable(importList);
 			
 			mainLayout = new VerticalLayout();
 			mainLayout.setImmediate(false);

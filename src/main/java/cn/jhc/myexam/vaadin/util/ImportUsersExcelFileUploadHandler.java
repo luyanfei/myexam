@@ -51,7 +51,7 @@ public class ImportUsersExcelFileUploadHandler {
 		dataSet.close();
 		
 		//构建Vaadin Table
-		com.vaadin.ui.Table usersTable = VaadinEntityBuilder.getEntityBuilder(User.class).buildTable(list); 
+		com.vaadin.ui.Table usersTable = VaadinEntityBuilder.create(User.class).buildTable(list); 
 		
 		ConfirmImportRecordComponent confirmComponent = new ConfirmImportRecordComponent(usersTable);
 		confirmComponent.addCommitButtonListener(new ImportUsersCommitButtonListener( confirmComponent.getTable()));

@@ -45,7 +45,7 @@ public class AddUserWindow extends Window {
 	}
 
 	private void buildFormLayout() {
-		formLayout = VaadinEntityBuilder.getEntityBuilder(User.class)
+		formLayout = VaadinEntityBuilder.create(User.class)
 				.buildFormLayout("添加新的考生", new EntityFormOkCallback<User>() {
 
 			@Override

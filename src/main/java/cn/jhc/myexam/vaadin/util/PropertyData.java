@@ -4,14 +4,28 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cn.jhc.myexam.annotation.Description;
 import cn.jhc.myexam.annotation.ImportColumn;
 
 public class PropertyData implements Serializable {
 	private static final long serialVersionUID = 4374520611899215576L;
-	public static PropertyData createPropertyData(Class<?> clazz) {
-		return new PropertyData(clazz);
+	/**
+	 * Every entity class just need only one PropertyData object.
+	 */
+	private static final Map<String, PropertyData> map = new ConcurrentHashMap<String, PropertyData>();
+	
+	public static PropertyData create(Class<?> clazz) {
+		String className = clazz.getName();
+		PropertyData data = null;
+		data = map.get(className);
+		if(data == null) {
+			data = new PropertyData(clazz);
+			map.put(className, data);
+		}
+		return data;
 	}
 
 	private List<String> propertyNameList = new ArrayList<String>();

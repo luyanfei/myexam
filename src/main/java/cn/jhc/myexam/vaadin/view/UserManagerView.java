@@ -79,7 +79,7 @@ public class UserManagerView extends CustomComponent implements View{
 			}
 		};
 		List<User> list = userService.findAllUsers();
-		usersTable = VaadinEntityBuilder.getEntityBuilder(User.class).buildTable(list);
+		usersTable = VaadinEntityBuilder.create(User.class).buildTable(list);
 		TableUtils.addDeleteColumn(usersTable, deleteCallback); 
 		
 		buildMainLayout();

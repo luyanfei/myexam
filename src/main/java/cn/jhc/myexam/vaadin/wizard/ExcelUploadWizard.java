@@ -19,11 +19,9 @@ import org.eobjects.metamodel.schema.Schema;
 import org.eobjects.metamodel.schema.Table;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.BeansException;
 import org.vaadin.teemu.wizards.Wizard;
 import org.vaadin.teemu.wizards.WizardStep;
 
-import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.PropertyData;
@@ -32,14 +30,13 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Upload;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.Upload;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.StartedListener;
@@ -71,17 +68,27 @@ public class ExcelUploadWizard<T> extends Wizard
 	 */
 	private boolean secondStepIsOK = false; 
 	
-	private ExcelUploadWizardCallback<T> saveCallback = null;
+	private ExcelUploadWizardCallback<T> wizardCallback = null;
 	
 	public ExcelUploadWizard(Class<T> clazz, ExcelUploadWizardCallback<T> callback) {
 		super();
 		this.theClass = clazz;
-		propertyData = PropertyData.create(clazz);
+		this.propertyData = PropertyData.create(clazz);
 		this.columnNames = propertyData.getImportColumnList().toArray(new String[0]);
-		this.saveCallback = callback;
+		this.wizardCallback = callback;
 		this.addStep(new UploadExcelStep());
 		this.addStep(new ConfirmImportStep());
 		this.addStep(new FinishStep());
+		getNextButton().setCaption("下一步");
+		getBackButton().setVisible(false);
+		getCancelButton().setVisible(false);
+		getFinishButton().setCaption("结束");
+	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+		wizardCallback.afterFinish();
 	}
 
 	private String getCommaSeperatedImportColumns() {
@@ -198,7 +205,7 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public boolean onAdvance() {
-			saveCallback.saveList(importList);
+			wizardCallback.saveList(importList);
 			return true;
 		}
 
@@ -218,7 +225,7 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public Component getContent() {
-			List<T> failedList = saveCallback.getFailedList();
+			List<T> failedList = wizardCallback.getFailedList();
 			int failed = failedList.size();
 			int successed = importList.size() - failedList.size();
 			VerticalLayout layout = new VerticalLayout();

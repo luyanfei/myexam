@@ -69,7 +69,6 @@ public class ImportUsersWindow extends Window {
 		setClosable(true);
 		setModal(true);
 		setResizable(false);
-		//TODO: 底部留空，加点边框
 	}
 
 }

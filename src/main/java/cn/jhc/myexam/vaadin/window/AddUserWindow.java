@@ -1,4 +1,4 @@
-package cn.jhc.myexam.vaadin.component;
+package cn.jhc.myexam.vaadin.window;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

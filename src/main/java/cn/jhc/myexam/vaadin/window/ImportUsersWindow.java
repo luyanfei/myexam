@@ -1,4 +1,4 @@
-package cn.jhc.myexam.vaadin.component;
+package cn.jhc.myexam.vaadin.window;
 
 import java.util.ArrayList;
 import java.util.List;

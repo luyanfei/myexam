@@ -71,9 +71,9 @@ public class ExcelUploadWizard<T> extends Wizard
 	 */
 	private boolean secondStepIsOK = false; 
 	
-	private SaveEntityListCallback<T> saveCallback = null;
+	private ExcelUploadWizardCallback<T> saveCallback = null;
 	
-	public ExcelUploadWizard(Class<T> clazz, SaveEntityListCallback<T> callback) {
+	public ExcelUploadWizard(Class<T> clazz, ExcelUploadWizardCallback<T> callback) {
 		super();
 		this.theClass = clazz;
 		propertyData = PropertyData.create(clazz);
@@ -241,7 +241,7 @@ public class ExcelUploadWizard<T> extends Wizard
 
 		@Override
 		public boolean onAdvance() {
-			return false;
+			return true;
 		}
 
 		@Override

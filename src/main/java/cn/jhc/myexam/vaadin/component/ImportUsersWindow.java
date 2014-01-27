@@ -9,7 +9,7 @@ import cn.jhc.myexam.vaadin.ui.TeacherUI;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizard;
-import cn.jhc.myexam.vaadin.wizard.SaveEntityListCallback;
+import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizardCallback;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.UI;
@@ -17,8 +17,8 @@ import com.vaadin.ui.Window;
 
 public class ImportUsersWindow extends Window {
 
-	private final class SaveUserListCallback implements
-			SaveEntityListCallback<User> {
+	private final class UploadUsersCallback implements
+			ExcelUploadWizardCallback<User> {
 		
 		private List<User> failedList = new ArrayList<User>();
 		
@@ -43,6 +43,11 @@ public class ImportUsersWindow extends Window {
 		public List<User> getFailedList() {
 			return failedList;
 		}
+
+		@Override
+		public void afterFinish() {
+			ImportUsersWindow.this.close();
+		}
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -56,7 +61,7 @@ public class ImportUsersWindow extends Window {
 		setHeight("600px");
 		setWidth("800px");
 		this.userService = service;
-		SaveEntityListCallback<User> callback = new SaveUserListCallback();
+		ExcelUploadWizardCallback<User> callback = new UploadUsersCallback();
 		ExcelUploadWizard<User> wizard = new ExcelUploadWizard<User>(User.class, callback);
 
 		setContent(wizard);

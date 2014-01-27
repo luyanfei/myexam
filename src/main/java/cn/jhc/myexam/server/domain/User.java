@@ -43,9 +43,10 @@ public class User implements Serializable{
 
     /**
      */
-    @Column(columnDefinition="bit default '1'", length=1)
+    @NotNull
+    @Column(columnDefinition="bit", length=1)
     @Description("是否启用")
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     /**
      */

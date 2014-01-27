@@ -9,7 +9,7 @@ import java.util.List;
  * @param <T>
  * 		Entity type.
  */
-public interface SaveEntityListCallback<T> {
+public interface ExcelUploadWizardCallback<T> {
 	/**
 	 * Implementor should provide persistence logic here. Don't forget to refresh vaadin table behind.
 	 * @param list
@@ -22,4 +22,8 @@ public interface SaveEntityListCallback<T> {
 	 * 		entities that failed to persist. The return list can be an empty list, but should not be null.
 	 */
 	public List<T> getFailedList();
+	/**
+	 * This method will be called after user click "finish" button is wizard.
+	 */
+	public void afterFinish();
 }

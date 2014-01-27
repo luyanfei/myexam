@@ -2,7 +2,7 @@ package cn.jhc.myexam.vaadin.util;
 
 import java.io.Serializable;
 
-import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Table;
@@ -26,8 +26,8 @@ public class TableUtils {
 					
 					@Override
 					public void buttonClick(ClickEvent event) {
-						BeanContainer<Long, T> bc = (BeanContainer<Long, T>)source.getContainerDataSource();
-						T delItem = bc.getItem(itemId).getBean(); 
+						BeanItemContainer<T> bc = (BeanItemContainer<T>)source.getContainerDataSource();
+						T delItem = (T)itemId;
 						source.removeItem(itemId);
 						callback.onDelete(delItem);
 					}

@@ -17,6 +17,7 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
@@ -47,7 +48,7 @@ public class VaadinEntityBuilder<T> {
 				EntityFormOkCallback<T> callback, T item) {
 			this.fieldGroup = userFieldGroup;
 			this.callback = callback;
-			this. item = item;
+			this.item = item;
 		}
 
 		@Override
@@ -84,9 +85,7 @@ public class VaadinEntityBuilder<T> {
 	 */
 	public Table buildTable(Collection<T> collection) {
 
-		BeanContainer<Long, T> container = new BeanContainer<Long, T>(theClass);
-		//TODO:从excel导入的数据中id值为null，此时会导致异常
-		container.setBeanIdProperty("id");
+		BeanItemContainer<T> container = new BeanItemContainer<T>(theClass);
 		container.addAll(collection);
 
 		Table table = new Table();

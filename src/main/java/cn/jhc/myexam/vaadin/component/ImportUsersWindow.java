@@ -11,7 +11,7 @@ import cn.jhc.myexam.vaadin.view.UserManagerView;
 import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizard;
 import cn.jhc.myexam.vaadin.wizard.SaveEntityListCallback;
 
-import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -25,7 +25,7 @@ public class ImportUsersWindow extends Window {
 		@Override
 		public void saveList(List<User> list) {
 			UserManagerView userManagerView = ((TeacherUI)UI.getCurrent()).getUserManagerView();
-			BeanContainer<Long,User> viewContainer = userManagerView.getContainer();
+			BeanItemContainer<User> viewContainer = userManagerView.getContainer();
 			for(User user : list) {
 				try {
 					userService.saveUser(user);
@@ -35,7 +35,7 @@ public class ImportUsersWindow extends Window {
 					//不能成功添加的纪录不要添加到viewContainer中
 					continue;
 				}
-				viewContainer.addItem(user.getId(), user);
+				viewContainer.addItem(user);
 			}
 		}
 
@@ -53,8 +53,8 @@ public class ImportUsersWindow extends Window {
 		super("从Excel导入考生帐号");
 		center();
 		setId(Constants.ID_IMPORT_USERS_WINDOW);
-		setHeight("400px");
-		setWidth("600px");
+		setHeight("600px");
+		setWidth("800px");
 		this.userService = service;
 		SaveEntityListCallback<User> callback = new SaveUserListCallback();
 		ExcelUploadWizard<User> wizard = new ExcelUploadWizard<User>(User.class, callback);

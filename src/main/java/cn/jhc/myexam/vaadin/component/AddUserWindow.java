@@ -11,7 +11,7 @@ import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
 import cn.jhc.myexam.vaadin.ui.TeacherUI;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 
-import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
@@ -57,8 +57,8 @@ public class AddUserWindow extends Window {
 					return;
 				}
 				UserManagerView userManagerView = ((TeacherUI)UI.getCurrent()).getUserManagerView();
-				BeanContainer<Long,User> container = userManagerView.getContainer();
-				container.addItem(item.getId(), item);
+				BeanItemContainer<User> container = userManagerView.getContainer();
+				container.addItem(item);
 				Notification.show("添加考生成功");
 				AddUserWindow.this.close();
 			}

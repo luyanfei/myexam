@@ -132,6 +132,9 @@ public class ExcelUploadWizard<T> extends Wizard
 		
 		@Override
 		public boolean onAdvance() {
+			if(!secondStepIsOK) {
+				Notification.show("必须先上传Excel文件才能进入下一步！", Notification.Type.WARNING_MESSAGE);
+			}
 			return secondStepIsOK;
 		}
 
@@ -158,15 +161,14 @@ public class ExcelUploadWizard<T> extends Wizard
 			
 			mainLayout = new VerticalLayout();
 			mainLayout.setImmediate(false);
-			mainLayout.setSizeUndefined();
+			mainLayout.setSizeFull();
 			mainLayout.setSpacing(true);
 			mainLayout.setMargin(true);
-			setCompositionRoot(mainLayout);
 			
 			table.setStyleName("page-table");
 			table.setCaption("将要添加的纪录");
 			table.setImmediate(false);
-			table.setWidth("700px");
+			table.setWidth("100%");
 			table.setHeight("-1px");
 			table.setPageLength(Constants.TABLE_PAGE_SIZE);
 			mainLayout.addComponent(table);

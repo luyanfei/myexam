@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ import cn.jhc.myexam.vaadin.util.PropertyData;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.CheckBox;
@@ -100,7 +102,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		return sb.toString();
 	}
 	
-	private class UploadExcelStep implements WizardStep{
+	private class UploadExcelStep implements WizardStep, Serializable {
 
 		@Override
 		public String getCaption() {
@@ -120,7 +122,7 @@ public class ExcelUploadWizard<T> extends Wizard
 					+ "<li>服务器只会解析第1个工作表，其它工作表中的数据会被忽略。</li>"
 					+ "<li>第1个工作表的第1行必须是表头，表头中的列名分别为\"" 
 						+ getCommaSeperatedImportColumns() + "\"（次序无关）。</li>"
-					+ "<li>服务器只解析第1列和第2列的数据，忽略第3列及以后的数据。</li></ul><br/>",
+					+ "<li>服务器只解析前" + columnNames.length + "列的数据，忽略后面的数据。</li></ul><br/>",
 					ContentMode.HTML);
 			layout.addComponent(infoLabel);
 			buildUpload();
@@ -151,7 +153,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		}
 	}
 	
-	private class ConfirmImportStep implements WizardStep {
+	private class ConfirmImportStep implements WizardStep, Serializable {
 		private VerticalLayout mainLayout;
 		private CheckBox editableCheckBox;
 		private com.vaadin.ui.Table table;
@@ -172,26 +174,11 @@ public class ExcelUploadWizard<T> extends Wizard
 			mainLayout.setSpacing(true);
 			mainLayout.setMargin(true);
 			
-			table.setStyleName("page-table");
-			table.setCaption("将要添加的纪录");
-			table.setImmediate(false);
-			table.setWidth("100%");
-			table.setHeight("-1px");
-			table.setPageLength(Constants.TABLE_PAGE_SIZE);
-			mainLayout.addComponent(table);
-
-			buildOperationsLayout();
-			return mainLayout;
-		}
-		
-		private void buildOperationsLayout() {
-			HorizontalLayout horizontalLayout = new HorizontalLayout();
-			horizontalLayout.setImmediate(false);
-			horizontalLayout.setWidth("100%");
-			
+			HorizontalLayout hLayout = new HorizontalLayout();
+			hLayout.setMargin(new MarginInfo(false,true,false,true));
+			hLayout.setWidth("100%");
+//			hLayout.setHeight("100%");
 			editableCheckBox = new CheckBox("打开编辑模式", false);
-			horizontalLayout.addComponent(editableCheckBox);
-			horizontalLayout.setComponentAlignment(editableCheckBox, Alignment.MIDDLE_RIGHT);
 			editableCheckBox.addValueChangeListener(new ValueChangeListener() {
 				
 				@Override
@@ -199,8 +186,25 @@ public class ExcelUploadWizard<T> extends Wizard
 					table.setEditable(editableCheckBox.getValue());
 				}
 			});
+			editableCheckBox.setWidth("100px");
+//			editableCheckBox.setWidth("100%");
+			hLayout.addComponent(editableCheckBox);
+			hLayout.setExpandRatio(editableCheckBox, 1.0f);
+			hLayout.setComponentAlignment(editableCheckBox, Alignment.TOP_RIGHT);
+			mainLayout.addComponent(hLayout);
+			mainLayout.setExpandRatio(hLayout, 0.0f);
 			
-			mainLayout.addComponent(horizontalLayout);
+			
+			table.setStyleName("page-table");
+			table.setCaption("将要添加的纪录");
+			table.setImmediate(false);
+			table.setWidth("100%");
+			table.setHeight("-1px");
+//			table.setPageLength(Constants.TABLE_PAGE_SIZE);
+			mainLayout.addComponent(table);
+			mainLayout.setExpandRatio(table, 1.0f);
+			
+			return mainLayout;
 		}
 
 		@Override
@@ -216,7 +220,7 @@ public class ExcelUploadWizard<T> extends Wizard
 		
 	}
 
-	private class FinishStep implements WizardStep {
+	private class FinishStep implements WizardStep, Serializable {
 
 		@Override
 		public String getCaption() {
@@ -236,11 +240,12 @@ public class ExcelUploadWizard<T> extends Wizard
 			Label label = new Label("本次操作向服务器成功添加了" + successed +"条考生纪录。");
 			layout.addComponent(label);
 			if(failed > 0) {
-				StringBuilder builder = new StringBuilder();
-//				for(User u : failedList)
-//					builder.append("<li>" + u.getDisplayName() + "," + u.getUsername() + "</li>");
+				StringBuilder sb = new StringBuilder();
+				for(T t : failedList) {
+					sb.append("<li>" + t.toString() + "</li>");
+				}
 				Label label2 = new Label("其中" + failed + "条纪录无法成功添加，具体是：<br/>"
-						+ "<ul>" + builder + "</ul>", ContentMode.HTML);
+						+ "<ul>" + sb + "</ul>", ContentMode.HTML);
 				layout.addComponent(label2);
 			}
 			return layout;

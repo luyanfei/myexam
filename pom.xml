@@ -515,6 +515,22 @@
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+				</configuration>
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>process-resources</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>update</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+			</plugin>
 			<!-- IDE -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

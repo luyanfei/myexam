@@ -97,6 +97,14 @@ public class VaadinEntityBuilder<T> {
 		return table;
 	}
 	
+	public Table buildTable(BeanItemContainer<?> container) {
+		Table table = new Table();
+		table.setContainerDataSource(container, data.getPropertyNameList());
+		table.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
+		table.setColumnHeaders(data.getDescriptionList().toArray(new String[0]));
+		return table;
+	}
+	
 	/**
 	 * Build FormLayout from Entity.
 	 * @param caption

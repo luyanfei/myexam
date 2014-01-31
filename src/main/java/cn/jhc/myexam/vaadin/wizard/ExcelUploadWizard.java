@@ -237,7 +237,7 @@ public class ExcelUploadWizard<T> extends Wizard
 			layout.setMargin(true);
 			layout.setSpacing(true);
 			layout.setSizeFull();
-			Label label = new Label("本次操作向服务器成功添加了" + successed +"条考生纪录。");
+			Label label = new Label("本次操作向服务器成功添加了" + successed +"条纪录。");
 			layout.addComponent(label);
 			if(failed > 0) {
 				StringBuilder sb = new StringBuilder();

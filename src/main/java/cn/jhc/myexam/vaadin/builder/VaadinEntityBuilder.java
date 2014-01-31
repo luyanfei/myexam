@@ -76,6 +76,12 @@ public class VaadinEntityBuilder<T> {
 		this.data = PropertyData.create(clazz);
 	}
 
+	public BeanItemContainer<T> buildContainer(Collection<T> collection) {
+		BeanItemContainer<T> container = new BeanItemContainer<T>(theClass);
+		container.addAll(collection);
+		return container;
+	}
+	
 	/**
 	 * Build vaadin table from entity collection.
 	 * @param collection
@@ -84,12 +90,8 @@ public class VaadinEntityBuilder<T> {
 	 * 		vaadin table.
 	 */
 	public Table buildTable(Collection<T> collection) {
-
-		BeanItemContainer<T> container = new BeanItemContainer<T>(theClass);
-		container.addAll(collection);
-
 		Table table = new Table();
-		table.setContainerDataSource(container, data.getPropertyNameList());
+		table.setContainerDataSource(buildContainer(collection), data.getPropertyNameList());
 		table.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		table.setColumnHeaders(data.getDescriptionList().toArray(new String[0]));
 		return table;

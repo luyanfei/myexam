@@ -5,5 +5,6 @@ import java.util.List;
 import cn.jhc.myexam.shared.domain.QuestionType;
 
 public interface QuestionsService {
-	public List<?> findAllQuestion(QuestionType type);
+	public List<?> findAllQuestions(QuestionType type);
+	public void saveQuestion(QuestionType type, Object question);
 }

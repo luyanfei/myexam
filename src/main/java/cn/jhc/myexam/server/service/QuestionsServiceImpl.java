@@ -29,7 +29,7 @@ public class QuestionsServiceImpl implements QuestionsService {
 	@Autowired
 	private TrueOrFalseRepository trueOrFalseRepository;
 	
-	public List<?> findAllQuestion(QuestionType type) {
+	public List<?> findAllQuestions(QuestionType type) {
 		if(type == SINGLE_CHOICE)
 			return singleChoiceRepository.findAll();
 		if(type == GLOSSARY)
@@ -41,5 +41,10 @@ public class QuestionsServiceImpl implements QuestionsService {
 		if(type == TRUE_OR_FALSE)
 			return trueOrFalseRepository.findAll();
 		return null;
+	}
+
+	@Override
+	public void saveQuestion(QuestionType type, Object question) {
+		
 	}
 }

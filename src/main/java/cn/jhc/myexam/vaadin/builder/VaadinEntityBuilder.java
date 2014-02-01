@@ -97,8 +97,7 @@ public class VaadinEntityBuilder<T> {
 		return table;
 	}
 	
-	public Table buildTable(BeanItemContainer<?> container) {
-		Table table = new Table();
+	public Table modifyTable(Table table, BeanItemContainer<?> container) {
 		table.setContainerDataSource(container, data.getPropertyNameList());
 		table.setColumnHeaderMode(ColumnHeaderMode.EXPLICIT);
 		table.setColumnHeaders(data.getDescriptionList().toArray(new String[0]));

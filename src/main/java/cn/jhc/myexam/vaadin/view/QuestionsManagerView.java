@@ -20,6 +20,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
@@ -63,7 +65,13 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 
 		questionTypesComboBox.addValueChangeListener(this);
 //		questionTypesComboBox.setValue(QuestionType.SINGLE_CHOICE);
-		// TODO add user code here
+		addQuestionButton.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				
+			}
+		});
 	}
 
 	private VerticalLayout buildMainLayout() {
@@ -160,7 +168,7 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	public void valueChange(ValueChangeEvent event) {
 		QuestionType type = (QuestionType)event.getProperty().getValue();
 		List list = questionsService.findAllQuestion(type);
-		Class<?> theClass = QuestionTypeFactory.getQuestionTypeClass(type);
+		Class<?> theClass = type.getEntityClass();
 		BeanItemContainer<?> container = new BeanItemContainer(theClass);
 		container.addAll(list);
 		VaadinEntityBuilder.create(theClass).modifyTable(questionsTable, container);

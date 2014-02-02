@@ -1,23 +1,37 @@
 package cn.jhc.myexam.vaadin.window;
 
+import java.util.logging.Logger;
+
+import cn.jhc.myexam.server.service.QuestionsService;
 import cn.jhc.myexam.shared.domain.QuestionType;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
+import cn.jhc.myexam.vaadin.view.QuestionsManagerView;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+@SuppressWarnings("serial")
 public class AddQuestionWindow extends Window {
+	
+	private static final Logger logger = Logger.getLogger(AddQuestionWindow.class.getName());
 
 	private VerticalLayout mainLayout;
 	private FormLayout formLayout;
 	private QuestionType questionType;
 	
-	public AddQuestionWindow(QuestionType type) {
+	private QuestionsService questionsService;
+	private QuestionsManagerView questionsManagerView;
+	
+	public AddQuestionWindow(QuestionsManagerView view, QuestionType type, QuestionsService qService) {
 		super("添加新的题目");
 		questionType = type;
+		questionsService = qService;
+		questionsManagerView = view;
+		
 		center();
 		buildMainLayout();
 		setContent(mainLayout);
@@ -35,7 +49,14 @@ public class AddQuestionWindow extends Window {
 
 					@Override
 					public void onSave(Object item) {
-						
+						try {
+							questionsService.saveQuestion(questionType, item);
+						} catch (Throwable t) {
+							logger.severe(t.getMessage());
+							return;
+						}
+						questionsManagerView.getTableContainer().addItem(item);
+						Notification.show("添加题目成功！");
 						AddQuestionWindow.this.close();
 					}
 				});

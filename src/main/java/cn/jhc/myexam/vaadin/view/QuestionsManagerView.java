@@ -35,7 +35,7 @@ import com.vaadin.ui.VerticalLayout;
 @Component @Scope("prototype") @SuppressWarnings("serial")
 public class QuestionsManagerView extends CustomComponent implements View, ValueChangeListener{
 
-	private QuestionsService questionsService;
+	private final QuestionsService questionsService;
 	
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -53,6 +53,8 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	private NativeButton addQuestionButton;
 
 	private NativeButton importQuestionsButton;
+
+	private BeanItemContainer<?> container;
 	/**
 	 * The constructor should first build the MAIN layout, set the
 	 * composition root and then do any custom initialization.
@@ -61,8 +63,8 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	 * visual editor.
 	 */
 	@Autowired
-	public QuestionsManagerView(QuestionsService questionsService) {
-		this.questionsService = questionsService;
+	public QuestionsManagerView(QuestionsService qService) {
+		this.questionsService = qService;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
@@ -77,7 +79,7 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 					Notification.show("没有选择题目类型！", Notification.Type.ERROR_MESSAGE);
 					return;
 				}
-				UI.getCurrent().addWindow(new AddQuestionWindow(type));
+				UI.getCurrent().addWindow(new AddQuestionWindow(QuestionsManagerView.this, type, questionsService));
 			}
 		});
 	}
@@ -167,6 +169,7 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		
 		return horizontalButtonsLayout;
 	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
 	}
@@ -177,9 +180,13 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		QuestionType type = (QuestionType)event.getProperty().getValue();
 		List list = questionsService.findAllQuestions(type);
 		Class<?> theClass = type.getEntityClass();
-		BeanItemContainer<?> container = new BeanItemContainer(theClass);
+		container = new BeanItemContainer(theClass);
 		container.addAll(list);
 		VaadinEntityBuilder.create(theClass).modifyTable(questionsTable, container);
+	}
+
+	public BeanItemContainer<?> getTableContainer() {
+		return container;
 	}
 
 }

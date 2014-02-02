@@ -1,5 +1,7 @@
 package cn.jhc.myexam.vaadin.window;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,8 @@ import com.vaadin.ui.Window;
 @Component @Scope("prototype")
 public class AddUserWindow extends Window {
 
+	private static final Logger logger = Logger.getLogger(AddUserWindow.class.getName());
+	
 	private VerticalLayout mainLayout;
 	
 	@Autowired
@@ -53,7 +57,7 @@ public class AddUserWindow extends Window {
 				try {
 					userService.saveUser(item);
 				} catch (Throwable t) {
-					//TODO: log error.
+					logger.severe(t.getMessage());
 					return;
 				}
 				UserManagerView userManagerView = ((TeacherUI)UI.getCurrent()).getUserManagerView();

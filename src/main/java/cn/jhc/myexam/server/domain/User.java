@@ -1,20 +1,25 @@
 package cn.jhc.myexam.server.domain;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
+
 import cn.jhc.myexam.annotation.Description;
 import cn.jhc.myexam.annotation.ImportColumn;
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.ManyToMany;
 
 @RooJavaBean
 @RooToString
@@ -62,5 +67,8 @@ public class User implements Serializable {
     /**
      */
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="user_category",
+    		joinColumns=@JoinColumn(name="user_id"),
+    		inverseJoinColumns=@JoinColumn(name="category_id"))
     private Set<Category> categories = new HashSet<Category>();
 }

@@ -344,4 +344,5 @@
 			<column name="username" />
 		</createIndex>
 	</changeSet>
+	<include file="user_category.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

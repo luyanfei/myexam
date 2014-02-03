@@ -6,9 +6,11 @@ import cn.jhc.myexam.client.managed.ui.desktop.CategoryDesktopDetailsView;
 import cn.jhc.myexam.client.managed.ui.desktop.CategoryDesktopEditView;
 import cn.jhc.myexam.client.managed.ui.desktop.CategoryDesktopListView;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.managed.ui.mobile.CategoryMobileDetailsView;
 import cn.jhc.myexam.client.managed.ui.mobile.CategoryMobileEditView;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.request.CategoryRequest;
 import cn.jhc.myexam.client.scaffold.ScaffoldApp;
 import cn.jhc.myexam.client.scaffold.place.ProxyPlace;
@@ -17,6 +19,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import java.util.List;
+import java.util.Set;
 
 public abstract class CategoryActivitiesMapper_Roo_Gwt {
 

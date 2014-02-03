@@ -68,6 +68,13 @@
             
             
             
+        
+            
+            
+            
+            
+            
+            
         <tr id="id">
                 <td>
                     <span class="{style.label}">Id:</span>
@@ -114,6 +121,14 @@
                 </td>
                 <td>
                     <span ui:field="roles"/>
+                </td>
+            </tr>
+            <tr id="categories">
+                <td>
+                    <span class="{style.label}">Categories:</span>
+                </td>
+                <td>
+                    <span ui:field="categories"/>
                 </td>
             </tr>
             <tr id="version">

@@ -5,7 +5,9 @@ import cn.jhc.myexam.client.managed.activity.CategoryEditActivityWrapper.View;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.CategoryEditView;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.activity.IsScaffoldMobileActivity;
 import cn.jhc.myexam.client.scaffold.place.ProxyEditView;
 import cn.jhc.myexam.client.scaffold.place.ProxyListPlace;
@@ -21,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public abstract class CategoryEditActivityWrapper_Roo_Gwt implements Activity, IsScaffoldMobileActivity {
 
@@ -52,6 +55,16 @@ public abstract class CategoryEditActivityWrapper_Roo_Gwt implements Activity, I
                 view.setChildrenPickerValues(values);
             }
         });
+        view.setUsersPickerValues(Collections.<UserProxy>emptyList());
+        requests.userRequest().findUserEntries(0, 50).with(cn.jhc.myexam.client.managed.ui.renderer.UserProxyRenderer.instance().getPaths()).fire(new Receiver<List<UserProxy>>() {
+
+            public void onSuccess(List<UserProxy> response) {
+                List<UserProxy> values = new ArrayList<UserProxy>();
+                values.add(null);
+                values.addAll(response);
+                view.setUsersPickerValues(values);
+            }
+        });
         wrapped.start(display, eventBus);
     }
 
@@ -60,5 +73,7 @@ public abstract class CategoryEditActivityWrapper_Roo_Gwt implements Activity, I
         void setParentPickerValues(Collection<CategoryProxy> values);
 
         void setChildrenPickerValues(Collection<CategoryProxy> values);
+
+        void setUsersPickerValues(Collection<UserProxy> values);
     }
 }

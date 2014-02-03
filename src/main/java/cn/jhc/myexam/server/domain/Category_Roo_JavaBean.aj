@@ -4,7 +4,9 @@
 package cn.jhc.myexam.server.domain;
 
 import cn.jhc.myexam.server.domain.Category;
+import cn.jhc.myexam.server.domain.User;
 import java.util.List;
+import java.util.Set;
 
 privileged aspect Category_Roo_JavaBean {
     
@@ -38,6 +40,14 @@ privileged aspect Category_Roo_JavaBean {
     
     public void Category.setChildren(List<Category> children) {
         this.children = children;
+    }
+    
+    public Set<User> Category.getUsers() {
+        return this.users;
+    }
+    
+    public void Category.setUsers(Set<User> users) {
+        this.users = users;
     }
     
 }

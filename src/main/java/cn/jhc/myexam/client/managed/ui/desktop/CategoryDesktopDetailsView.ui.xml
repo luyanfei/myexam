@@ -60,6 +60,12 @@
             
             
             
+        
+            
+            
+            
+            
+            
         <tr id="id">
                 <td>
                     <span class="{style.label}">Id:</span>
@@ -98,6 +104,14 @@
                 </td>
                 <td>
                     <span ui:field="children"/>
+                </td>
+            </tr>
+            <tr id="users">
+                <td>
+                    <span class="{style.label}">Users:</span>
+                </td>
+                <td>
+                    <span ui:field="users"/>
                 </td>
             </tr>
             <tr id="version">

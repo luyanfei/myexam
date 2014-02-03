@@ -5,9 +5,11 @@ import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.desktop.UserDesktopDetailsView;
 import cn.jhc.myexam.client.managed.ui.desktop.UserDesktopEditView;
 import cn.jhc.myexam.client.managed.ui.desktop.UserDesktopListView;
+import cn.jhc.myexam.client.managed.ui.editor.CategorySetEditor;
 import cn.jhc.myexam.client.managed.ui.editor.RoleListEditor;
 import cn.jhc.myexam.client.managed.ui.mobile.UserMobileDetailsView;
 import cn.jhc.myexam.client.managed.ui.mobile.UserMobileEditView;
+import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.RoleProxy;
 import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.request.UserRequest;
@@ -18,6 +20,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import java.util.List;
+import java.util.Set;
 
 public abstract class UserActivitiesMapper_Roo_Gwt {
 

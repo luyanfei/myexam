@@ -2,7 +2,9 @@
 
 package cn.jhc.myexam.client.managed.ui.mobile;
 import cn.jhc.myexam.client.managed.ui.UserDetailsView;
+import cn.jhc.myexam.client.managed.ui.editor.CategorySetEditor;
 import cn.jhc.myexam.client.managed.ui.editor.RoleListEditor;
+import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.RoleProxy;
 import cn.jhc.myexam.client.proxy.UserProxy;
 import com.google.gwt.core.client.GWT;
@@ -19,6 +21,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import java.util.List;
+import java.util.Set;
 
 public abstract class UserMobileDetailsView_Roo_Gwt extends Composite implements UserDetailsView {
 
@@ -41,6 +44,9 @@ public abstract class UserMobileDetailsView_Roo_Gwt extends Composite implements
     Element roles;
 
     @UiField
+    Element categories;
+
+    @UiField
     Element version;
 
     UserProxy proxy;
@@ -53,6 +59,7 @@ public abstract class UserMobileDetailsView_Roo_Gwt extends Composite implements
         enabled.setInnerText(proxy.getEnabled() == null ? "" : String.valueOf(proxy.getEnabled()));
         displayName.setInnerText(proxy.getDisplayName() == null ? "" : String.valueOf(proxy.getDisplayName()));
         roles.setInnerText(proxy.getRoles() == null ? "" : cn.jhc.myexam.client.scaffold.place.CollectionRenderer.of(cn.jhc.myexam.client.managed.ui.renderer.RoleProxyRenderer.instance()).render(proxy.getRoles()));
+        categories.setInnerText(proxy.getCategories() == null ? "" : cn.jhc.myexam.client.scaffold.place.CollectionRenderer.of(cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance()).render(proxy.getCategories()));
         version.setInnerText(proxy.getVersion() == null ? "" : String.valueOf(proxy.getVersion()));
     }
 }

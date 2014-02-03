@@ -3,7 +3,9 @@
 package cn.jhc.myexam.client.managed.ui.mobile;
 import cn.jhc.myexam.client.managed.ui.CategoryDetailsView;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,6 +20,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import java.util.List;
+import java.util.Set;
 
 public abstract class CategoryMobileDetailsView_Roo_Gwt extends Composite implements CategoryDetailsView {
 
@@ -37,6 +40,9 @@ public abstract class CategoryMobileDetailsView_Roo_Gwt extends Composite implem
     Element children;
 
     @UiField
+    Element users;
+
+    @UiField
     Element version;
 
     CategoryProxy proxy;
@@ -48,6 +54,7 @@ public abstract class CategoryMobileDetailsView_Roo_Gwt extends Composite implem
         info.setInnerText(proxy.getInfo() == null ? "" : String.valueOf(proxy.getInfo()));
         parent.setInnerText(proxy.getParent() == null ? "" : cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance().render(proxy.getParent()));
         children.setInnerText(proxy.getChildren() == null ? "" : cn.jhc.myexam.client.scaffold.place.CollectionRenderer.of(cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance()).render(proxy.getChildren()));
+        users.setInnerText(proxy.getUsers() == null ? "" : cn.jhc.myexam.client.scaffold.place.CollectionRenderer.of(cn.jhc.myexam.client.managed.ui.renderer.UserProxyRenderer.instance()).render(proxy.getUsers()));
         version.setInnerText(proxy.getVersion() == null ? "" : String.valueOf(proxy.getVersion()));
     }
 }

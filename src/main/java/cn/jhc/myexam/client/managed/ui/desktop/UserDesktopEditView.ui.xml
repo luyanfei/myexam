@@ -63,6 +63,11 @@
             
             
             
+        
+            
+            
+            
+            
         <tr id="username">
       		<td>
                     <div class="{style.label}">Username:</div>
@@ -101,6 +106,14 @@
                 </td>
       		<td>
                     <e:RoleListEditor ui:field="roles"/>
+                </td>
+      	</tr>
+            <tr id="categories">
+      		<td>
+                    <div class="{style.label}">Categories:</div>
+                </td>
+      		<td>
+                    <e:CategorySetEditor ui:field="categories"/>
                 </td>
       	</tr>
         </table>

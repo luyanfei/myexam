@@ -2,7 +2,9 @@
 
 package cn.jhc.myexam.client.managed.ui.desktop;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.place.AbstractProxyListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -94,6 +96,16 @@ public abstract class CategoryDesktopListView_Roo_Gwt extends AbstractProxyListV
                 return renderer.render(object.getChildren());
             }
         }, "Children");
+        paths.add("users");
+        table.addColumn(new TextColumn<CategoryProxy>() {
+
+            Renderer<java.util.Set> renderer = cn.jhc.myexam.client.scaffold.place.CollectionRenderer.of(cn.jhc.myexam.client.managed.ui.renderer.UserProxyRenderer.instance());
+
+            @Override
+            public String getValue(CategoryProxy object) {
+                return renderer.render(object.getUsers());
+            }
+        }, "Users");
         paths.add("version");
         table.addColumn(new TextColumn<CategoryProxy>() {
 

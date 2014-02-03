@@ -4,7 +4,9 @@ package cn.jhc.myexam.client.managed.ui.desktop;
 import cn.jhc.myexam.client.managed.activity.UserEditActivityWrapper;
 import cn.jhc.myexam.client.managed.activity.UserEditActivityWrapper.View;
 import cn.jhc.myexam.client.managed.ui.UserEditView;
+import cn.jhc.myexam.client.managed.ui.editor.CategorySetEditor;
 import cn.jhc.myexam.client.managed.ui.editor.RoleListEditor;
+import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.RoleProxy;
 import cn.jhc.myexam.client.proxy.UserProxy;
 import com.google.gwt.core.client.GWT;
@@ -33,6 +35,7 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public abstract class UserDesktopEditView_Roo_Gwt extends Composite implements View<UserDesktopEditView> {
 
@@ -56,7 +59,14 @@ public abstract class UserDesktopEditView_Roo_Gwt extends Composite implements V
     @UiField
     RoleListEditor roles;
 
+    @UiField
+    CategorySetEditor categories;
+
     public void setRolesPickerValues(Collection<RoleProxy> values) {
         roles.setAcceptableValues(values);
+    }
+
+    public void setCategoriesPickerValues(Collection<CategoryProxy> values) {
+        categories.setAcceptableValues(values);
     }
 }

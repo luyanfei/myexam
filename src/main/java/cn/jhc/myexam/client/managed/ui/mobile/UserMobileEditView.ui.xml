@@ -35,6 +35,11 @@
         
         
         
+    
+        
+        
+        
+        
     <div id="username">
             <div class="{style.label}">Username</div>
             <div class="{style.value}">
@@ -63,6 +68,12 @@
             <div class="{style.label}">Roles</div>
             <div class="{style.value}">
                 <e:RoleListEditor ui:field="roles"/>
+            </div>
+        </div>
+        <div id="categories">
+            <div class="{style.label}">Categories</div>
+            <div class="{style.value}">
+                <e:CategorySetEditor ui:field="categories"/>
             </div>
         </div>
     </g:HTMLPanel>

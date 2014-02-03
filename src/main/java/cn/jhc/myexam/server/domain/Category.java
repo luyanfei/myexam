@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.ManyToMany;
 
 @RooJavaBean
 @RooToString
@@ -35,4 +38,9 @@ public class Category {
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
     private List<Category> children = new ArrayList<Category>();
+
+    /**
+     */
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "categories")
+    private Set<User> users = new HashSet<User>();
 }

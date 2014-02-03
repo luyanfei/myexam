@@ -2,7 +2,9 @@
 
 package cn.jhc.myexam.client.managed.ui.mobile;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.ScaffoldMobileApp;
 import cn.jhc.myexam.client.scaffold.ui.MobileProxyListView;
 import com.google.gwt.i18n.client.DateTimeFormat;

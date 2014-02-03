@@ -4,7 +4,9 @@ package cn.jhc.myexam.client.managed.activity;
 import cn.jhc.myexam.client.managed.activity.UserEditActivityWrapper.View;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.UserEditView;
+import cn.jhc.myexam.client.managed.ui.editor.CategorySetEditor;
 import cn.jhc.myexam.client.managed.ui.editor.RoleListEditor;
+import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.RoleProxy;
 import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.activity.IsScaffoldMobileActivity;
@@ -22,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public abstract class UserEditActivityWrapper_Roo_Gwt implements Activity, IsScaffoldMobileActivity {
 
@@ -43,11 +46,23 @@ public abstract class UserEditActivityWrapper_Roo_Gwt implements Activity, IsSca
                 view.setRolesPickerValues(values);
             }
         });
+        view.setCategoriesPickerValues(Collections.<CategoryProxy>emptyList());
+        requests.categoryRequest().findCategoryEntries(0, 50).with(cn.jhc.myexam.client.managed.ui.renderer.CategoryProxyRenderer.instance().getPaths()).fire(new Receiver<List<CategoryProxy>>() {
+
+            public void onSuccess(List<CategoryProxy> response) {
+                List<CategoryProxy> values = new ArrayList<CategoryProxy>();
+                values.add(null);
+                values.addAll(response);
+                view.setCategoriesPickerValues(values);
+            }
+        });
         wrapped.start(display, eventBus);
     }
 
     public interface View_Roo_Gwt<V extends cn.jhc.myexam.client.managed.ui.UserEditView<V>> extends UserEditView<V> {
 
         void setRolesPickerValues(Collection<RoleProxy> values);
+
+        void setCategoriesPickerValues(Collection<CategoryProxy> values);
     }
 }

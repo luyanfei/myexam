@@ -30,6 +30,10 @@
     
         
         
+    
+        
+        
+        
     <div id="name">
             <div class="{style.label}">Name</div>
             <div class="{style.value}">
@@ -52,6 +56,12 @@
             <div class="{style.label}">Children</div>
             <div class="{style.value}">
                 <e:CategoryListEditor ui:field="children"/>
+            </div>
+        </div>
+        <div id="users">
+            <div class="{style.label}">Users</div>
+            <div class="{style.value}">
+                <e:UserSetEditor ui:field="users"/>
             </div>
         </div>
     </g:HTMLPanel>

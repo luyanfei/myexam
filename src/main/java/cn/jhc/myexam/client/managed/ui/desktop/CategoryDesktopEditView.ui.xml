@@ -57,6 +57,10 @@
         
             
             
+        
+            
+            
+            
         <tr id="name">
       		<td>
                     <div class="{style.label}">Name:</div>
@@ -87,6 +91,14 @@
                 </td>
       		<td>
                     <e:CategoryListEditor ui:field="children"/>
+                </td>
+      	</tr>
+            <tr id="users">
+      		<td>
+                    <div class="{style.label}">Users:</div>
+                </td>
+      		<td>
+                    <e:UserSetEditor ui:field="users"/>
                 </td>
       	</tr>
         </table>

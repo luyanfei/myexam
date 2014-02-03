@@ -5,7 +5,9 @@ import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.CategoryDetailsView;
 import cn.jhc.myexam.client.managed.ui.CategoryDetailsView.Delegate;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.activity.IsScaffoldMobileActivity;
 import cn.jhc.myexam.client.scaffold.place.ProxyListPlace;
 import cn.jhc.myexam.client.scaffold.place.ProxyPlace;
@@ -52,6 +54,6 @@ public abstract class CategoryDetailsActivity_Roo_Gwt extends AbstractActivity i
     }
 
     protected void find(Receiver<EntityProxy> callback) {
-        requests.find(proxyId).with("parent", "children").fire(callback);
+        requests.find(proxyId).with("parent", "children", "users").fire(callback);
     }
 }

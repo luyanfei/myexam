@@ -5,7 +5,9 @@ import cn.jhc.myexam.client.managed.activity.CategoryEditActivityWrapper;
 import cn.jhc.myexam.client.managed.activity.CategoryEditActivityWrapper.View;
 import cn.jhc.myexam.client.managed.ui.CategoryEditView;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.place.ProxyEditView;
 import cn.jhc.myexam.client.scaffold.ui.*;
 import com.google.gwt.core.client.GWT;
@@ -34,6 +36,7 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public abstract class CategoryMobileEditView_Roo_Gwt extends Composite implements View<CategoryMobileEditView> {
 
@@ -48,6 +51,13 @@ public abstract class CategoryMobileEditView_Roo_Gwt extends Composite implement
 
     @UiField
     CategoryListEditor children;
+
+    @UiField
+    UserSetEditor users;
+
+    public void setUsersPickerValues(Collection<UserProxy> values) {
+        users.setAcceptableValues(values);
+    }
 
     public void setParentPickerValues(Collection<CategoryProxy> values) {
         parent.setAcceptableValues(values);

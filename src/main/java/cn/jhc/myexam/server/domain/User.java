@@ -2,29 +2,28 @@ package cn.jhc.myexam.server.domain;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.entity.RooJpaEntity;
 import org.springframework.roo.addon.tostring.RooToString;
-
 import cn.jhc.myexam.annotation.Description;
 import cn.jhc.myexam.annotation.ImportColumn;
-
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.ManyToMany;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity(sequenceName = "user_seq")
-public class User implements Serializable{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      */
     @NotNull
     @Column(unique = true)
@@ -44,7 +43,7 @@ public class User implements Serializable{
     /**
      */
     @NotNull
-    @Column(columnDefinition="bit", length=1)
+    @Column(columnDefinition = "bit", length = 1)
     @Description("是否启用")
     private Boolean enabled = true;
 
@@ -59,4 +58,9 @@ public class User implements Serializable{
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Role> roles = new ArrayList<Role>();
+
+    /**
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Category> categories = new HashSet<Category>();
 }

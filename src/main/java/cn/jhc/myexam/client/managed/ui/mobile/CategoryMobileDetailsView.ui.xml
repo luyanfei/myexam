@@ -40,6 +40,12 @@
         
         
         
+    
+        
+        
+        
+        
+        
     <div id="id">
             <div class="{style.label}">Id</div>
             <div class="{style.value}" ui:field="id"/>
@@ -59,6 +65,10 @@
         <div id="children">
             <div class="{style.label}">Children</div>
             <div class="{style.value}" ui:field="children"/>
+        </div>
+        <div id="users">
+            <div class="{style.label}">Users</div>
+            <div class="{style.value}" ui:field="users"/>
         </div>
         <div id="version">
             <div class="{style.label}">Version</div>

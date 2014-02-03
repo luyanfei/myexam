@@ -4,6 +4,7 @@ package cn.jhc.myexam.client.proxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyForName;
 import java.util.List;
+import java.util.Set;
 import org.springframework.roo.addon.gwt.RooGwtProxy;
 
 @ProxyForName(value = "cn.jhc.myexam.server.domain.User", locator = "cn.jhc.myexam.server.locator.UserLocator")
@@ -31,6 +32,10 @@ public interface UserProxy extends EntityProxy {
     abstract List<RoleProxy> getRoles();
 
     abstract void setRoles(List<RoleProxy> roles);
+
+    abstract Set<CategoryProxy> getCategories();
+
+    abstract void setCategories(Set<CategoryProxy> categories);
 
     abstract Integer getVersion();
 }

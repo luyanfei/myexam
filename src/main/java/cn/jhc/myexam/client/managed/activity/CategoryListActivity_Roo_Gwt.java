@@ -3,7 +3,9 @@
 package cn.jhc.myexam.client.managed.activity;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.editor.CategoryListEditor;
+import cn.jhc.myexam.client.managed.ui.editor.UserSetEditor;
 import cn.jhc.myexam.client.proxy.CategoryProxy;
+import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.ScaffoldMobileApp;
 import cn.jhc.myexam.client.scaffold.activity.IsScaffoldMobileActivity;
 import cn.jhc.myexam.client.scaffold.place.AbstractProxyListActivity;
@@ -14,6 +16,7 @@ import com.google.gwt.view.client.Range;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.Request;
 import java.util.List;
+import java.util.Set;
 
 public abstract class CategoryListActivity_Roo_Gwt extends AbstractProxyListActivity<CategoryProxy> implements IsScaffoldMobileActivity {
 

@@ -4,7 +4,9 @@ package cn.jhc.myexam.client.managed.activity;
 import cn.jhc.myexam.client.managed.request.ApplicationRequestFactory;
 import cn.jhc.myexam.client.managed.ui.UserDetailsView;
 import cn.jhc.myexam.client.managed.ui.UserDetailsView.Delegate;
+import cn.jhc.myexam.client.managed.ui.editor.CategorySetEditor;
 import cn.jhc.myexam.client.managed.ui.editor.RoleListEditor;
+import cn.jhc.myexam.client.proxy.CategoryProxy;
 import cn.jhc.myexam.client.proxy.RoleProxy;
 import cn.jhc.myexam.client.proxy.UserProxy;
 import cn.jhc.myexam.client.scaffold.activity.IsScaffoldMobileActivity;
@@ -53,6 +55,6 @@ public abstract class UserDetailsActivity_Roo_Gwt extends AbstractActivity imple
     }
 
     protected void find(Receiver<EntityProxy> callback) {
-        requests.find(proxyId).with("roles").fire(callback);
+        requests.find(proxyId).with("roles", "categories").fire(callback);
     }
 }

@@ -199,3 +199,9 @@ exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-02-03 18:02:54
 quit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-02-03 18:13:29
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-02-03 18:35:55
+focus --class ~.server.domain.Category
+focus --class ~.server.domain.User
+field set --fieldName categories --type ~.server.domain.Category --cardinality MANY_TO_MANY
+focus --class ~.server.domain.Category
+field set --fieldName users --type ~.server.domain.User --cardinality MANY_TO_MANY --mappedBy categories

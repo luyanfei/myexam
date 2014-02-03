@@ -3,9 +3,11 @@
 
 package cn.jhc.myexam.server.domain;
 
+import cn.jhc.myexam.server.domain.Category;
 import cn.jhc.myexam.server.domain.Role;
 import cn.jhc.myexam.server.domain.User;
 import java.util.List;
+import java.util.Set;
 
 privileged aspect User_Roo_JavaBean {
     
@@ -47,6 +49,14 @@ privileged aspect User_Roo_JavaBean {
     
     public void User.setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+    
+    public Set<Category> User.getCategories() {
+        return this.categories;
+    }
+    
+    public void User.setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
     
 }

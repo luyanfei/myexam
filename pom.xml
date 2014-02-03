@@ -521,6 +521,8 @@
 				<version>3.0.5</version>
 				<configuration>
 					<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+					<changeLogFile>src/main/resources/liquibase/db.changelog.xml</changeLogFile>
+					<outputChangeLogFile>src/main/resources/liquibase/db.gen.xml</outputChangeLogFile>
 				</configuration>
 <!-- 				<executions> -->
 <!-- 					<execution> -->

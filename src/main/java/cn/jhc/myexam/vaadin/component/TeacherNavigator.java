@@ -16,6 +16,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.UI;
 
+@SuppressWarnings("serial")
 public class TeacherNavigator extends CustomComponent {
 	
 	private static final Logger logger = Logger.getLogger(TeacherNavigator.class.getName());

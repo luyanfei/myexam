@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+	<changeSet author="luyanfei (generated)" id="1391417934732-1">
+		<createTable catalogName="exam" tableName="glossary_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-2">
+		<createTable catalogName="exam" tableName="role_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-3">
+		<createTable catalogName="exam" tableName="quiz">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="content" type="VARCHAR(1024)" />
+			<column name="info" type="VARCHAR(2048)" />
+			<column name="name" type="VARCHAR(1024)">
+				<constraints nullable="false" />
+			</column>
+			<column name="time_close" type="time" />
+			<column name="time_open" type="time" />
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-4">
+		<createTable catalogName="exam" tableName="role">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="rolename" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="user" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-5">
+		<createTable catalogName="exam" tableName="brief_answer">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="answer" type="VARCHAR(2048)" />
+			<column name="question" type="VARCHAR(2048)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="upload_file" type="BIT(1)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-6">
+		<createTable catalogName="exam" tableName="attempt">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="answer" type="VARCHAR(2048)" />
+			<column name="question_id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="question_type" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="submit_date" type="time" />
+			<column name="version" type="INT(10)" />
+			<column name="quiz" type="BIGINT(19)" />
+			<column name="user" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-7">
+		<createTable catalogName="exam" tableName="single_choice">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="answer" type="VARCHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="optiona" type="VARCHAR(2048)" />
+			<column name="optionb" type="VARCHAR(2048)" />
+			<column name="optionc" type="VARCHAR(2048)" />
+			<column name="optiond" type="VARCHAR(2048)" />
+			<column name="question" type="VARCHAR(2048)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-8">
+		<createTable catalogName="exam" tableName="attempt_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-9">
+		<createTable catalogName="exam" tableName="true_or_false">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="answer" type="BIT(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="question" type="VARCHAR(2048)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-10">
+		<createTable catalogName="exam" tableName="fill_blank_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-11">
+		<createTable catalogName="exam" tableName="glossary">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="defination" type="VARCHAR(2048)" />
+			<column name="term" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-12">
+		<createTable catalogName="exam" tableName="user">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="display_name" type="VARCHAR(128)" />
+			<column name="enabled" type="BIT(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="VARCHAR(1024)">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-13">
+		<createTable catalogName="exam" tableName="brief_answer_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-14">
+		<createTable catalogName="exam" tableName="fill_blank">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="answer" type="VARCHAR(2048)" />
+			<column name="quantity" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="question" type="VARCHAR(2048)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="category" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-15">
+		<createTable catalogName="exam" tableName="category">
+			<column name="id" type="BIGINT(19)">
+				<constraints nullable="false" />
+			</column>
+			<column name="info" type="VARCHAR(1024)" />
+			<column name="name" type="VARCHAR(32)">
+				<constraints nullable="false" />
+			</column>
+			<column name="version" type="INT(10)" />
+			<column name="parent" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-16">
+		<createTable catalogName="exam" tableName="category_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-17">
+		<createTable catalogName="exam" tableName="user_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-18">
+		<createTable catalogName="exam" tableName="true_or_false_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-19">
+		<createTable catalogName="exam" tableName="single_choice_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-20">
+		<createTable catalogName="exam" tableName="quiz_seq">
+			<column name="next_val" type="BIGINT(19)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-21">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="fill_blank" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-22">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="user" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-23">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-24">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="brief_answer" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-25">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="true_or_false" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-26">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="glossary" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-27">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="single_choice" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-28">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="quiz" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-29">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="attempt" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-30">
+		<addPrimaryKey catalogName="exam" columnNames="id"
+			constraintName="PRIMARY" tableName="role" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-31">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="single_choice"
+			constraintName="FK_r08sdvtuploivsv631v21mm21" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-32">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="brief_answer"
+			constraintName="FK_lwtoic09iaf574aqh8uw1xnw8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-33">
+		<addForeignKeyConstraint baseColumnNames="parent"
+			baseTableCatalogName="exam" baseTableName="category"
+			constraintName="FK_d285hl23ejq8efmum8hbvqrt2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-34">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="true_or_false"
+			constraintName="FK_m7aq7l9y01nh16t9qxoo167sh" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-35">
+		<addForeignKeyConstraint baseColumnNames="user"
+			baseTableCatalogName="exam" baseTableName="role"
+			constraintName="FK_svdv2jq4dkan56efhtqpl0wgw" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="user" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-36">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="fill_blank"
+			constraintName="FK_k9ehfpuqhq0wsgfr2j8xoh76w" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-37">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="glossary"
+			constraintName="FK_ru2ephc66fp7atkl3tmhgj1ge" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-38">
+		<addForeignKeyConstraint baseColumnNames="quiz"
+			baseTableCatalogName="exam" baseTableName="attempt"
+			constraintName="FK_1ypcp3af8vnqvxmwbb0v1f257" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="quiz" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-39">
+		<addForeignKeyConstraint baseColumnNames="user"
+			baseTableCatalogName="exam" baseTableName="attempt"
+			constraintName="FK_iiv2asa2l3qrjxrvgafgdnnrr" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="user" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-40">
+		<addForeignKeyConstraint baseColumnNames="category"
+			baseTableCatalogName="exam" baseTableName="quiz"
+			constraintName="FK_27cdy9ux23mhpkg9a50j8f4f9" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableCatalogName="exam"
+			referencedTableName="category" />
+	</changeSet>
+	<changeSet author="luyanfei (generated)" id="1391417934732-41">
+		<createIndex catalogName="exam" indexName="UK_sb8bbouer5wak8vyiiy4pf2bx"
+			tableName="user" unique="true">
+			<column name="username" />
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>

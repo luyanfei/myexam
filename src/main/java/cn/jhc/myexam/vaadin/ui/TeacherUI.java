@@ -54,6 +54,7 @@ public class TeacherUI extends UI {
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("800px");
+		mainLayout.setHeight("100%");
 		
 		horizontalLayout.addComponent(mainLayout);
 		horizontalLayout.setComponentAlignment(mainLayout, Alignment.TOP_CENTER);
@@ -65,6 +66,7 @@ public class TeacherUI extends UI {
 		mainLayout.addComponent(panel);
 		panel.setWidth("100%");
 		panel.setHeight("100%");
+		mainLayout.setExpandRatio(panel, 1.0f);
 		
 		Navigator navigator = new Navigator(this, panel);
 		navigator.addView(MAIN.toString(), mainView);

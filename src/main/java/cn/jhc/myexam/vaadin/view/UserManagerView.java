@@ -80,12 +80,11 @@ public class UserManagerView extends CustomComponent implements View{
 		List<User> list = userService.findAllUsers();
 		usersTable = VaadinEntityBuilder.create(User.class).buildTable(list);
 		TableUtils.addDeleteColumn(usersTable, deleteCallback); 
+		usersTable.setSelectable(true);
+		usersTable.setPageLength(Constants.TABLE_PAGE_SIZE);
 		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-
-		usersTable.setSelectable(true);
-		usersTable.setPageLength(Constants.TABLE_PAGE_SIZE);
 		
 		addUserButton.addClickListener(new ClickListener() {
 			

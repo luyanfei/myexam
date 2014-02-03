@@ -94,7 +94,7 @@ privileged aspect GlossaryDataOnDemand_Roo_DataOnDemand {
         int to = 10;
         data = glossaryService.findGlossaryEntries(from, to);
         if (data == null) {
-            throw new IllegalStateException("Find entries implementation for 'GLOSSARY' illegally returned null");
+            throw new IllegalStateException("Find entries implementation for 'Glossary' illegally returned null");
         }
         if (!data.isEmpty()) {
             return;

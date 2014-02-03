@@ -130,7 +130,7 @@ privileged aspect SingleChoiceDataOnDemand_Roo_DataOnDemand {
         int to = 10;
         data = singleChoiceService.findSingleChoiceEntries(from, to);
         if (data == null) {
-            throw new IllegalStateException("Find entries implementation for 'SINGLE_CHOICE' illegally returned null");
+            throw new IllegalStateException("Find entries implementation for 'SingleChoice' illegally returned null");
         }
         if (!data.isEmpty()) {
             return;

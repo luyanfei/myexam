@@ -67,7 +67,7 @@ privileged aspect BriefAnswerDataOnDemand_Roo_DataOnDemand {
     }
     
     public void BriefAnswerDataOnDemand.setUploadFile(BriefAnswer obj, int index) {
-        Boolean uploadFile = Boolean.TRUE;
+        Boolean uploadFile = false;
         obj.setUploadFile(uploadFile);
     }
     
@@ -100,7 +100,7 @@ privileged aspect BriefAnswerDataOnDemand_Roo_DataOnDemand {
         int to = 10;
         data = briefAnswerService.findBriefAnswerEntries(from, to);
         if (data == null) {
-            throw new IllegalStateException("Find entries implementation for 'BRIEF_ANSWER' illegally returned null");
+            throw new IllegalStateException("Find entries implementation for 'BriefAnswer' illegally returned null");
         }
         if (!data.isEmpty()) {
             return;

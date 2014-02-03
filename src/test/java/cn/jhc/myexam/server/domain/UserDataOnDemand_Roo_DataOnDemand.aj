@@ -49,7 +49,7 @@ privileged aspect UserDataOnDemand_Roo_DataOnDemand {
     }
     
     public void UserDataOnDemand.setEnabled(User obj, int index) {
-        Boolean enabled = Boolean.TRUE;
+        Boolean enabled = true;
         obj.setEnabled(enabled);
     }
     

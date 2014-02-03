@@ -38,79 +38,79 @@ privileged aspect SingleChoiceIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void SingleChoiceIntegrationTest.testCountAllSingleChoices() {
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", dod.getRandomSingleChoice());
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", dod.getRandomSingleChoice());
         long count = singleChoiceService.countAllSingleChoices();
-        Assert.assertTrue("Counter for 'SINGLE_CHOICE' incorrectly reported there were no entries", count > 0);
+        Assert.assertTrue("Counter for 'SingleChoice' incorrectly reported there were no entries", count > 0);
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testFindSingleChoice() {
         SingleChoice obj = dod.getRandomSingleChoice();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to provide an identifier", id);
         obj = singleChoiceService.findSingleChoice(id);
-        Assert.assertNotNull("Find method for 'SINGLE_CHOICE' illegally returned null for id '" + id + "'", obj);
-        Assert.assertEquals("Find method for 'SINGLE_CHOICE' returned the incorrect identifier", id, obj.getId());
+        Assert.assertNotNull("Find method for 'SingleChoice' illegally returned null for id '" + id + "'", obj);
+        Assert.assertEquals("Find method for 'SingleChoice' returned the incorrect identifier", id, obj.getId());
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testFindAllSingleChoices() {
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", dod.getRandomSingleChoice());
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", dod.getRandomSingleChoice());
         long count = singleChoiceService.countAllSingleChoices();
-        Assert.assertTrue("Too expensive to perform a find all test for 'SINGLE_CHOICE', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
+        Assert.assertTrue("Too expensive to perform a find all test for 'SingleChoice', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
         List<SingleChoice> result = singleChoiceService.findAllSingleChoices();
-        Assert.assertNotNull("Find all method for 'SINGLE_CHOICE' illegally returned null", result);
-        Assert.assertTrue("Find all method for 'SINGLE_CHOICE' failed to return any data", result.size() > 0);
+        Assert.assertNotNull("Find all method for 'SingleChoice' illegally returned null", result);
+        Assert.assertTrue("Find all method for 'SingleChoice' failed to return any data", result.size() > 0);
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testFindSingleChoiceEntries() {
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", dod.getRandomSingleChoice());
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", dod.getRandomSingleChoice());
         long count = singleChoiceService.countAllSingleChoices();
         if (count > 20) count = 20;
         int firstResult = 0;
         int maxResults = (int) count;
         List<SingleChoice> result = singleChoiceService.findSingleChoiceEntries(firstResult, maxResults);
-        Assert.assertNotNull("Find entries method for 'SINGLE_CHOICE' illegally returned null", result);
-        Assert.assertEquals("Find entries method for 'SINGLE_CHOICE' returned an incorrect number of entries", count, result.size());
+        Assert.assertNotNull("Find entries method for 'SingleChoice' illegally returned null", result);
+        Assert.assertEquals("Find entries method for 'SingleChoice' returned an incorrect number of entries", count, result.size());
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testFlush() {
         SingleChoice obj = dod.getRandomSingleChoice();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to provide an identifier", id);
         obj = singleChoiceService.findSingleChoice(id);
-        Assert.assertNotNull("Find method for 'SINGLE_CHOICE' illegally returned null for id '" + id + "'", obj);
+        Assert.assertNotNull("Find method for 'SingleChoice' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifySingleChoice(obj);
         Integer currentVersion = obj.getVersion();
         singleChoiceRepository.flush();
-        Assert.assertTrue("Version for 'SINGLE_CHOICE' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'SingleChoice' failed to increment on flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testUpdateSingleChoiceUpdate() {
         SingleChoice obj = dod.getRandomSingleChoice();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to provide an identifier", id);
         obj = singleChoiceService.findSingleChoice(id);
         boolean modified =  dod.modifySingleChoice(obj);
         Integer currentVersion = obj.getVersion();
         SingleChoice merged = singleChoiceService.updateSingleChoice(obj);
         singleChoiceRepository.flush();
         Assert.assertEquals("Identifier of merged object not the same as identifier of original object", merged.getId(), id);
-        Assert.assertTrue("Version for 'SINGLE_CHOICE' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
+        Assert.assertTrue("Version for 'SingleChoice' failed to increment on merge and flush directive", (currentVersion != null && obj.getVersion() > currentVersion) || !modified);
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testSaveSingleChoice() {
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", dod.getRandomSingleChoice());
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", dod.getRandomSingleChoice());
         SingleChoice obj = dod.getNewTransientSingleChoice(Integer.MAX_VALUE);
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to provide a new transient entity", obj);
-        Assert.assertNull("Expected 'SINGLE_CHOICE' identifier to be null", obj.getId());
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to provide a new transient entity", obj);
+        Assert.assertNull("Expected 'SingleChoice' identifier to be null", obj.getId());
         try {
             singleChoiceService.saveSingleChoice(obj);
         } catch (final ConstraintViolationException e) {
@@ -122,19 +122,19 @@ privileged aspect SingleChoiceIntegrationTest_Roo_IntegrationTest {
             throw new IllegalStateException(msg.toString(), e);
         }
         singleChoiceRepository.flush();
-        Assert.assertNotNull("Expected 'SINGLE_CHOICE' identifier to no longer be null", obj.getId());
+        Assert.assertNotNull("Expected 'SingleChoice' identifier to no longer be null", obj.getId());
     }
     
     @Test
     public void SingleChoiceIntegrationTest.testDeleteSingleChoice() {
         SingleChoice obj = dod.getRandomSingleChoice();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to initialize correctly", obj);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to initialize correctly", obj);
         Long id = obj.getId();
-        Assert.assertNotNull("Data on demand for 'SINGLE_CHOICE' failed to provide an identifier", id);
+        Assert.assertNotNull("Data on demand for 'SingleChoice' failed to provide an identifier", id);
         obj = singleChoiceService.findSingleChoice(id);
         singleChoiceService.deleteSingleChoice(obj);
         singleChoiceRepository.flush();
-        Assert.assertNull("Failed to remove 'SINGLE_CHOICE' with identifier '" + id + "'", singleChoiceService.findSingleChoice(id));
+        Assert.assertNull("Failed to remove 'SingleChoice' with identifier '" + id + "'", singleChoiceService.findSingleChoice(id));
     }
     
 }

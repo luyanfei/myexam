@@ -14,42 +14,26 @@ import cn.jhc.myexam.vaadin.ui.TeacherUI;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 @Component @Scope("prototype")
-public class AddUserWindow extends Window {
+public class AddUserWindow extends FormWindow{
 
 	private static final Logger logger = Logger.getLogger(AddUserWindow.class.getName());
-	
-	private VerticalLayout mainLayout;
-	
+
 	@Autowired
 	private transient UserService userService;
-
-	private FormLayout formLayout;
 	
 	private static final long serialVersionUID = 1L;
 	
 	public AddUserWindow() {
-		super("添加新的考生");
-		center();
-		buildMainLayout();
-		setContent(mainLayout);
-
-		buildFormLayout();
-		
-		setClosable(true);
-		setModal(true);
-		setResizable(false);
+		setCaption("添加新的考生");
 	}
 
-	private void buildFormLayout() {
-		formLayout = VaadinEntityBuilder.create(User.class)
+	protected FormLayout buildFormLayout() {
+		FormLayout formLayout = VaadinEntityBuilder.create(User.class)
 				.buildFormLayout("添加新的考生", new EntityFormOkCallback<User>() {
 
 			@Override
@@ -68,17 +52,7 @@ public class AddUserWindow extends Window {
 			}
 		});
 
-		mainLayout.addComponent(formLayout);
-		mainLayout.setComponentAlignment(formLayout, Alignment.MIDDLE_CENTER);
-
-	}
-
-	private VerticalLayout buildMainLayout() {
-		// common part: create layout
-		mainLayout = new VerticalLayout();
-		mainLayout.setImmediate(false);
-		mainLayout.setMargin(true);
-		return mainLayout;
+		return formLayout;
 	}
 
 }

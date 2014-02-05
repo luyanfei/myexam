@@ -10,6 +10,7 @@ import cn.jhc.myexam.server.service.QuestionsService;
 import cn.jhc.myexam.shared.domain.QuestionType;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.factory.QuestionTypeFactory;
+import cn.jhc.myexam.vaadin.window.AddCategoryWindow;
 import cn.jhc.myexam.vaadin.window.AddQuestionWindow;
 
 import com.vaadin.data.Container;
@@ -57,6 +58,10 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	private NativeButton importQuestionsButton;
 
 	private BeanItemContainer<?> container;
+
+	private Label currentCategoryLabel;
+
+	private NativeButton addCategroyButton;
 	/**
 	 * The constructor should first build the MAIN layout, set the
 	 * composition root and then do any custom initialization.
@@ -72,6 +77,15 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 
 		questionTypesComboBox.addValueChangeListener(this);
 //		questionTypesComboBox.setValue(QuestionType.SINGLE_CHOICE);
+		
+		addCategroyButton.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().addWindow(new AddCategoryWindow());
+			}
+		});
+		
 		addQuestionButton.addClickListener(new Button.ClickListener() {
 			
 			@Override
@@ -124,10 +138,10 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		categoryTree = new Tree("题库类别");
 		categoryLayout.addComponent(categoryTree);
 		
-		Label currentCategoryLabel = new Label("当前选择的题库类别为：");
+		currentCategoryLabel = new Label("当前选择的题库类别为：");
 		categoryLayout.addComponent(currentCategoryLabel);
 		
-		NativeButton addCategroyButton = new NativeButton("添加新的题库类别");
+		addCategroyButton = new NativeButton("添加新的题库类别");
 		categoryLayout.addComponent(addCategroyButton);
 	}
 

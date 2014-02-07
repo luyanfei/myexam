@@ -37,7 +37,7 @@ import com.vaadin.ui.VerticalLayout;
 @Component @Scope("prototype") @SuppressWarnings("serial")
 public class QuestionsManagerView extends CustomComponent implements View, ValueChangeListener{
 
-	private final QuestionsService questionsService;
+	private final transient QuestionsService questionsService;
 
 	private VerticalLayout mainLayout;
 

@@ -5,9 +5,10 @@ import java.util.logging.Logger;
 import cn.jhc.myexam.server.service.QuestionsService;
 import cn.jhc.myexam.shared.domain.QuestionType;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
-import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormCallback;
 import cn.jhc.myexam.vaadin.view.QuestionsManagerView;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
@@ -45,7 +46,7 @@ public class AddQuestionWindow extends Window {
 	
 	private void buildFormLayout() {
 		formLayout = VaadinEntityBuilder.create(questionType.getEntityClass())
-				.buildFormLayout("添加新的题目", new EntityFormOkCallback() {
+				.buildFormLayout("添加新的题目", new EntityFormCallback() {
 
 					@Override
 					public void onSave(Object item) {
@@ -58,6 +59,11 @@ public class AddQuestionWindow extends Window {
 						questionsManagerView.getTableContainer().addItem(item);
 						Notification.show("添加题目成功！");
 						AddQuestionWindow.this.close();
+					}
+
+					@Override
+					public void addCustomField(FormLayout formLayout,
+							FieldGroup fieldGroup) {
 					}
 				});
 		

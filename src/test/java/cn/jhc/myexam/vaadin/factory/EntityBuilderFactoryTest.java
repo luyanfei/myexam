@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
-import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormOkCallback;
+import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +49,16 @@ public class EntityBuilderFactoryTest {
 
 	@Test
 	public void testGetFormLayout() {
-		FormLayout formLayout = userBuilder.buildFormLayout("Test caption", new EntityFormOkCallback<User>() {
+		FormLayout formLayout = userBuilder.buildFormLayout("Test caption", new EntityFormCallback<User>() {
 
 			@Override
 			public void onSave(User item) {
 				
+			}
+
+			@Override
+			public void addCustomField(FormLayout formLayout,
+					FieldGroup fieldGroup) {
 			}
 		});
 		assertEquals(userBuilder.getPropertyNameList().size() + 1, formLayout.getComponentCount());

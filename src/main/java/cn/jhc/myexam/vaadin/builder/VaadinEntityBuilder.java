@@ -15,7 +15,6 @@ import cn.jhc.myexam.vaadin.util.PropertyData;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
@@ -40,12 +39,12 @@ public class VaadinEntityBuilder<T> {
 	private static final class EntityFormOkListener<T> implements
 			Button.ClickListener {
 		private final FieldGroup fieldGroup;
-		private final EntityFormOkCallback<T> callback;
+		private final EntityFormCallback<T> callback;
 		private final T item;
 		private static final long serialVersionUID = 1L;
 
 		private EntityFormOkListener(FieldGroup userFieldGroup,
-				EntityFormOkCallback<T> callback, T item) {
+				EntityFormCallback<T> callback, T item) {
 			this.fieldGroup = userFieldGroup;
 			this.callback = callback;
 			this.item = item;
@@ -64,8 +63,9 @@ public class VaadinEntityBuilder<T> {
 		}
 	}
 
-	public static interface EntityFormOkCallback<E> extends Serializable{
+	public static interface EntityFormCallback<E> extends Serializable{
 		public void onSave(E item);
+		public void addCustomField(FormLayout formLayout, FieldGroup fieldGroup);
 	}
 
 	public VaadinEntityBuilder(Class<T> clazz){
@@ -113,7 +113,7 @@ public class VaadinEntityBuilder<T> {
 	 * @return
 	 * 		FormLayout object which can be used in Window or layout component.
 	 */
-	public FormLayout buildFormLayout(String caption, final EntityFormOkCallback<T> callback) {
+	public FormLayout buildFormLayout(String caption, final EntityFormCallback<T> callback) {
 		FormLayout formLayout = new FormLayout();
 		formLayout.setCaption(caption);
 		formLayout.setStyleName(Constants.STYLE_ADD_ENTITY_FORM);
@@ -131,6 +131,8 @@ public class VaadinEntityBuilder<T> {
 		for(int i = 0; i<data.getPropertyNameList().size(); i++){
 			formLayout.addComponent(fieldGroup.buildAndBind(data.getDescriptionList().get(i), data.getPropertyNameList().get(i)));
 		}
+		//After @Description processing
+		callback.addCustomField(formLayout, fieldGroup);
 		
 		Button okButton = new Button("保存");
 		okButton.addClickListener(new EntityFormOkListener<T>(fieldGroup, callback, item));

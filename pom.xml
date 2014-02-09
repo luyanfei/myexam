@@ -279,17 +279,6 @@
 			<version>1.5</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${gwt.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20090211</version>
@@ -423,17 +412,7 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
-					<annotationProcessors>
-						<annotationProcessor>cn.jhc.myexam.annotaion.DescriptionAnnotationProcessor</annotationProcessor>
-					</annotationProcessors>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.web.bindery</groupId>
-						<artifactId>requestfactory-apt</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -593,66 +572,6 @@
 						<contextPath>/${project.name}</contextPath>
 					</webAppConfig>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt.version}</version>
-				<configuration>
-					<logLevel>INFO</logLevel>
-					<style>PRETTY</style>
-					<runTarget>/manager.html</runTarget>
-					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
-					<modules>
-						<module>${project.groupId}.manager</module>
-					</modules>
-					<copyWebapp>true</copyWebapp>
-				</configuration>
-				<executions>
-					<execution>
-						<id>gwtcompile</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.gwt</groupId>
-						<artifactId>gwt-dev</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.gwt</groupId>
-						<artifactId>gwt-user</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2</version>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<id>VerifyRequestFactoryInterfaces</id>
-							<executable>java</executable>
-							<arguments>
-								<argument>-cp</argument>
-								<classpath />
-								<argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
-								<argument>${project.build.outputDirectory}</argument>
-								<argument>${project.groupId}.client.managed.request.ApplicationRequestFactory</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>

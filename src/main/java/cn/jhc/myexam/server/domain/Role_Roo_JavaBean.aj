@@ -5,6 +5,7 @@ package cn.jhc.myexam.server.domain;
 
 import cn.jhc.myexam.server.domain.Role;
 import cn.jhc.myexam.server.domain.User;
+import java.util.List;
 
 privileged aspect Role_Roo_JavaBean {
     
@@ -16,12 +17,20 @@ privileged aspect Role_Roo_JavaBean {
         this.rolename = rolename;
     }
     
-    public User Role.getUser() {
-        return this.user;
+    public String Role.getDescription() {
+        return this.description;
     }
     
-    public void Role.setUser(User user) {
-        this.user = user;
+    public void Role.setDescription(String description) {
+        this.description = description;
+    }
+    
+    public List<User> Role.getUsers() {
+        return this.users;
+    }
+    
+    public void Role.setUsers(List<User> users) {
+        this.users = users;
     }
     
 }

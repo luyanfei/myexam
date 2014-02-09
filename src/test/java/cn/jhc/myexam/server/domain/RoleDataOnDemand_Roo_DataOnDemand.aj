@@ -5,7 +5,6 @@ package cn.jhc.myexam.server.domain;
 
 import cn.jhc.myexam.server.domain.Role;
 import cn.jhc.myexam.server.domain.RoleDataOnDemand;
-import cn.jhc.myexam.server.domain.UserDataOnDemand;
 import cn.jhc.myexam.server.repository.RoleRepository;
 import cn.jhc.myexam.server.service.RoleService;
 import java.security.SecureRandom;
@@ -27,9 +26,6 @@ privileged aspect RoleDataOnDemand_Roo_DataOnDemand {
     private List<Role> RoleDataOnDemand.data;
     
     @Autowired
-    UserDataOnDemand RoleDataOnDemand.userDataOnDemand;
-    
-    @Autowired
     RoleService RoleDataOnDemand.roleService;
     
     @Autowired
@@ -37,8 +33,17 @@ privileged aspect RoleDataOnDemand_Roo_DataOnDemand {
     
     public Role RoleDataOnDemand.getNewTransientRole(int index) {
         Role obj = new Role();
+        setDescription(obj, index);
         setRolename(obj, index);
         return obj;
+    }
+    
+    public void RoleDataOnDemand.setDescription(Role obj, int index) {
+        String description = "description_" + index;
+        if (description.length() > 2048) {
+            description = description.substring(0, 2048);
+        }
+        obj.setDescription(description);
     }
     
     public void RoleDataOnDemand.setRolename(Role obj, int index) {

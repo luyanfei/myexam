@@ -216,3 +216,17 @@ quit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-02-09 16:34:58
 quit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-02-09 16:36:20
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-02-09 21:06:26
+focus --class ~.server.domain.Role
+field string --fieldName description --sizeMax 2048
+focus --class ~.server.domain.User
+// [failed] field list --fieldName roles --type ~.server.domain.Role --cardinality MANY_TO_MANY 
+field list --fieldName roles --type ~.server.domain.Role --cardinality MANY_TO_MANY 
+focus --class ~.server.domain.Role
+field list --fieldName users --type ~.server.domain.User --cardinality MANY_TO_MANY --mappedBy roles
+focus --class ~.server.domain.User
+field string --fieldName email --sizeMin 6 --sizeMax 128 --regexp ^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*
+// [failed] field string --fieldName email --sizeMin 6 --sizeMax 128 --regexp ^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$
+field string --fieldName email --sizeMin 6 --sizeMax 128 --regexp ^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$
+quit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-02-09 23:59:08

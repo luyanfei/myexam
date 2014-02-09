@@ -34,6 +34,7 @@ privileged aspect UserDataOnDemand_Roo_DataOnDemand {
     public User UserDataOnDemand.getNewTransientUser(int index) {
         User obj = new User();
         setDisplayName(obj, index);
+        setEmail(obj, index);
         setEnabled(obj, index);
         setPassword(obj, index);
         setUsername(obj, index);
@@ -46,6 +47,14 @@ privileged aspect UserDataOnDemand_Roo_DataOnDemand {
             displayName = displayName.substring(0, 128);
         }
         obj.setDisplayName(displayName);
+    }
+    
+    public void UserDataOnDemand.setEmail(User obj, int index) {
+        String email = "foo" + index + "@bar.com";
+        if (email.length() > 128) {
+            email = email.substring(0, 128);
+        }
+        obj.setEmail(email);
     }
     
     public void UserDataOnDemand.setEnabled(User obj, int index) {

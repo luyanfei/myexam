@@ -3,3 +3,5 @@ gwt-unitCache/
 .settings/
 target/
 /.apt_generated
+/target
+/target

@@ -74,11 +74,6 @@
 <!-- 		</init-param> -->
 <!-- 		<load-on-startup>1</load-on-startup> -->
 <!-- 	</servlet> -->
-
-	<servlet>
-		<servlet-name>requestFactory</servlet-name>
-		<servlet-class>cn.jhc.myexam.server.CustomRequestFactoryServlet</servlet-class>
-	</servlet>
 	
 	<servlet>
 		<servlet-name>vaadinServlet</servlet-name>
@@ -93,15 +88,9 @@
 <!-- 		<servlet-name>myexam</servlet-name> -->
 <!-- 		<url-pattern>/</url-pattern> -->
 <!-- 	</servlet-mapping> -->
-	<servlet-mapping>
-		<servlet-name>requestFactory</servlet-name>
-		<url-pattern>/gwtRequest</url-pattern>
-	</servlet-mapping>
+
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
-
-
-
 
 </web-app>

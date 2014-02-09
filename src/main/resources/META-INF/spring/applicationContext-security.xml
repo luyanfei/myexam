@@ -5,21 +5,22 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <!-- HTTP security configurations -->
-    <http auto-config="true" use-expressions="true" entry-point-ref="entryPoint">
+    <http use-expressions="true">
         <form-login
-        	login-page="/login.html"
-        	authentication-failure-url="/login?login_error=t"
-        	default-target-url="/exam/"/>
+        	login-page="/login/"
+        	authentication-failure-url="/login/?login_error=t"
+        	default-target-url="/teacher/"/>
         <logout logout-url="/j_spring_security_logout" />
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/login.html" access="permitAll" />
+        <intercept-url pattern="/login/**" access="permitAll" />
         <intercept-url pattern="/exam/**" access="isAuthenticated()" />
 <!--         <intercept-url pattern="/manager/**" access="hasRole('ROLE_TEACHER')"/> -->
-        <intercept-url pattern="/teacher/**" access="permitAll"/>
+        <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/gwtRequest*/**" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/myexam/**" access="permitAll" />
         <intercept-url pattern="/VAADIN/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />
+        <remember-me />
     </http>
     <!-- Configure Authentication mechanism -->
     <authentication-manager alias="authenticationManager">
@@ -32,8 +33,4 @@
             </user-service>
         </authentication-provider>
     </authentication-manager>
-    
-    <beans:bean id="entryPoint"
-    	class="cn.jhc.myexam.security.GwtAuthenticationEntryPoint">
-    </beans:bean>
 </beans:beans>

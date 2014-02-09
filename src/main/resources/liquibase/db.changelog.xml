@@ -345,4 +345,5 @@
 		</createIndex>
 	</changeSet>
 	<include file="user_category.sql" relativeToChangelogFile="true"/>
+	<include file="seq_init.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -33,18 +33,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/opt/gwt-2.5.1/gwt-user.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/opt/gwt-2.5.1/doc/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/opt/gwt-2.5.1/gwt-dev.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/opt/gwt-2.5.1/doc/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/opt/gwt-2.5.1/validation-api-1.0.0.GA.jar" sourcepath="/opt/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar"/>
-	<classpathentry kind="lib" path="/opt/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
 			<attribute name="optional" value="true"/>

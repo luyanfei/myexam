@@ -7,30 +7,33 @@
     <!-- HTTP security configurations -->
     <http use-expressions="true">
         <form-login
-        	login-page="/login/"
-        	authentication-failure-url="/login/?login_error=t"
-        	default-target-url="/teacher/"/>
-        <logout logout-url="/j_spring_security_logout" />
+        	login-page="/login/"/>
         <!-- Configure these elements to secure URIs in your application -->
         <intercept-url pattern="/login/**" access="permitAll" />
-        <intercept-url pattern="/exam/**" access="isAuthenticated()" />
-<!--         <intercept-url pattern="/manager/**" access="hasRole('ROLE_TEACHER')"/> -->
-        <intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
-        <intercept-url pattern="/gwtRequest*/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/exam/**" access="hasRole('CANDIDATE')" />
+        <intercept-url pattern="/teacher/**" access="hasRole('TEACHER')"/>
+        <intercept-url pattern="/gwtRequest*/**" access="hasRole('MANAGER')" />
         <intercept-url pattern="/myexam/**" access="permitAll" />
         <intercept-url pattern="/VAADIN/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />
-        <remember-me />
+        <remember-me token-validity-seconds="86400"
+        	key="myexam-key-20140210-330b45b18aefb0778d1f8f33a487bab5" />
     </http>
     <!-- Configure Authentication mechanism -->
     <authentication-manager alias="authenticationManager">
         <!-- SHA-256 values can be produced using 'echo -n your_desired_password | sha256sum' (using normal *nix environments) -->
         <authentication-provider>
-            <password-encoder hash="sha-256" />
-            <user-service>
-                <user name="admin" password="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" authorities="ROLE_ADMIN" />
-                <user name="user" password="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb" authorities="ROLE_USER" />
-            </user-service>
+        <jdbc-user-service data-source-ref="dataSource" id="userDetailsService" 
+        	users-by-username-query="select username,password,enabled from user where username=?"
+        	authorities-by-username-query=
+        		"select u.username,r.rolename 
+        		from user u join user_role ur 
+        		on u.id=ur.user_id 
+        		join role r 
+        		on ur.role_id=r.id 
+        		where u.username=?"/>
         </authentication-provider>
     </authentication-manager>
+    <!-- Security event logging -->
+	<beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener" />
 </beans:beans>

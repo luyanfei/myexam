@@ -51,3 +51,7 @@ alter table role add column description varchar(2048) default null;
 --changeset luyanfei_schema:10
 alter table user add column email varchar(128) default null;
 --rollback alter table user drop column email;
+
+--changeset luyanfei_schema:11
+alter table attempt modify question_type varchar(64) not null;
+--roolback alter table attempt modify question_type int(10) not null;

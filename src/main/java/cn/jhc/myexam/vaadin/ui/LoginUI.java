@@ -83,6 +83,7 @@ public class LoginUI extends UI implements ClickListener{
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (AuthenticationException e) {
 			Notification.show("认证失败：" + e.getMessage(), Notification.Type.WARNING_MESSAGE);
+			return;
 		}
 		//login successed
 		String rememberMeUrl = rememberMeBox.getValue() ? "?_spring_security_remember_me=true" : "";

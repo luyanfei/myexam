@@ -25,7 +25,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@Theme("myexamtheme")
+@Theme("myexam")
 @Component
 @Scope("prototype")
 public class TeacherUI extends UI {

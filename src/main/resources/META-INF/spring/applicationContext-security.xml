@@ -10,10 +10,10 @@
         	login-page="/login/"/>
         <!-- Configure these elements to secure URIs in your application -->
         <intercept-url pattern="/login/**" access="permitAll" />
+        <intercept-url pattern="/user/**" access="isAuthenticated" />
         <intercept-url pattern="/exam/**" access="hasRole('CANDIDATE')" />
         <intercept-url pattern="/teacher/**" access="hasRole('TEACHER')"/>
         <intercept-url pattern="/gwtRequest*/**" access="hasRole('MANAGER')" />
-        <intercept-url pattern="/myexam/**" access="permitAll" />
         <intercept-url pattern="/VAADIN/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />
         <remember-me token-validity-seconds="86400"

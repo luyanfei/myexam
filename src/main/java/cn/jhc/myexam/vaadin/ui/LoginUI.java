@@ -36,7 +36,7 @@ public class LoginUI extends UI implements ClickListener{
 
 	private transient AuthenticationManager authenticationManager;
 	
-	private final static String DEFAULT_TARGET_URL = "/teacher/";
+	private final static String DEFAULT_TARGET_URL = "/user/";
 	
 	@WebServlet(urlPatterns= {"/login/*"}, asyncSupported=true, 
 			initParams = {@WebInitParam(name="UIProvider", value="cn.jhc.myexam.vaadin.ioc.AutowiredUIProvider")})

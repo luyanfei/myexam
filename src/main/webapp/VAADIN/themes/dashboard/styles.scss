@@ -1,4 +1,3 @@
-@import "addons.scss";
 @import "dashboard.scss";
 
 @include icons-fontello;
@@ -7,8 +6,6 @@
 /* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
 /* The actual styles should be defined in dashboard.scss */
 .dashboard {
-  @include addons;
-
   // Include dashboard theme styles in your theme
   @include dashboard;
 }

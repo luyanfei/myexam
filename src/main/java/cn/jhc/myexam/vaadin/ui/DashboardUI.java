@@ -1,13 +1,36 @@
 package cn.jhc.myexam.vaadin.ui;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import cn.jhc.myexam.vaadin.view.DashboardView;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.server.Page;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 @Theme("dashboard")
@@ -19,12 +42,151 @@ public class DashboardUI extends UI {
 	public static class Servlet extends VaadinServlet{
 	}
 	
+	private Navigator nav;
+	
+    private VerticalLayout root;
+
+	private HorizontalLayout content = new HorizontalLayout();
+	
+	private CssLayout menu = new CssLayout();
+	
+    HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
+
 	@Override
 	protected void init(VaadinRequest request) {
 		checkNewUser();
-		
+        root = new VerticalLayout();
+        root.setSizeFull();
+        setContent(root);
+        
+        buildMainView();
+	}
+	protected void buildMainView() {
+        nav = new Navigator(this, content);
+        nav.addView("/dashboard", DashboardView.class);
+        HorizontalLayout mainLayout = new HorizontalLayout();
+        mainLayout.setSizeFull();
+        mainLayout.addStyleName("main-view");
+        
+        VerticalLayout sidebarLayout = new VerticalLayout();
+        sidebarLayout.addStyleName("sidebar");
+        sidebarLayout.setWidth(null);
+        sidebarLayout.setHeight("100%");
+        //Branding element
+        sidebarLayout.addComponent(new CssLayout() {
+            {
+                addStyleName("branding");
+                Label logo = new Label("<span>在线考试系统</span> 仪表盘", ContentMode.HTML);
+                logo.setSizeUndefined();
+                addComponent(logo);
+                // addComponent(new Image(null, new
+                // ThemeResource(
+                // "img/branding.png")));
+            }
+        });
+        
+        sidebarLayout.addComponent(menu);
+        sidebarLayout.setExpandRatio(menu, 1.0f);
+        
+        sidebarLayout.addComponent(buildUserMenu());
+        
+        mainLayout.addComponent(sidebarLayout);
+        mainLayout.addComponent(content);
+        content.setSizeFull();
+        content.addStyleName("view-content");
+        mainLayout.setExpandRatio(content, 1);
+        root.addComponent(mainLayout);
+        
+        buildMenu();
 	}
 
+	private void buildMenu() {
+		menu.removeAllComponents();
+        for (final String view : new String[] { "dashboard", "sales",
+                "transactions", "reports", "schedule" }) {
+            Button b = new NativeButton(view.substring(0, 1).toUpperCase()
+                    + view.substring(1).replace('-', ' '));
+            b.addStyleName("icon-" + view);
+            b.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                    clearMenuSelection();
+                    event.getButton().addStyleName("selected");
+                    if (!nav.getState().equals("/" + view))
+                        nav.navigateTo("/" + view);
+                }
+            });
+            menu.addComponent(b);
+            viewNameToMenuButton.put("/" + view, b);
+        }
+        
+        menu.addStyleName("menu");
+        menu.setHeight("100%");
+
+        viewNameToMenuButton.get("/dashboard").setHtmlContentAllowed(true);
+        viewNameToMenuButton.get("/dashboard").setCaption(
+                "仪表盘<span class=\"badge\">2</span>");
+
+        String f = Page.getCurrent().getUriFragment();
+        if (f != null && f.startsWith("!")) {
+            f = f.substring(1);
+        }
+        if (f == null || f.equals("") || f.equals("/")) {
+            nav.navigateTo("/dashboard");
+            menu.getComponent(0).addStyleName("selected");
+
+        } else {
+            nav.navigateTo(f);
+
+            viewNameToMenuButton.get(f).addStyleName("selected");
+        }
+	}
+	
+    private void clearMenuSelection() {
+        for (Iterator<Component> it = menu.iterator(); it.hasNext();) {
+            Component next = it.next();
+            if (next instanceof NativeButton) {
+                next.removeStyleName("selected");
+            } 
+        }
+    }
+
+	private VerticalLayout buildUserMenu() {
+		VerticalLayout userLayout = new VerticalLayout();
+		userLayout.setSizeUndefined();
+		userLayout.addStyleName("user");
+		
+		Image profile = new Image(null, new ThemeResource("img/profile-pic.png"));
+		profile.setWidth("34px");
+		userLayout.addComponent(profile);
+		
+		Label userName = new Label();
+		userName.setSizeUndefined();
+		userLayout.addComponent(userName);
+		
+		Command cmd = new Command() {
+            @Override
+            public void menuSelected(
+                    MenuItem selectedItem) {
+                Notification.show("Not implemented in this demo");
+            }
+        };
+        MenuBar settings = new MenuBar();
+        MenuItem settingsMenu = settings.addItem("",
+                null);
+        settingsMenu.setStyleName("icon-cog");
+        settingsMenu.addItem("Settings", cmd);
+        settingsMenu.addItem("Preferences", cmd);
+        settingsMenu.addSeparator();
+        settingsMenu.addItem("My Account", cmd);
+        userLayout.addComponent(settings);
+        
+        Button exit = new NativeButton("Exit");
+        exit.addStyleName("icon-cancel");
+        exit.setDescription("Sign Out");
+        userLayout.addComponent(exit);
+		return userLayout;
+	}
 	/**
 	 * If user is logged in by authentication provider other than system database, these user should be added to system.
 	 */

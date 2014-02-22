@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.vaadin.component.TeacherNavigator;
-import cn.jhc.myexam.vaadin.view.MainView;
+import cn.jhc.myexam.vaadin.view.DashboardView;
 import cn.jhc.myexam.vaadin.view.QuestionsManagerView;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 
@@ -32,7 +32,7 @@ public class TeacherUI extends UI {
 	
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private MainView mainView;
+	private DashboardView mainView;
 	@Autowired
 	private UserManagerView userManagerView;
 	@Autowired

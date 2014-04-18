@@ -20,4 +20,8 @@ public class Injector {
 		ServletContext context = attributes.getRequest().getSession(false).getServletContext();
 		return WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 	}
+	
+	public static Object getBean(String name) {
+		return getApplicationContext().getBean(name);
+	}
 }

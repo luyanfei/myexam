@@ -6,6 +6,13 @@ import java.util.Iterator;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import cn.jhc.myexam.server.domain.User;
+import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.vaadin.ioc.Injector;
 import cn.jhc.myexam.vaadin.view.DashboardView;
 
 import com.vaadin.annotations.Theme;
@@ -51,9 +58,15 @@ public class DashboardUI extends UI {
 	private CssLayout menu = new CssLayout();
 	
     HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
+    
+    @Autowired
+    private transient UserService userService;
+
+	private User currentUser;
 
 	@Override
 	protected void init(VaadinRequest request) {
+		userService = (UserService)Injector.getBean("userServiceImpl");
 		checkNewUser();
         root = new VerticalLayout();
         root.setSizeFull();
@@ -125,7 +138,7 @@ public class DashboardUI extends UI {
 
         viewNameToMenuButton.get("/dashboard").setHtmlContentAllowed(true);
         viewNameToMenuButton.get("/dashboard").setCaption(
-                "仪表盘<span class=\"badge\">2</span>");
+                "仪表盘<span class=\"badge\"></span>");
 
         String f = Page.getCurrent().getUriFragment();
         if (f != null && f.startsWith("!")) {
@@ -160,7 +173,7 @@ public class DashboardUI extends UI {
 		profile.setWidth("34px");
 		userLayout.addComponent(profile);
 		
-		Label userName = new Label();
+		Label userName = new Label(currentUser.getDisplayName());
 		userName.setSizeUndefined();
 		userLayout.addComponent(userName);
 		
@@ -172,8 +185,7 @@ public class DashboardUI extends UI {
             }
         };
         MenuBar settings = new MenuBar();
-        MenuItem settingsMenu = settings.addItem("",
-                null);
+        MenuItem settingsMenu = settings.addItem("", null);
         settingsMenu.setStyleName("icon-cog");
         settingsMenu.addItem("Settings", cmd);
         settingsMenu.addItem("Preferences", cmd);
@@ -191,7 +203,9 @@ public class DashboardUI extends UI {
 	 * If user is logged in by authentication provider other than system database, these user should be added to system.
 	 */
 	private void checkNewUser() {
-		//TODO:
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = ((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername();
+		currentUser = userService.findByUsername(username);
 	}
 
 }

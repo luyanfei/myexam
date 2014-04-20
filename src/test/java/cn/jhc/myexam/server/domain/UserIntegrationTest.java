@@ -1,4 +1,6 @@
 package cn.jhc.myexam.server.domain;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.springframework.roo.addon.test.RooIntegrationTest;
 
@@ -6,6 +8,9 @@ import org.springframework.roo.addon.test.RooIntegrationTest;
 public class UserIntegrationTest {
 
     @Test
-    public void testMarkerMethod() {
+    public void testFindCapabilities() {
+    	User user = dod.getSpecificUser(0);
+    	int size = userService.findCapabilities(user).size();
+    	assertEquals(5, size);
     }
 }

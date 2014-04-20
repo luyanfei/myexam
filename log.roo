@@ -230,3 +230,22 @@ field string --fieldName email --sizeMin 6 --sizeMax 128 --regexp ^[0-9a-zA-Z]([
 field string --fieldName email --sizeMin 6 --sizeMax 128 --regexp ^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z_+])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$
 quit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-02-09 23:59:08
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-04-20 12:45:01
+entity jpa --class ~.server.domain.Capability --sequenceName capability_seq --testAutomatically --activeRecord false
+field string --fieldName name --notNull --sizeMax 128 --sizeMin 2
+repository jpa --interface ~.server.repository.CapabilityRepository --entity ~.server.domain.Capability
+field set --fieldName roles --type ~.server.domain.Role --cardinality MANY_TO_MANY --mappedBy capabilities
+focus --class ~.server.domain.Role
+field set --fieldName capabilities --type ~.server.domain.Capability --cardinality MANY_TO_MANY 
+repository jpa --interface ~.server.repository.CapabilityRepository --entity ~.server.domain.Capability
+service all --interfacePackage ~.server.service
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-04-20 13:55:33
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-04-20 13:56:03
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-04-20 13:56:37
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-04-20 14:09:26
+focus --class ~.server.domain.Role
+// [failed] field string --fieldName rolename --notNull --sizeMax 64 --unique 
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-04-20 14:12:46

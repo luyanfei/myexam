@@ -6,7 +6,6 @@ import java.util.Iterator;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -59,7 +58,6 @@ public class DashboardUI extends UI {
 	
     HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
     
-    @Autowired
     private transient UserService userService;
 
 	private User currentUser;

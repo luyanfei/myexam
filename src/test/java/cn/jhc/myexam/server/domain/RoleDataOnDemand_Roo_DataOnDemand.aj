@@ -49,7 +49,7 @@ privileged aspect RoleDataOnDemand_Roo_DataOnDemand {
     public void RoleDataOnDemand.setRolename(Role obj, int index) {
         String rolename = "rolename_" + index;
         if (rolename.length() > 64) {
-            rolename = rolename.substring(0, 64);
+            rolename = new Random().nextInt(10) + rolename.substring(1, 64);
         }
         obj.setRolename(rolename);
     }

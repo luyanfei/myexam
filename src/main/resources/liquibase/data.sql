@@ -130,3 +130,23 @@ insert into role_capability(role_id,capability_id) values(1,3);
 insert into role_capability(role_id,capability_id) values(1,4);
 --rollback delete from role_capability where role_id=1 and capability_id=4;
 
+--changeset luyanfei_data:33
+update capability set description='用户管理' where name='users';
+--rollback update capability set description='' where name='users';
+
+--changeset luyanfei_data:34
+update capability set description='题库管理' where name='questions';
+--rollback update capability set description='' where name='questions';
+
+--changeset luyanfei_data:35
+update capability set description='结果管理' where name='results';
+--rollback update capability set description='' where name='results';
+
+--changeset luyanfei_data:36
+update capability set description='考试管理' where name='exams';
+--rollback update capability set description='' where name='exams';
+
+--changeset luyanfei_data:37
+update capability set description='参加考试' where name='participate';
+--rollback update capability set description='' where name='participate';
+

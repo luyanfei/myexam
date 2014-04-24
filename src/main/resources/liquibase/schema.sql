@@ -83,3 +83,8 @@ create table capability_seq(
 )engine=innodb default charset=utf8;
 --rollback drop table capability_seq;
 
+--changeset luyanfei_schema:16
+alter table capability add column description varchar(128);
+--rollback alter table capability drop column description;
+
+

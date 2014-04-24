@@ -2,6 +2,7 @@ package cn.jhc.myexam.vaadin.ui;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import cn.jhc.myexam.server.domain.Capability;
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
 import cn.jhc.myexam.vaadin.ioc.Injector;
@@ -113,24 +115,14 @@ public class DashboardUI extends UI {
 
 	private void buildMenu() {
 		menu.removeAllComponents();
-        for (final String view : new String[] { "dashboard", "sales",
-                "transactions", "reports", "schedule" }) {
-            Button b = new NativeButton(view.substring(0, 1).toUpperCase()
-                    + view.substring(1).replace('-', ' '));
-            b.addStyleName("icon-" + view);
-            b.addClickListener(new ClickListener() {
-                @Override
-                public void buttonClick(ClickEvent event) {
-                    clearMenuSelection();
-                    event.getButton().addStyleName("selected");
-                    if (!nav.getState().equals("/" + view))
-                        nav.navigateTo("/" + view);
-                }
-            });
-            menu.addComponent(b);
-            viewNameToMenuButton.put("/" + view, b);
-        }
-        
+		
+		addMenuButton("dashboard", "仪表盘");
+		
+		Set<Capability> capabilities = userService.findCapabilities(currentUser);
+		for(final Capability c : capabilities) {
+			addMenuButton(c.getName(),c.getDescription());
+		}
+		
         menu.addStyleName("menu");
         menu.setHeight("100%");
 
@@ -151,6 +143,21 @@ public class DashboardUI extends UI {
 
             viewNameToMenuButton.get(f).addStyleName("selected");
         }
+	}
+	private void addMenuButton(final String view, final String description) {
+		Button b = new NativeButton(description);
+		b.addStyleName("icon-" + view);
+		b.addClickListener(new ClickListener() {
+		    @Override
+		    public void buttonClick(ClickEvent event) {
+		        clearMenuSelection();
+		        event.getButton().addStyleName("selected");
+		        if (!nav.getState().equals("/" + view))
+		            nav.navigateTo("/" + view);
+		    }
+		});
+		menu.addComponent(b);
+		viewNameToMenuButton.put("/" + view, b);
 	}
 	
     private void clearMenuSelection() {

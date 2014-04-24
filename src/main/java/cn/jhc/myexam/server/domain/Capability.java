@@ -24,4 +24,9 @@ public class Capability {
      */
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "capabilities")
     private Set<Role> roles = new HashSet<Role>();
+
+    /**
+     */
+    @Size(max = 128)
+    private String description;
 }

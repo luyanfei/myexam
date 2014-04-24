@@ -249,3 +249,8 @@ focus --class ~.server.domain.Role
 // [failed] field string --fieldName rolename --notNull --sizeMax 64 --unique 
 exit
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-04-20 14:12:46
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-04-24 15:39:28
+focus --class ~.server.domain.Capability
+field string --fieldName description --sizeMax 128 
+exit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-04-24 15:41:17

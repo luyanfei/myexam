@@ -25,4 +25,12 @@ privileged aspect Capability_Roo_JavaBean {
         this.roles = roles;
     }
     
+    public String Capability.getDescription() {
+        return this.description;
+    }
+    
+    public void Capability.setDescription(String description) {
+        this.description = description;
+    }
+    
 }

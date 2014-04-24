@@ -33,8 +33,17 @@ privileged aspect CapabilityDataOnDemand_Roo_DataOnDemand {
     
     public Capability CapabilityDataOnDemand.getNewTransientCapability(int index) {
         Capability obj = new Capability();
+        setDescription(obj, index);
         setName(obj, index);
         return obj;
+    }
+    
+    public void CapabilityDataOnDemand.setDescription(Capability obj, int index) {
+        String description = "description_" + index;
+        if (description.length() > 128) {
+            description = description.substring(0, 128);
+        }
+        obj.setDescription(description);
     }
     
     public void CapabilityDataOnDemand.setName(Capability obj, int index) {

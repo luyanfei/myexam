@@ -5,14 +5,12 @@ import java.util.List;
 
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
-import cn.jhc.myexam.vaadin.ui.TeacherUI;
 import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.view.UserManagerView;
 import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizard;
 import cn.jhc.myexam.vaadin.wizard.ExcelUploadWizardCallback;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 public class ImportUsersWindow extends Window {
@@ -24,7 +22,6 @@ public class ImportUsersWindow extends Window {
 		
 		@Override
 		public void saveList(List<User> list) {
-			UserManagerView userManagerView = ((TeacherUI)UI.getCurrent()).getUserManagerView();
 			BeanItemContainer<User> viewContainer = userManagerView.getContainer();
 			for(User user : list) {
 				try {
@@ -54,8 +51,11 @@ public class ImportUsersWindow extends Window {
 
 	private transient UserService userService;
 
-	public ImportUsersWindow(UserService service) {
+	private UserManagerView userManagerView;
+	
+	public ImportUsersWindow(UserManagerView userManagerView, UserService service) {
 		super("从Excel导入考生帐号");
+		this.userManagerView = userManagerView;
 		center();
 		setId(Constants.ID_IMPORT_USERS_WINDOW);
 		setHeight("600px");

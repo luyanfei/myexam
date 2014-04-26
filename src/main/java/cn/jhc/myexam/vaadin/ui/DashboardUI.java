@@ -7,14 +7,18 @@ import java.util.Set;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import cn.jhc.myexam.server.domain.Capability;
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.shared.domain.CapabilityType;
 import cn.jhc.myexam.vaadin.ioc.Injector;
 import cn.jhc.myexam.vaadin.view.DashboardView;
+import cn.jhc.myexam.vaadin.view.QuestionsManagerView;
+import cn.jhc.myexam.vaadin.view.UserManagerView;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -50,7 +54,7 @@ public class DashboardUI extends UI {
 	public static class Servlet extends VaadinServlet{
 	}
 	
-	private Navigator nav;
+	private Navigator navigator;
 	
     private VerticalLayout root;
 
@@ -60,23 +64,29 @@ public class DashboardUI extends UI {
 	
     HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
     
+    @Autowired
     private transient UserService userService;
+    
+    @Autowired
+    private UserManagerView userManagerView;
+    @Autowired
+    private QuestionsManagerView questionsManagerView;
 
 	private User currentUser;
 
 	@Override
 	protected void init(VaadinRequest request) {
-		userService = (UserService)Injector.getBean("userServiceImpl");
 		checkNewUser();
         root = new VerticalLayout();
         root.setSizeFull();
         setContent(root);
-        
+
+        buildNavigator();
         buildMainView();
 	}
+	
 	protected void buildMainView() {
-        nav = new Navigator(this, content);
-        nav.addView("/dashboard", DashboardView.class);
+
         HorizontalLayout mainLayout = new HorizontalLayout();
         mainLayout.setSizeFull();
         mainLayout.addStyleName("main-view");
@@ -113,6 +123,13 @@ public class DashboardUI extends UI {
         buildMenu();
 	}
 
+	private void buildNavigator() {
+		navigator = new Navigator(this, content);
+        navigator.addView("/dashboard", DashboardView.class);
+        navigator.addView("/" + CapabilityType.USER_MANAGEMENT.getName(), userManagerView);
+        navigator.addView("/" + CapabilityType.QUESTION_MANAGEMENT.getName(), questionsManagerView);
+	}
+
 	private void buildMenu() {
 		menu.removeAllComponents();
 		
@@ -135,15 +152,16 @@ public class DashboardUI extends UI {
             f = f.substring(1);
         }
         if (f == null || f.equals("") || f.equals("/")) {
-            nav.navigateTo("/dashboard");
+            navigator.navigateTo("/dashboard");
             menu.getComponent(0).addStyleName("selected");
 
         } else {
-            nav.navigateTo(f);
+            navigator.navigateTo(f);
 
             viewNameToMenuButton.get(f).addStyleName("selected");
         }
 	}
+	
 	private void addMenuButton(final String view, final String description) {
 		Button b = new NativeButton(description);
 		b.addStyleName("icon-" + view);
@@ -152,8 +170,8 @@ public class DashboardUI extends UI {
 		    public void buttonClick(ClickEvent event) {
 		        clearMenuSelection();
 		        event.getButton().addStyleName("selected");
-		        if (!nav.getState().equals("/" + view))
-		            nav.navigateTo("/" + view);
+		        if (!navigator.getState().equals("/" + view))
+		            navigator.navigateTo("/" + view);
 		    }
 		});
 		menu.addComponent(b);

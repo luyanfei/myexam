@@ -3,6 +3,7 @@ package cn.jhc.myexam.vaadin.ui;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,7 @@ public class LoginUI extends UI implements ClickListener{
 	private PasswordField passwordField;
 	private CheckBox rememberMeBox;
 
+	@Autowired
 	private transient AuthenticationManager authenticationManager;
 	
 	private final static String DEFAULT_TARGET_URL = "/dashboard/";
@@ -48,7 +50,7 @@ public class LoginUI extends UI implements ClickListener{
 	protected void init(VaadinRequest request) {
 		getPage().setTitle("用户登陆");
 		
-		authenticationManager = (AuthenticationManager) Injector.getApplicationContext().getBean("authenticationManager");
+//		authenticationManager = (AuthenticationManager) Injector.getApplicationContext().getBean("authenticationManager");
 		
 		VerticalLayout mainlLayout = new VerticalLayout();
 		mainlLayout.setImmediate(false);

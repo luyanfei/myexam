@@ -12,7 +12,7 @@ public class Injector {
 
 	public static void inject(Object component) {
 		AutowireCapableBeanFactory beanFactory = getApplicationContext().getAutowireCapableBeanFactory();
-		beanFactory.autowireBeanProperties(component, AutowireCapableBeanFactory.AUTOWIRE_BY_NAME, false);
+		beanFactory.autowireBean(component);
 	}
 	
 	public static ApplicationContext getApplicationContext() {

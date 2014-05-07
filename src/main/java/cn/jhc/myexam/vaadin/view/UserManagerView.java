@@ -110,29 +110,26 @@ public class UserManagerView extends CustomComponent implements View{
 	}
 
 	private VerticalLayout buildMainLayout() {
+		setSizeFull();
 		// common part: create layout
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("100%");
-		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
-		mainLayout.setSpacing(true);
+		mainLayout.setSizeFull();
+		mainLayout.setMargin(true);
+		mainLayout.setSpacing(false);
 		
-		// top-level component properties
-		setWidth("100.0%");
-		setHeight("100.0%");
+		// horizontalLayout
+		horizontalLayout = buildHorizontalLayout();
+		mainLayout.addComponent(horizontalLayout);
 		
 		// usersTable
 		usersTable.setStyleName("page-table");
 		usersTable.setCaption("考生列表");
 		usersTable.setImmediate(false);
-		usersTable.setWidth("100.0%");
-		usersTable.setHeight("-1px");
+		usersTable.setWidth("100%");
+		usersTable.setHeight("100%");
 		mainLayout.addComponent(usersTable);
-		
-		// horizontalLayout
-		horizontalLayout = buildHorizontalLayout();
-		mainLayout.addComponent(horizontalLayout);
+		mainLayout.setExpandRatio(usersTable, 1);
 		
 		return mainLayout;
 	}
@@ -142,7 +139,7 @@ public class UserManagerView extends CustomComponent implements View{
 		// common part: create layout
 		horizontalLayout = new HorizontalLayout();
 		horizontalLayout.setImmediate(false);
-		horizontalLayout.setWidth("-1px");
+		horizontalLayout.setWidth("100%");
 		horizontalLayout.setHeight("40px");
 		horizontalLayout.setMargin(false);
 		horizontalLayout.setSpacing(true);
@@ -156,8 +153,8 @@ public class UserManagerView extends CustomComponent implements View{
 		addUserButton.setWidth("-1px");
 		addUserButton.setHeight("100.0%");
 		horizontalLayout.addComponent(addUserButton);
-		horizontalLayout
-				.setComponentAlignment(addUserButton, new Alignment(48));
+		horizontalLayout.setComponentAlignment(addUserButton, Alignment.MIDDLE_RIGHT);
+		horizontalLayout.setExpandRatio(addUserButton, 1);
 		
 		// importUsersButton
 		importUsersButton = new NativeButton();
@@ -168,8 +165,7 @@ public class UserManagerView extends CustomComponent implements View{
 		importUsersButton.setWidth("-1px");
 		importUsersButton.setHeight("100.0%");
 		horizontalLayout.addComponent(importUsersButton);
-		horizontalLayout.setComponentAlignment(importUsersButton,
-				new Alignment(48));
+		horizontalLayout.setComponentAlignment(importUsersButton,Alignment.MIDDLE_RIGHT);
 		
 		return horizontalLayout;
 	}

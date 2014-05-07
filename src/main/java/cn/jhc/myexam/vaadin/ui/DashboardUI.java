@@ -80,6 +80,7 @@ public class DashboardUI extends UI {
         root = new VerticalLayout();
         root.setSizeFull();
         setContent(root);
+        getPage().setTitle("易考");
 
         buildNavigator();
         buildMainView();
@@ -99,7 +100,7 @@ public class DashboardUI extends UI {
         sidebarLayout.addComponent(new CssLayout() {
             {
                 addStyleName("branding");
-                Label logo = new Label("<span>在线考试系统</span> 仪表盘", ContentMode.HTML);
+                Label logo = new Label("<span>易考</span> Easy Exam", ContentMode.HTML);
                 logo.setSizeUndefined();
                 addComponent(logo);
                 // addComponent(new Image(null, new
@@ -229,6 +230,10 @@ public class DashboardUI extends UI {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = ((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername();
 		currentUser = userService.findByUsername(username);
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
 	}
 
 }

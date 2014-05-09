@@ -13,15 +13,19 @@ import cn.jhc.myexam.vaadin.util.Constants;
 import cn.jhc.myexam.vaadin.util.PropertyData;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.DefaultFieldGroupFieldFactory;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.fieldgroup.FieldGroupFieldFactory;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnHeaderMode;
+import com.vaadin.ui.TextField;
 
 /**
  * This class is used to build vaadin component from Entity class.
@@ -129,7 +133,10 @@ public class VaadinEntityBuilder<T> {
 		} 
 		fieldGroup.setItemDataSource(new BeanItem<T>(item));
 		for(int i = 0; i<data.getPropertyNameList().size(); i++){
-			formLayout.addComponent(fieldGroup.buildAndBind(data.getDescriptionList().get(i), data.getPropertyNameList().get(i)));
+			Field<?> field = fieldGroup.buildAndBind(data.getDescriptionList().get(i), data.getPropertyNameList().get(i));
+			if(field instanceof TextField)
+				((TextField)field).setNullRepresentation("");
+			formLayout.addComponent(field);
 		}
 		//After @Description processing
 		callback.addCustomField(formLayout, fieldGroup);

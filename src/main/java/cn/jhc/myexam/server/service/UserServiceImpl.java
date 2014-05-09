@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cn.jhc.myexam.server.domain.Capability;
+import cn.jhc.myexam.server.domain.Category;
 import cn.jhc.myexam.server.domain.Role;
 import cn.jhc.myexam.server.domain.User;
 
@@ -21,5 +22,16 @@ public class UserServiceImpl implements UserService {
 				capabilities.add(c);
 		}
 		return capabilities;
+	}
+	
+	public Set<Category> findCategories(User user) {
+		User user2 = userRepository.findOne(user.getId());
+		return user2.getCategories();
+	}
+	
+	public void addCategory(User user, Category category) {
+		User u = userRepository.findOne(user.getId());
+		u.getCategories().add(category);
+		userRepository.save(u);
 	}
 }

@@ -3,4 +3,5 @@ import org.springframework.roo.addon.layers.service.RooService;
 
 @RooService(domainTypes = { cn.jhc.myexam.server.domain.Category.class })
 public interface CategoryService {
+	
 }

@@ -2,23 +2,28 @@ package cn.jhc.myexam.vaadin.view;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.jhc.myexam.server.domain.Category;
+import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.CategoryService;
 import cn.jhc.myexam.server.service.QuestionsService;
+import cn.jhc.myexam.server.service.UserService;
 import cn.jhc.myexam.shared.domain.QuestionType;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormCallback;
 import cn.jhc.myexam.vaadin.factory.QuestionTypeFactory;
+import cn.jhc.myexam.vaadin.ui.DashboardUI;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -42,13 +47,14 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	
 	@Autowired
 	private transient CategoryService categoryService;
+	
+	@Autowired
+	private transient UserService userService;
 
 	private VerticalLayout mainLayout;
 
 	private Table questionsTable;
 
-	private VerticalLayout categoryLayout;
-	
 	private Tree categoryTree;
 	
 	private HorizontalLayout selectionsLayout;
@@ -103,16 +109,7 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		mainLayout.setSizeFull();
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
-		
-		buildCategoryTreeLayout();
-		mainLayout.addComponent(categoryLayout);
-		mainLayout.setComponentAlignment(categoryLayout, Alignment.TOP_CENTER);
-		mainLayout.setExpandRatio(categoryLayout, 1);
-		
-		FormLayout addCategoryLayout = buildAddCategoryLayout();
-		addCategoryLayout.setWidth("100%");
-		mainLayout.addComponent(addCategoryLayout);
-		mainLayout.setComponentAlignment(addCategoryLayout, Alignment.MIDDLE_CENTER);
+
 		
 //		// selectionsLayout
 //		buildSelectionsLayout();
@@ -131,32 +128,45 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		return mainLayout;
 	}
 	
-	private void buildCategoryTreeLayout() {
-		categoryLayout = new VerticalLayout();
-		categoryLayout.setWidth("100%");
+	private VerticalLayout buildCategoryTreeLayout() {
+		VerticalLayout categoryTreeLayout = new VerticalLayout();
+		categoryTreeLayout.setWidth("100%");
 		
 		categoryTree = new Tree("题库类别");
-		categoryLayout.addComponent(categoryTree);
-		categoryLayout.setComponentAlignment(categoryTree, Alignment.MIDDLE_CENTER);
+		categoryTreeLayout.addComponent(categoryTree);
+		categoryTreeLayout.setComponentAlignment(categoryTree, Alignment.MIDDLE_CENTER);
 		
+		return categoryTreeLayout;
 	}
 
 	private FormLayout buildAddCategoryLayout() {
+		final EntityFormCallback<Category> CategoryFormCallback = new EntityFormCallback<Category>() {
+
+			@Override
+			public void onSave(Category item) {
+				User currentUser = ((DashboardUI)getUI()).getCurrentUser();
+				try {
+					userService.addCategory(currentUser, item);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void addCustomField(FormLayout formLayout,
+					FieldGroup fieldGroup) {
+				User currentUser = ((DashboardUI)getUI()).getCurrentUser();
+				BeanContainer<String, Category> categoryContainer = new BeanContainer<String, Category>(Category.class);
+				categoryContainer.setBeanIdProperty("name");
+				categoryContainer.addAll(userService.findCategories(currentUser));
+				
+				ComboBox box = new ComboBox("选择父类别",categoryContainer);
+				fieldGroup.bind(box, "parent");
+				formLayout.addComponent(box);
+			}
+		};
 		FormLayout formLayout = VaadinEntityBuilder.create(Category.class)
-				.buildFormLayout("添加新类别", new EntityFormCallback<Category>() {
-
-					@Override
-					public void onSave(Category item) {
-					}
-
-					@Override
-					public void addCustomField(FormLayout formLayout,
-							FieldGroup fieldGroup) {
-						ComboBox box = new ComboBox("选择父类别",Arrays.asList("类别一","类别二"));
-						fieldGroup.bind(box, "parent");
-						formLayout.addComponent(box);
-					}
-				});
+				.buildFormLayout("添加新类别", CategoryFormCallback);
 		return formLayout;
 	}
 	
@@ -219,6 +229,17 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		
+		VerticalLayout categoriesLayout = buildCategoryTreeLayout();
+		mainLayout.addComponent(categoriesLayout);
+		mainLayout.setComponentAlignment(categoriesLayout, Alignment.TOP_CENTER);
+		mainLayout.setExpandRatio(categoriesLayout, 1);
+		
+		FormLayout addCategoryLayout = buildAddCategoryLayout();
+		addCategoryLayout.setSizeUndefined();
+		mainLayout.addComponent(addCategoryLayout);
+		mainLayout.setComponentAlignment(addCategoryLayout, Alignment.MIDDLE_CENTER);
+		
 	}
 
 	@SuppressWarnings("rawtypes")

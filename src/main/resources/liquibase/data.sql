@@ -150,3 +150,10 @@ update capability set description='考试管理' where name='exams';
 update capability set description='参加考试' where name='participate';
 --rollback update capability set description='' where name='participate';
 
+--chageset luyanfei_data:38
+update user set version=0 where id=1;
+--rollback update user set version=null where id=1;
+
+--chageset luyanfei_date:39
+update user set version=0 where id=2;
+--rollback update user set version=null where id=2;

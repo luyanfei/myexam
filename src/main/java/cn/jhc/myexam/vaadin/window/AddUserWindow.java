@@ -46,7 +46,7 @@ public class AddUserWindow extends FormWindow{
 				}
 				BeanItemContainer<User> container = userManagerView.getContainer();
 				container.addItem(item);
-				Notification.show("添加考生成功");
+				Notification.show("添加考生成功！");
 				AddUserWindow.this.close();
 			}
 

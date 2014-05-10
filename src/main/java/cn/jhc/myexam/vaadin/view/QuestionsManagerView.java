@@ -13,6 +13,7 @@ import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.CategoryService;
 import cn.jhc.myexam.server.service.QuestionsService;
 import cn.jhc.myexam.server.service.UserService;
+import cn.jhc.myexam.shared.domain.CapabilityType;
 import cn.jhc.myexam.shared.domain.QuestionType;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder;
 import cn.jhc.myexam.vaadin.builder.VaadinEntityBuilder.EntityFormCallback;
@@ -35,6 +36,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -149,18 +151,22 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 					userService.addCategory(currentUser, item);
 				} catch (Exception e) {
 					e.printStackTrace();
+					return;
 				}
+				Notification.show("添加类别成功！");
+				getUI().getNavigator().navigateTo(CapabilityType.QUESTION_MANAGEMENT.getName());
 			}
 
 			@Override
 			public void addCustomField(FormLayout formLayout,
 					FieldGroup fieldGroup) {
 				User currentUser = ((DashboardUI)getUI()).getCurrentUser();
-				BeanContainer<String, Category> categoryContainer = new BeanContainer<String, Category>(Category.class);
-				categoryContainer.setBeanIdProperty("name");
+				BeanItemContainer<Category> categoryContainer = new BeanItemContainer<Category>(Category.class);
 				categoryContainer.addAll(userService.findCategories(currentUser));
 				
-				ComboBox box = new ComboBox("选择父类别",categoryContainer);
+				final ComboBox box = new ComboBox("选择父类别",categoryContainer);
+				box.setItemCaptionMode(ItemCaptionMode.PROPERTY);
+				box.setItemCaptionPropertyId("name");
 				fieldGroup.bind(box, "parent");
 				formLayout.addComponent(box);
 			}
@@ -229,6 +235,7 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		mainLayout.removeAllComponents();
 		
 		VerticalLayout categoriesLayout = buildCategoryTreeLayout();
 		mainLayout.addComponent(categoriesLayout);

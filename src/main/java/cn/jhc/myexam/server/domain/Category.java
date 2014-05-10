@@ -45,11 +45,11 @@ public class Category {
 
     /**
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    @OneToMany(mappedBy = "parent")
     private List<Category> children = new ArrayList<Category>();
 
     /**
      */
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories")
     private Set<User> users = new HashSet<User>();
 }

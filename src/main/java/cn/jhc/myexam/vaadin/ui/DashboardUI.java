@@ -126,9 +126,9 @@ public class DashboardUI extends UI {
 
 	private void buildNavigator() {
 		navigator = new Navigator(this, content);
-        navigator.addView("/dashboard", DashboardView.class);
-        navigator.addView("/" + CapabilityType.USER_MANAGEMENT.getName(), userManagerView);
-        navigator.addView("/" + CapabilityType.QUESTION_MANAGEMENT.getName(), questionsManagerView);
+        navigator.addView("dashboard", DashboardView.class);
+        navigator.addView(CapabilityType.USER_MANAGEMENT.getName(), userManagerView);
+        navigator.addView(CapabilityType.QUESTION_MANAGEMENT.getName(), questionsManagerView);
 	}
 
 	private void buildMenu() {
@@ -144,8 +144,8 @@ public class DashboardUI extends UI {
         menu.addStyleName("menu");
         menu.setHeight("100%");
 
-        viewNameToMenuButton.get("/dashboard").setHtmlContentAllowed(true);
-        viewNameToMenuButton.get("/dashboard").setCaption(
+        viewNameToMenuButton.get("dashboard").setHtmlContentAllowed(true);
+        viewNameToMenuButton.get("dashboard").setCaption(
                 "仪表盘<span class=\"badge\"></span>");
 
         String f = Page.getCurrent().getUriFragment();
@@ -153,7 +153,7 @@ public class DashboardUI extends UI {
             f = f.substring(1);
         }
         if (f == null || f.equals("") || f.equals("/")) {
-            navigator.navigateTo("/dashboard");
+            navigator.navigateTo("dashboard");
             menu.getComponent(0).addStyleName("selected");
 
         } else {
@@ -171,12 +171,12 @@ public class DashboardUI extends UI {
 		    public void buttonClick(ClickEvent event) {
 		        clearMenuSelection();
 		        event.getButton().addStyleName("selected");
-		        if (!navigator.getState().equals("/" + view))
-		            navigator.navigateTo("/" + view);
+		        if (!navigator.getState().equals(view))
+		            navigator.navigateTo(view);
 		    }
 		});
 		menu.addComponent(b);
-		viewNameToMenuButton.put("/" + view, b);
+		viewNameToMenuButton.put(view, b);
 	}
 	
     private void clearMenuSelection() {

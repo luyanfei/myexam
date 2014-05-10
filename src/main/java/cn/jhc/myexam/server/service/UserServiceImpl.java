@@ -34,4 +34,8 @@ public class UserServiceImpl implements UserService {
 		u.getCategories().add(category);
 		userRepository.save(u);
 	}
+	
+	public Category findDefaultCategory(String username) {
+		return userRepository.findDefaultCategory(username);
+	}
 }

@@ -45,7 +45,7 @@ public class Category {
 
     /**
      */
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
     private List<Category> children = new ArrayList<Category>();
 
     /**

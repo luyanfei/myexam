@@ -1,8 +1,6 @@
 package cn.jhc.myexam.vaadin.view;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,10 +19,11 @@ import cn.jhc.myexam.vaadin.factory.QuestionTypeFactory;
 import cn.jhc.myexam.vaadin.ui.DashboardUI;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.util.BeanContainer;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -39,10 +38,12 @@ import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.Tree.ExpandEvent;
 import com.vaadin.ui.VerticalLayout;
 
 @Component @Scope("prototype") @SuppressWarnings("serial")
-public class QuestionsManagerView extends CustomComponent implements View, ValueChangeListener{
+public class QuestionsManagerView extends CustomComponent 
+	implements View, ValueChangeListener, Tree.ExpandListener {
 
 	@Autowired
 	private transient QuestionsService questionsService;
@@ -72,6 +73,8 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	private BeanItemContainer<?> container;
 
 	private Label currentCategoryLabel;
+
+	private User currentUser;
 
 	/**
 	 * The constructor should first build the MAIN layout, set the
@@ -135,6 +138,22 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 		categoryTreeLayout.setWidth("100%");
 		
 		categoryTree = new Tree("题库类别");
+		categoryTree.addContainerProperty("name", String.class, "");
+		categoryTree.addContainerProperty("category_id", Long.class, 0L);
+		
+		categoryTree.setItemCaptionMode(ItemCaptionMode.PROPERTY);
+		categoryTree.setItemCaptionPropertyId("name");
+		Category defaultCategory = userService.findDefaultCategory(currentUser.getUsername());
+		Object id = categoryTree.addItem();
+		Item root = categoryTree.getItem(id);
+		root.getItemProperty("name").setValue(defaultCategory.getName());
+		root.getItemProperty("category_id").setValue(defaultCategory.getId());
+		
+//		final BeanItem<Category> root = new BeanItem<Category>(defaultCategory);
+//		categoryTree.addItem(root);
+		categoryTree.setChildrenAllowed(root, true);
+		categoryTree.addExpandListener(this);
+		
 		categoryTreeLayout.addComponent(categoryTree);
 		categoryTreeLayout.setComponentAlignment(categoryTree, Alignment.MIDDLE_CENTER);
 		
@@ -146,7 +165,10 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 
 			@Override
 			public void onSave(Category item) {
-				User currentUser = ((DashboardUI)getUI()).getCurrentUser();
+				if(item.getParent() == null) {
+					Category parent = userService.findDefaultCategory(currentUser.getUsername());
+					item.setParent(parent);
+				}
 				try {
 					userService.addCategory(currentUser, item);
 				} catch (Exception e) {
@@ -160,7 +182,6 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 			@Override
 			public void addCustomField(FormLayout formLayout,
 					FieldGroup fieldGroup) {
-				User currentUser = ((DashboardUI)getUI()).getCurrentUser();
 				BeanItemContainer<Category> categoryContainer = new BeanItemContainer<Category>(Category.class);
 				categoryContainer.addAll(userService.findCategories(currentUser));
 				
@@ -235,6 +256,8 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		currentUser = ((DashboardUI)getUI()).getCurrentUser();
+		
 		mainLayout.removeAllComponents();
 		
 		VerticalLayout categoriesLayout = buildCategoryTreeLayout();
@@ -262,6 +285,26 @@ public class QuestionsManagerView extends CustomComponent implements View, Value
 
 	public BeanItemContainer<?> getTableContainer() {
 		return container;
+	}
+
+	@Override
+	public void nodeExpand(ExpandEvent event) {
+		Item nodeItem = categoryTree.getItem(event.getItemId());
+		Long categoryId = (Long)nodeItem.getItemProperty("category_id").getValue();
+		Category category = categoryService.findCategory(categoryId);
+		List<Category> list = categoryService.findChildren(category);
+		if(list.size() == 0) {
+			categoryTree.setChildrenAllowed(category, false);
+			return;
+		}
+		for(Category c : list) {
+			Object id = categoryTree.addItem();
+			Item bi = categoryTree.getItem(id);
+			bi.getItemProperty("name").setValue(c.getName());
+			bi.getItemProperty("category_id").setValue(c.getId());
+			categoryTree.setParent(id, event.getItemId());
+			categoryTree.setChildrenAllowed(bi, true);
+		}
 	}
 
 }

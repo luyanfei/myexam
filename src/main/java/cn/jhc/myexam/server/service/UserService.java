@@ -13,4 +13,5 @@ public interface UserService {
 	public Set<Capability> findCapabilities(User user);
 	public Set<Category> findCategories(User user);
 	public void addCategory(User user, Category category);
+	public Category findDefaultCategory(String username);
 }

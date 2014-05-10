@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import cn.jhc.myexam.server.domain.Capability;
+import cn.jhc.myexam.server.domain.Category;
 import cn.jhc.myexam.server.domain.User;
 import cn.jhc.myexam.server.service.UserService;
 import cn.jhc.myexam.shared.domain.CapabilityType;
@@ -230,6 +231,14 @@ public class DashboardUI extends UI {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = ((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername();
 		currentUser = userService.findByUsername(username);
+		//check default category
+		Category defaultCategory = userService.findDefaultCategory(username);
+		if(defaultCategory == null) {
+			Category category = new Category();
+			category.setName(currentUser.getUsername());
+			category.setInfo(currentUser.getUsername() + "用户的默认类别。");
+			userService.addCategory(currentUser, category);
+		}
 	}
 
 	public User getCurrentUser() {
